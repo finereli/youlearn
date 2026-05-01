@@ -20,11 +20,38 @@ The README links to `releases/latest`, so it does not need editing on each relea
 
 ## Build
 
-`./build.sh` — on first run, downloads three things into `vendor/`:
-- Python.org's universal2 framework, with `yt-dlp + certifi` pip-installed into its bundled site-packages.
-- `deno` (universal2 lipo'd from the per-arch GitHub releases), used by yt-dlp to solve YouTube's n-param JS challenges.
+`./build.sh` — builds the Swift app, copies the API key from `.env`, ad-hoc-codesigns. Output is ~1.5MB. Heavy dependencies (Python framework, deno, yt-dlp) are **not** bundled — they're downloaded on first launch, see below.
 
-Then builds the Swift app, assembles `YouLearn.app`, copies the framework into `Contents/Frameworks/` and `deno` into `Contents/Resources/bin/`, ad-hoc-codesigns. Output is ~360MB (deno alone is ~210MB universal). The app is fully self-contained — no system Python, no Homebrew dependencies.
+## Runtime — on-demand, lives outside the app bundle
+
+`~/Library/Application Support/YouLearn/runtime/` holds everything heavy:
+- `Python.framework/` — universal2 from python.org, ~80MB
+- `bin/deno` — single-arch (matches `uname -m`) from github.com/denoland/deno releases, ~100MB
+- `Python.framework/.../site-packages/yt_dlp` — pip-installed into the bundled Python's site-packages
+
+This means the shipped app is tiny, and updating yt-dlp doesn't require an app release — bump it via Settings (slice B, not yet built) or rerun the install.
+
+`Runtime.swift` owns paths, version constants, install steps, and an environment helper. `FirstRunWindowController` shows progress on first launch when `Runtime.isInstalled` is false. To force re-download: `rm -rf ~/Library/Application\ Support/YouLearn/runtime`.
+
+When upgrading Python or deno, bump `pythonVersion` / `denoVersion` in `Runtime.swift` and (later, slice B) trigger a re-install for users on older versions.
+
+## Why no install_name relocation
+
+The Python.org pkg bakes `/Library/Frameworks/Python.framework/...` into the install_names of `python3.12` and every `.so` extension module. The textbook fix is `install_name_tool -change` + `-add_rpath` + re-codesign, but on macOS 15 that consistently produces `SIGKILL (Code Signature Invalid)` at launch — `install_name_tool`'s edits no longer survive an immediate ad-hoc re-sign in a way the kernel's codesigning monitor accepts.
+
+So we **don't touch the binaries**. `Runtime.processEnvironment()` sets:
+- `DYLD_FRAMEWORK_PATH` = the runtime directory — dyld searches it before the absolute path baked into `python3`'s `LC_LOAD_DYLIB`.
+- `DYLD_LIBRARY_PATH` = `Python.framework/Versions/3.12/lib` — same trick, for `.so` modules that load `libssl.3.dylib`, `libcrypto.3.dylib`, etc. by absolute path.
+
+When upgrading Python, no per-version patching is needed.
+
+## Resolution / HD playback
+
+We download at 360p combined (itag 18). HD requires merging separate adaptive video + audio streams; every Swift-side approach we tried (`AVAssetExportSession` passthrough, `AVAssetWriter` sample copy) failed on the target hardware (2017 MBA without H.264 hardware encode, which rules out re-encode fallbacks). See `docs/hd-experiment.md` for the full timeline, hypotheses, and the most promising path to revisit (bundling ffmpeg in the on-demand runtime).
+
+## Hardened runtime / signed builds
+
+When `SIGN=1`, the YouLearn binary gets `--options runtime`. To allow loading the runtime Python's `.so` extension modules from `~/Library/Application Support/...` (outside the app bundle, not signed by us), the entitlements file will need `com.apple.security.cs.disable-library-validation` and `com.apple.security.cs.allow-dyld-environment-variables`. Add these before shipping a Developer-ID-signed build.
 
 ## Bundled Python — why no install_name relocation
 

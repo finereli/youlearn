@@ -70,61 +70,6 @@ enum YTDLP {
         }
     }
 
-    // MARK: - Bundled Python + yt-dlp
-
-    /// Locate the bundled python3 binary. Prefers `Contents/Frameworks/Python.framework`
-    /// (release builds), falls back to `vendor/Python.framework` for `swift run`.
-    private static func pythonBinaryAndFrameworkRoot() -> (binary: URL, frameworkParent: URL)? {
-        let frameworksURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Frameworks", isDirectory: true)
-        let bundled = frameworksURL.appendingPathComponent("Python.framework/Versions/3.12/bin/python3")
-        if FileManager.default.isExecutableFile(atPath: bundled.path) {
-            return (bundled, frameworksURL)
-        }
-        // swift run / dev: vendor/Python.framework next to cwd or executable parent
-        let candidates: [URL] = [
-            URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor"),
-            (Bundle.main.executableURL?.deletingLastPathComponent()).map { $0.appendingPathComponent("vendor") } ?? URL(fileURLWithPath: ""),
-        ]
-        for parent in candidates {
-            let py = parent.appendingPathComponent("Python.framework/Versions/3.12/bin/python3")
-            if FileManager.default.isExecutableFile(atPath: py.path) { return (py, parent) }
-        }
-        return nil
-    }
-
-    /// Locate the bundled deno binary (used by yt-dlp for JS challenge solving).
-    /// Release: Contents/Resources/bin/deno. Dev: vendor/deno.
-    private static func bundledBinDirectory() -> URL? {
-        if let res = Bundle.main.resourceURL {
-            let bin = res.appendingPathComponent("bin")
-            if FileManager.default.isExecutableFile(atPath: bin.appendingPathComponent("deno").path) {
-                return bin
-            }
-        }
-        let cwdVendor = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor")
-        if FileManager.default.isExecutableFile(atPath: cwdVendor.appendingPathComponent("deno").path) {
-            return cwdVendor
-        }
-        return nil
-    }
-
-    /// Environment for invoking the bundled python: DYLD_* paths so dyld finds
-    /// the framework + its lib/, and PATH that points at the bundled deno
-    /// (yt-dlp shells out to it for n-param JS challenges).
-    private static func pythonEnvironment(frameworkParent: URL) -> [String: String] {
-        var env = ProcessInfo.processInfo.environment
-        env["DYLD_FRAMEWORK_PATH"] = frameworkParent.path
-        env["DYLD_LIBRARY_PATH"] = frameworkParent.appendingPathComponent("Python.framework/Versions/3.12/lib").path
-        var pathParts: [String] = []
-        if let bin = bundledBinDirectory() { pathParts.append(bin.path) }
-        pathParts.append(contentsOf: ["/usr/bin", "/bin"])
-        if let existing = env["PATH"], !existing.isEmpty {
-            pathParts.append(existing)
-        }
-        env["PATH"] = pathParts.joined(separator: ":")
-        return env
-    }
-
     // MARK: - Download
 
     @discardableResult
@@ -132,18 +77,20 @@ enum YTDLP {
                          to destinationDir: URL,
                          progress: @escaping (Double, Int64, Int64, String) -> Void,
                          completion: @escaping (Result<URL, Swift.Error>) -> Void) -> Process? {
-        guard let (py, fwParent) = pythonBinaryAndFrameworkRoot() else {
+        guard Runtime.isInstalled else {
             completion(.failure(Error.binaryMissing)); return nil
         }
         try? FileManager.default.createDirectory(at: destinationDir, withIntermediateDirectories: true)
         let outputTemplate = destinationDir.appendingPathComponent("%(id)s.%(ext)s").path
 
         let p = Process()
-        p.executableURL = py
-        p.environment = pythonEnvironment(frameworkParent: fwParent)
+        p.executableURL = Runtime.pythonBinary
+        p.environment = Runtime.processEnvironment()
         p.arguments = [
             "-m", "yt_dlp",
-            "-f", "22/18/best[ext=mp4][acodec!=none]/best",
+            // 360p combined mp4 — itag 18 is universally available and needs no
+            // muxing. See docs/hd-experiment.md for why we don't go higher.
+            "-f", "18/best[ext=mp4][acodec!=none]/best",
             "--no-playlist",
             "--newline",
             // Lets yt-dlp fetch the EJS challenge-solver script from the
@@ -212,6 +159,7 @@ enum YTDLP {
         }
         return p
     }
+
 }
 
 extension Notification.Name {

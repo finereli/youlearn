@@ -3,12 +3,29 @@ import AppKit
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var mainWindowController: MainWindowController?
 
+    private var firstRunWC: FirstRunWindowController?
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         buildMenu()
         Library.shared.load()
         if !PasswordGate.isConfigured {
             PasswordGate.promptInitialSetup()
         }
+        if Runtime.isInstalled {
+            openMainWindow()
+        } else {
+            let wc = FirstRunWindowController()
+            firstRunWC = wc
+            wc.runInstall(onSuccess: { [weak self] in
+                self?.firstRunWC = nil
+                self?.openMainWindow()
+            }, onCancel: {
+                NSApp.terminate(nil)
+            })
+        }
+    }
+
+    private func openMainWindow() {
         let wc = MainWindowController()
         wc.showWindow(nil)
         mainWindowController = wc
