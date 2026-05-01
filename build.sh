@@ -5,12 +5,12 @@ cd "$(dirname "$0")"
 # Fetch yt-dlp standalone binary into vendor/ if missing
 mkdir -p vendor
 if [ ! -x vendor/yt-dlp ]; then
-    # Pin to the last release that still ships yt-dlp_macos_legacy (2025.08.11).
-    # The current `latest` yt-dlp_macos requires macOS 12+, and _legacy was dropped
-    # from later releases — so this is the newest version that still runs on Big Sur.
-    echo "Downloading yt-dlp_macos_legacy (2025.08.11)…"
+    # Bundle the Python zipapp (shebang'd, runs on any system with python3 ≥ 3.9).
+    # This avoids the macOS-12+ requirement of the prebuilt yt-dlp_macos binary
+    # while still getting every upstream update.
+    echo "Downloading yt-dlp (Python zipapp)…"
     curl -L --fail -o vendor/yt-dlp \
-        https://github.com/yt-dlp/yt-dlp/releases/download/2025.08.11/yt-dlp_macos_legacy
+        https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
     chmod +x vendor/yt-dlp
 fi
 
