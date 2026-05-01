@@ -81,12 +81,28 @@ enum YTDLP {
 
     // MARK: - Process plumbing
 
+    /// PATH augmented with Homebrew + system Python locations.
+    /// Apps launched via Finder get launchd's minimal PATH, which doesn't
+    /// include /usr/local/bin or /opt/homebrew/bin — so the yt-dlp zipapp's
+    /// `#!/usr/bin/env python3` shebang fails to find a Python interpreter.
+    private static func augmentedEnvironment() -> [String: String] {
+        var env = ProcessInfo.processInfo.environment
+        let extras = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        if let existing = env["PATH"], !existing.isEmpty {
+            env["PATH"] = "\(extras):\(existing)"
+        } else {
+            env["PATH"] = extras
+        }
+        return env
+    }
+
     private static func runCapturing(args: [String], completion: @escaping (Result<Data, Swift.Error>) -> Void) {
         guard let bin = binaryURL() else { completion(.failure(Error.binaryMissing)); return }
         DispatchQueue.global(qos: .userInitiated).async {
             let p = Process()
             p.executableURL = bin
             p.arguments = args
+            p.environment = augmentedEnvironment()
             let out = Pipe(); let err = Pipe()
             p.standardOutput = out; p.standardError = err
             do {
@@ -119,6 +135,7 @@ enum YTDLP {
 
         let p = Process()
         p.executableURL = bin
+        p.environment = augmentedEnvironment()
         p.arguments = [
             "-f", "22/18/best[ext=mp4][acodec!=none]/best",
             "--no-playlist",
