@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" rx="96" ry="96" fill="#1E3A5F"/>
+  </g>
+  <g id="book">
+    <path d="M 88 144 Q 88 128 104 128 L 232 128 Q 248 128 256 144 Q 264 128 280 128 L 408 128 Q 424 128 424 144 L 424 384 Q 424 400 408 400 L 280 400 Q 264 400 256 416 Q 248 400 232 400 L 104 400 Q 88 400 88 384 Z" fill="#F4E9D0"/>
+    <path d="M 256 144 L 256 416" stroke="#2BB3A3" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g id="play">
+    <path d="M 196 200 L 196 344 Q 196 356 206 350 L 340 278 Q 350 272 340 266 L 206 194 Q 196 188 196 200 Z" fill="#1E3A5F"/>
+  </g>
+</svg>

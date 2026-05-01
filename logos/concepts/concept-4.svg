@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g id="background">
+    <path d="M256 32
+             C 96 32, 32 96, 32 256
+             C 32 416, 96 480, 256 480
+             C 416 480, 480 416, 480 256
+             C 480 96, 416 32, 256 32 Z"
+          fill="#F4E9D0"/>
+  </g>
+
+  <g id="monogram" fill="#1E3A5F">
+    <!-- Y as play-button triangle: two arms form open right-pointing angle, stem drops down -->
+    <!-- Upper arm of Y (top-left to center) -->
+    <path d="M 132 138
+             Q 122 122, 138 114
+             L 158 104
+             Q 174 96, 184 110
+             L 252 210
+             Q 262 226, 248 236
+             L 232 246
+             Q 216 256, 206 242
+             Z"/>
+    <!-- Lower arm of Y (bottom-left to center) - mirrors to form triangle opening right -->
+    <path d="M 132 374
+             Q 122 390, 138 398
+             L 158 408
+             Q 174 416, 184 402
+             L 252 302
+             Q 262 286, 248 276
+             L 232 266
+             Q 216 256, 206 270
+             Z"/>
+    <!-- Play tip: rounded point on the right where arms meet -->
+    <circle cx="252" cy="256" r="22"/>
+    <!-- Stem of Y / shared vertical that becomes the L's vertical -->
+    <path d="M 232 230
+             Q 220 230, 220 248
+             L 220 392
+             Q 220 412, 240 412
+             L 372 412
+             Q 392 412, 392 392
+             L 392 372
+             Q 392 352, 372 352
+             L 264 352
+             Q 252 352, 252 340
+             L 252 248
+             Q 252 230, 240 230 Z"/>
+  </g>
+
+  <g id="accent">
+    <!-- teal dot above the L corner -->
+    <circle cx="392" cy="312" r="20" fill="#2BB3A3"/>
+    <!-- mustard underline beneath the monogram -->
+    <rect x="132" y="438" width="260" height="18" rx="9" fill="#E5B84B"/>
+  </g>
+</svg>

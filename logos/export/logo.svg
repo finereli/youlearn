@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g id="background">
+    <path d="M112 32 H400 A80 80 0 0 1 480 112 V400 A80 80 0 0 1 400 480 H112 A80 80 0 0 1 32 400 V112 A80 80 0 0 1 112 32 Z" fill="#1F6F6A"/>
+  </g>
+  <g id="bulb">
+    <!-- bulb body: chunky rounded blob -->
+    <path d="M256 96 C170 96 116 156 116 230 C116 280 142 314 168 342 C188 364 196 380 196 402 C196 418 208 430 224 430 H288 C304 430 316 418 316 402 C316 380 324 364 344 342 C370 314 396 280 396 230 C396 156 342 96 256 96 Z" fill="#F4E9D0"/>
+    <!-- screw base -->
+    <rect x="200" y="438" width="112" height="28" rx="14" fill="#E5B84B"/>
+    <rect x="214" y="470" width="84" height="22" rx="11" fill="#E5B84B"/>
+  </g>
+  <g id="play">
+    <!-- play triangle inside bulb -->
+    <path d="M222 198 L222 318 C222 328 232 334 240 329 L324 271 C332 266 332 254 324 249 L240 191 C232 186 222 192 222 198 Z" fill="#E87C5A"/>
+  </g>
+  <g id="sparkles">
+    <circle cx="92" cy="180" r="14" fill="#E5B84B"/>
+    <circle cx="420" cy="160" r="14" fill="#E87C5A"/>
+    <circle cx="408" cy="372" r="12" fill="#F4E9D0"/>
+    <circle cx="100" cy="360" r="12" fill="#F4E9D0"/>
+  </g>
+</svg>

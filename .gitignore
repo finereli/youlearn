@@ -1,0 +1,7 @@
+.env
+.build/
+.swiftpm/
+YouLearn.app/
+vendor/
+.DS_Store
+Resources/AppIcon.iconset/

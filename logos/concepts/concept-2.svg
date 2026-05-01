@@ -1,0 +1,16 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <g id="background">
+    <path d="M96 32 H416 Q480 32 480 96 V416 Q480 480 416 480 H96 Q32 480 32 416 V96 Q32 32 96 32 Z" fill="#F4E9D0"/>
+  </g>
+  <g id="play-button">
+    <path d="M168 220 Q168 188 196 204 L368 296 Q396 312 368 328 L196 420 Q168 436 168 404 Z" fill="#E87C5A"/>
+  </g>
+  <g id="cap" transform="rotate(-8 256 180)">
+    <path d="M256 96 L432 168 L256 240 L80 168 Z" fill="#1E3A5F"/>
+    <path d="M168 200 L168 268 Q168 296 200 308 Q228 318 256 318 Q284 318 312 308 Q344 296 344 268 L344 200 L256 236 Z" fill="#1E3A5F"/>
+  </g>
+  <g id="tassel">
+    <path d="M384 156 Q400 200 392 240 Q386 268 404 284" stroke="#E5B84B" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <circle cx="406" cy="290" r="18" fill="#E5B84B"/>
+  </g>
+</svg>
