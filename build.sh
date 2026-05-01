@@ -11,23 +11,8 @@ if [ "$NOTARIZE" = "1" ]; then SIGN=1; fi
 DEVELOPER_ID="Developer ID Application: ELI FINER (A59G53TN44)"
 NOTARY_PROFILE="YOULEARN_NOTARY"
 
-mkdir -p vendor
-
-# Fetch a universal ffmpeg into vendor/ffmpeg by lipo-ing per-arch builds.
-# Needed so yt-dlp can merge HD video+audio streams and embed subtitles.
-if [ ! -x vendor/ffmpeg ]; then
-    echo "Building universal ffmpeg…"
-    tmp=$(mktemp -d)
-    curl -sL https://evermeet.cx/ffmpeg/getrelease/zip -o "$tmp/x86_64.zip"
-    curl -sL https://www.osxexperts.net/ffmpeg7arm.zip   -o "$tmp/arm64.zip"
-    unzip -q -o "$tmp/x86_64.zip" -d "$tmp/x86_64"
-    unzip -q -o "$tmp/arm64.zip"  -d "$tmp/arm64"
-    lipo -create -output vendor/ffmpeg "$tmp/x86_64/ffmpeg" "$tmp/arm64/ffmpeg"
-    chmod +x vendor/ffmpeg
-    rm -rf "$tmp"
-fi
-
 # Fetch yt-dlp standalone binary into vendor/ if missing
+mkdir -p vendor
 if [ ! -x vendor/yt-dlp ]; then
     # Bundle the Python zipapp (shebang'd, runs on any system with python3 ≥ 3.9).
     # This avoids the macOS-12+ requirement of the prebuilt yt-dlp_macos binary
@@ -51,16 +36,10 @@ cp "$BIN/YouLearn" "$APP/Contents/MacOS/YouLearn"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 cp vendor/yt-dlp "$APP/Contents/Resources/yt-dlp"
 chmod +x "$APP/Contents/Resources/yt-dlp"
-cp vendor/ffmpeg "$APP/Contents/Resources/ffmpeg"
-chmod +x "$APP/Contents/Resources/ffmpeg"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
 if [ "$SIGN" = "1" ]; then
     echo "Signing with Developer ID (hardened runtime + timestamp)…"
-    # Sign nested Mach-Os first (ffmpeg), then the main binary, then the bundle.
-    codesign --force --options runtime --timestamp \
-        --sign "$DEVELOPER_ID" \
-        "$APP/Contents/Resources/ffmpeg"
     codesign --force --options runtime --timestamp \
         --entitlements Resources/YouLearn.entitlements \
         --sign "$DEVELOPER_ID" \

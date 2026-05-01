@@ -4,19 +4,14 @@ enum YTDLP {
     enum Error: Swift.Error { case binaryMissing, nonZeroExit(Int32, String), badJSON, missingFile }
 
     /// Locate the yt-dlp binary. Prefers the bundled copy; falls back to ./vendor/yt-dlp for `swift run` development.
-    static func binaryURL() -> URL? { resourceURL(named: "yt-dlp") }
-
-    /// Locate the bundled ffmpeg, used by yt-dlp for HD merging and subtitle embedding.
-    static func ffmpegURL() -> URL? { resourceURL(named: "ffmpeg") }
-
-    private static func resourceURL(named name: String) -> URL? {
-        if let bundled = Bundle.main.url(forResource: name, withExtension: nil) {
+    static func binaryURL() -> URL? {
+        if let bundled = Bundle.main.url(forResource: "yt-dlp", withExtension: nil) {
             return bundled
         }
         let exec = Bundle.main.executableURL ?? URL(fileURLWithPath: CommandLine.arguments[0])
-        let vendor = exec.deletingLastPathComponent().appendingPathComponent("vendor/\(name)")
+        let vendor = exec.deletingLastPathComponent().appendingPathComponent("vendor/yt-dlp")
         if FileManager.default.isExecutableFile(atPath: vendor.path) { return vendor }
-        let cwdVendor = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor/\(name)")
+        let cwdVendor = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor/yt-dlp")
         if FileManager.default.isExecutableFile(atPath: cwdVendor.path) { return cwdVendor }
         return nil
     }
@@ -141,22 +136,15 @@ enum YTDLP {
         let p = Process()
         p.executableURL = bin
         p.environment = augmentedEnvironment()
-        var args: [String] = [
-            "-f", "bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720][ext=mp4]/22/18/best",
-            "--merge-output-format", "mp4",
+        p.arguments = [
+            "-f", "22/18/best[ext=mp4][acodec!=none]/best",
             "--no-playlist",
             "--newline",
-            "--write-auto-sub", "--write-sub", "--sub-langs", "en.*",
-            "--embed-subs", "--convert-subs", "srt",
             "-o", outputTemplate,
             "--progress-template",
             "download:YLPROG|%(progress._percent_str)s|%(progress.downloaded_bytes)s|%(progress.total_bytes)s|%(progress.total_bytes_estimate)s|%(progress._speed_str)s",
+            videoURL(forId: videoId)
         ]
-        if let ff = Self.ffmpegURL() {
-            args.append(contentsOf: ["--ffmpeg-location", ff.path])
-        }
-        args.append(videoURL(forId: videoId))
-        p.arguments = args
 
         let out = Pipe(); let err = Pipe()
         p.standardOutput = out; p.standardError = err
@@ -212,12 +200,9 @@ enum YTDLP {
     static func findCachedFile(videoId: String, in dir: URL) -> URL? {
         let fm = FileManager.default
         guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return nil }
-        let videoExts: Set<String> = ["mp4", "mkv", "m4v", "mov", "webm"]
         return items.first {
             let name = $0.lastPathComponent
-            guard name.hasPrefix(videoId + ".") else { return false }
-            if name.hasSuffix(".part") || name.contains(".part.") { return false }
-            return videoExts.contains($0.pathExtension.lowercased())
+            return name.hasPrefix(videoId + ".") && !name.hasSuffix(".part") && !name.contains(".part.")
         }
     }
 
@@ -235,10 +220,8 @@ enum YTDLP {
     // MARK: - Stream URL (no download)
 
     static func fetchStreamURL(videoId: String, completion: @escaping (Result<URL, Swift.Error>) -> Void) {
-        // Streaming uses -g (single URL), so we can't merge separate streams here —
-        // stick with the best single-file mp4 (typically itag 22 = 720p when YT offers it).
         runCapturing(args: [
-            "-f", "best[ext=mp4][acodec!=none][height<=720]/22/18/best",
+            "-f", "22/18/best[ext=mp4][acodec!=none]/best",
             "--no-playlist", "--no-warnings", "-g",
             videoURL(forId: videoId)
         ]) { result in
