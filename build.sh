@@ -11,9 +11,9 @@ if [ ! -x vendor/yt-dlp ]; then
     chmod +x vendor/yt-dlp
 fi
 
-swift build -c release
+swift build -c release --arch arm64 --arch x86_64
 
-BIN=$(swift build -c release --show-bin-path)
+BIN=$(swift build -c release --arch arm64 --arch x86_64 --show-bin-path)
 APP="YouLearn.app"
 
 rm -rf "$APP"
