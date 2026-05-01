@@ -241,4 +241,5 @@ enum YTDLP {
 
 extension Notification.Name {
     static let videoCacheDidChange = Notification.Name("YouLearn.videoCacheDidChange")
+    static let selectPlaylist = Notification.Name("YouLearn.selectPlaylist")
 }

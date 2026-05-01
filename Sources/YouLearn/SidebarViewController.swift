@@ -64,6 +64,17 @@ final class SidebarViewController: NSViewController {
         rebuildPopUp()
         NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged), name: Library.didChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(cacheChanged), name: .videoCacheDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(selectPlaylist(_:)), name: .selectPlaylist, object: nil)
+    }
+
+    @objc private func selectPlaylist(_ note: Notification) {
+        guard let plId = note.userInfo?["playlistId"] as? String,
+              let pl = Library.shared.data.playlists.first(where: { $0.id == plId }) else { return }
+        let title = pl.title.isEmpty ? "Playlist" : pl.title
+        if popUp.itemTitles.contains(title) {
+            popUp.selectItem(withTitle: title)
+            sourceChanged()
+        }
     }
 
     @objc private func libraryChanged() {

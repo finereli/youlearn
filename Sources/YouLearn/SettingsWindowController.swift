@@ -208,6 +208,7 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
                     let pl = Playlist(id: UUID().uuidString, title: meta.title, youtubePlaylistId: yid, currentIndex: 0, items: meta.videos)
                     Library.shared.addPlaylist(pl)
                     self?.playlistTable.reloadData()
+                    NotificationCenter.default.post(name: .selectPlaylist, object: nil, userInfo: ["playlistId": pl.id])
                 case .failure(let e):
                     self?.showError("Failed: \(e)")
                 }
@@ -313,6 +314,10 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         alert.messageText = title; alert.informativeText = message
         alert.addButton(withTitle: "OK"); alert.addButton(withTitle: "Cancel")
         let field = NSTextField(frame: NSRect(x: 0, y: 0, width: 400, height: 24))
+        field.cell?.usesSingleLineMode = true
+        field.cell?.wraps = false
+        field.cell?.isScrollable = true
+        field.lineBreakMode = .byClipping
         alert.accessoryView = field
         alert.window.initialFirstResponder = field
         let r = alert.runModal()
