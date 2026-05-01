@@ -28,6 +28,7 @@ enum VideoCache {
         return items.compactMap { url in
             let name = url.lastPathComponent
             if name.hasSuffix(".part") || name.contains(".part") || name.hasSuffix(".ytdl") { return nil }
+            if name.hasSuffix(".vtt") || name.hasSuffix(".srt") { return nil }
             let id = url.deletingPathExtension().lastPathComponent
             let attrs = try? url.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey])
             let bytes = Int64(attrs?.fileSize ?? 0)
@@ -45,7 +46,16 @@ enum VideoCache {
     }
 
     static func delete(_ entries: [Entry]) {
-        for e in entries { try? FileManager.default.removeItem(at: e.url) }
+        let fm = FileManager.default
+        for e in entries {
+            try? fm.removeItem(at: e.url)
+            // Sweep sidecar files (subtitles, partials) sharing the same id prefix.
+            if let siblings = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) {
+                for sib in siblings where sib.lastPathComponent.hasPrefix(e.videoId + ".") {
+                    try? fm.removeItem(at: sib)
+                }
+            }
+        }
         NotificationCenter.default.post(name: .videoCacheDidChange, object: nil)
     }
 

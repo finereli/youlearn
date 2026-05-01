@@ -6,17 +6,21 @@ final class PlayerViewController: NSViewController {
     private let playerView = AVPlayerView()
     private let progressOverlay = ProgressOverlay()
     private let placeholder = NSTextField(labelWithString: "Pick a video from the sidebar.")
+    private let subtitleLabel = SubtitleLabel()
 
     private var currentContext: PlayContext?
     private var currentDownload: Process?
     private var activeToken: UUID?
     private var timeObserver: Any?
+    private var subtitleObserver: Any?
     private var endObserver: Any?
+    private var keyMonitor: Any?
+    private var subtitleBottomConstraint: NSLayoutConstraint!
+    private var subtitleMaxWidthConstraint: NSLayoutConstraint!
+    private var videoBoundsObserver: NSKeyValueObservation?
 
-    static var streamingMode: Bool {
-        get { UserDefaults.standard.bool(forKey: "YouLearn.streamingMode") }
-        set { UserDefaults.standard.set(newValue, forKey: "YouLearn.streamingMode") }
-    }
+    private var cues: [SubtitleCue] = []
+    private var subtitlesEnabled: Bool = true
 
     override func loadView() {
         let v = NSView()
@@ -33,15 +37,27 @@ final class PlayerViewController: NSViewController {
         placeholder.alignment = .center
         placeholder.textColor = .secondaryLabelColor
 
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.isHidden = true
+
         v.addSubview(playerView)
+        v.addSubview(subtitleLabel)
         v.addSubview(progressOverlay)
         v.addSubview(placeholder)
+
+        subtitleBottomConstraint = subtitleLabel.bottomAnchor.constraint(equalTo: playerView.bottomAnchor, constant: -140)
+        subtitleMaxWidthConstraint = subtitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 800)
 
         NSLayoutConstraint.activate([
             playerView.topAnchor.constraint(equalTo: v.topAnchor),
             playerView.leadingAnchor.constraint(equalTo: v.leadingAnchor),
             playerView.trailingAnchor.constraint(equalTo: v.trailingAnchor),
             playerView.bottomAnchor.constraint(equalTo: v.bottomAnchor),
+            subtitleLabel.centerXAnchor.constraint(equalTo: playerView.centerXAnchor),
+            subtitleBottomConstraint,
+            subtitleMaxWidthConstraint,
+            subtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: v.leadingAnchor, constant: 24),
+            subtitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: v.trailingAnchor, constant: -24),
             progressOverlay.centerXAnchor.constraint(equalTo: v.centerXAnchor),
             progressOverlay.centerYAnchor.constraint(equalTo: v.centerYAnchor),
             progressOverlay.widthAnchor.constraint(equalToConstant: 360),
@@ -49,13 +65,55 @@ final class PlayerViewController: NSViewController {
             placeholder.centerYAnchor.constraint(equalTo: v.centerYAnchor),
         ])
         self.view = v
+
+        // AVPlayerView fills the window but the actual video frame is letterboxed
+        // inside it. Track videoBounds (KVO-compliant) and float the subtitle just
+        // above the bottom of the rendered video, regardless of window aspect.
+        videoBoundsObserver = playerView.observe(\.videoBounds, options: [.new, .initial]) { [weak self] view, _ in
+            self?.updateSubtitlePosition(videoBounds: view.videoBounds, playerHeight: view.bounds.height)
+        }
+    }
+
+    private func updateSubtitlePosition(videoBounds: NSRect, playerHeight: CGFloat) {
+        // playerView is non-flipped; videoBounds.minY is the bottom of the video
+        // measured from the bottom of the player view. We anchor subtitle.bottom
+        // to playerView.bottom, so a positive offset = above bottom of video.
+        let inset: CGFloat = 30
+        let offset = -(videoBounds.minY + inset)
+        let minOffset = -(playerHeight - 60)
+        subtitleBottomConstraint.constant = max(offset, minOffset)
+        // Cap subtitle width at 70% of the rendered video width so long cues
+        // wrap to two lines instead of stretching across the whole picture.
+        subtitleMaxWidthConstraint.constant = max(200, videoBounds.width * 0.7)
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        installKeyMonitor()
+    }
+
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        if let m = keyMonitor { NSEvent.removeMonitor(m); keyMonitor = nil }
+    }
+
+    private func installKeyMonitor() {
+        guard keyMonitor == nil else { return }
+        keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self = self, let win = self.view.window, event.window === win else { return event }
+            if event.charactersIgnoringModifiers?.lowercased() == "c", !self.cues.isEmpty {
+                self.subtitlesEnabled.toggle()
+                if !self.subtitlesEnabled { self.subtitleLabel.setText("") }
+                return nil
+            }
+            return event
+        }
     }
 
     func play(context: PlayContext) {
         teardownPlayer()
         currentDownload?.terminate()
         currentDownload = nil
-        // Clean up any stale .part file from the prior download so it doesn't masquerade as a cached video later.
         if let prior = currentContext?.video.videoId {
             YTDLP.deletePartialFiles(videoId: prior, in: VideoCache.dir)
         }
@@ -68,27 +126,8 @@ final class PlayerViewController: NSViewController {
 
         if let cached = VideoCache.cachedFile(videoId: context.video.videoId) {
             startPlayback(url: cached)
-        } else if Self.streamingMode {
-            startStreaming(for: context, token: token)
         } else {
             startDownload(for: context, token: token)
-        }
-    }
-
-    private func startStreaming(for context: PlayContext, token: UUID) {
-        playerView.isHidden = true
-        progressOverlay.isHidden = false
-        progressOverlay.set(title: context.video.title, percent: 0, status: "Resolving stream…")
-        progressOverlay.setIndeterminate(true)
-
-        YTDLP.fetchStreamURL(videoId: context.video.videoId) { [weak self] result in
-            guard let self = self, self.activeToken == token else { return }
-            self.progressOverlay.setIndeterminate(false)
-            switch result {
-            case .success(let url): self.startPlayback(url: url)
-            case .failure(let err):
-                self.progressOverlay.set(title: context.video.title, percent: 0, status: "Failed: \(err)")
-            }
         }
     }
 
@@ -118,7 +157,8 @@ final class PlayerViewController: NSViewController {
                     self.startPlayback(url: url)
                 case .failure(let err):
                     guard stillActive else { return }
-                    self.progressOverlay.set(title: context.video.title, percent: 0, status: "Failed: \(err)")
+                    self.progressOverlay.set(title: context.video.title, percent: 0, status: "Failed — see error window")
+                    ErrorReporter.show(title: "Download failed: \(context.video.title)", error: err)
                 }
             }
         )
@@ -132,6 +172,8 @@ final class PlayerViewController: NSViewController {
         let player = AVPlayer(playerItem: item)
         playerView.player = player
 
+        loadSubtitles(forVideoId: currentContext?.video.videoId)
+
         let resume = currentContext?.video.resumeSeconds ?? 0
         if resume > 1 {
             let target = CMTime(seconds: resume, preferredTimescale: 600)
@@ -143,12 +185,24 @@ final class PlayerViewController: NSViewController {
         }
 
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 5, preferredTimescale: 1), queue: .main) { [weak self] time in
+            guard let self = self else { return }
+            // Once the item knows its duration, persist it so sidebar thumbnails
+            // can compute % watched. (Older library entries lack this field.)
+            if let videoId = self.currentContext?.video.videoId,
+               let dur = self.playerView.player?.currentItem?.duration.seconds, dur.isFinite, dur > 0 {
+                Library.shared.setDurationIfMissing(videoId: videoId, duration: dur)
+            }
             let s = time.seconds
-            // The observer fires once on registration with the current time, before any
-            // pending seek completes — guarding on s >= 1 avoids overwriting the saved
-            // resume with 0 at the start of playback.
             guard s.isFinite, s >= 1 else { return }
-            self?.persistResume(seconds: s)
+            self.persistResume(seconds: s)
+        }
+
+        if !cues.isEmpty {
+            subtitleObserver = player.addPeriodicTimeObserver(
+                forInterval: CMTime(value: 1, timescale: 10), queue: .main
+            ) { [weak self] time in
+                self?.updateSubtitle(at: time.seconds)
+            }
         }
 
         endObserver = NotificationCenter.default.addObserver(
@@ -157,6 +211,36 @@ final class PlayerViewController: NSViewController {
             self?.persistResume(seconds: 0)
             self?.advanceIfPlaylist()
         }
+    }
+
+    private func loadSubtitles(forVideoId videoId: String?) {
+        cues = []
+        subtitleLabel.isHidden = true
+        subtitleLabel.setText("")
+        guard let videoId,
+              let vtt = YTDLP.findSubtitleFile(videoId: videoId, in: VideoCache.dir) else { return }
+        let parsed = VTTParser.parse(vtt)
+        guard !parsed.isEmpty else { return }
+        cues = parsed
+        subtitleLabel.isHidden = false
+    }
+
+    private func updateSubtitle(at time: Double) {
+        guard subtitlesEnabled, !cues.isEmpty, time.isFinite else { return }
+        let text = activeCueText(at: time)
+        subtitleLabel.setText(text)
+    }
+
+    private func activeCueText(at time: Double) -> String {
+        // Cues are time-ordered; binary search the last cue with start <= time.
+        var lo = 0, hi = cues.count - 1, found = -1
+        while lo <= hi {
+            let mid = (lo + hi) / 2
+            if cues[mid].start <= time { found = mid; lo = mid + 1 } else { hi = mid - 1 }
+        }
+        guard found >= 0 else { return "" }
+        let cue = cues[found]
+        return time <= cue.end ? cue.text : ""
     }
 
     private func persistResume(seconds: Double) {
@@ -183,17 +267,64 @@ final class PlayerViewController: NSViewController {
     private func teardownPlayer() {
         if let player = playerView.player {
             if let obs = timeObserver { player.removeTimeObserver(obs) }
+            if let obs = subtitleObserver { player.removeTimeObserver(obs) }
         }
         timeObserver = nil
+        subtitleObserver = nil
         if let obs = endObserver { NotificationCenter.default.removeObserver(obs) }
         endObserver = nil
         playerView.player?.pause()
         playerView.player = nil
+        cues = []
+        subtitleLabel.isHidden = true
+        subtitleLabel.setText("")
     }
 
     deinit {
         teardownPlayer()
         currentDownload?.terminate()
+        if let m = keyMonitor { NSEvent.removeMonitor(m) }
+        videoBoundsObserver?.invalidate()
+    }
+}
+
+// MARK: - Subtitle label
+
+private final class SubtitleLabel: NSView {
+    private let label = NSTextField(labelWithString: "")
+    private var heightZeroConstraint: NSLayoutConstraint?
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setup()
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    private func setup() {
+        wantsLayer = true
+        layer?.backgroundColor = NSColor.black.withAlphaComponent(0.6).cgColor
+        layer?.cornerRadius = 4
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.alignment = .center
+        label.font = NSFont.systemFont(ofSize: 18, weight: .medium)
+        label.textColor = .white
+        label.maximumNumberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+        ])
+        setText("")
+    }
+
+    func setText(_ s: String) {
+        label.stringValue = s
+        let empty = s.isEmpty
+        layer?.backgroundColor = (empty ? NSColor.clear : NSColor.black.withAlphaComponent(0.6)).cgColor
     }
 }
 

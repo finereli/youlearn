@@ -20,7 +20,25 @@ The README links to `releases/latest`, so it does not need editing on each relea
 
 ## Build
 
-`./build.sh` — downloads `yt-dlp_macos` into `vendor/` if missing, builds release with SwiftPM, assembles `YouLearn.app`, ad-hoc-codesigns. No notarization.
+`./build.sh` — on first run, downloads three things into `vendor/`:
+- Python.org's universal2 framework, with `yt-dlp + certifi` pip-installed into its bundled site-packages.
+- `deno` (universal2 lipo'd from the per-arch GitHub releases), used by yt-dlp to solve YouTube's n-param JS challenges.
+
+Then builds the Swift app, assembles `YouLearn.app`, copies the framework into `Contents/Frameworks/` and `deno` into `Contents/Resources/bin/`, ad-hoc-codesigns. Output is ~360MB (deno alone is ~210MB universal). The app is fully self-contained — no system Python, no Homebrew dependencies.
+
+## Bundled Python — why no install_name relocation
+
+The Python.org pkg bakes `/Library/Frameworks/Python.framework/...` into the install_names of `python3.12` and every `.so` extension module. The textbook fix is `install_name_tool -change` + `-add_rpath` + re-codesign, but on macOS 15 that consistently produces `SIGKILL (Code Signature Invalid)` at launch — `install_name_tool`'s edits no longer survive an immediate ad-hoc re-sign in a way the kernel's codesigning monitor accepts. (Reproducible: rewrite all `/Library/Frameworks/Python.framework` refs to `@rpath`, `add_rpath @executable_path/../`, `codesign --force --deep -s -`, run `python3 -c 'print(1)'` → exit 137, crash report shows `codeSigningTrustLevel: -1`.)
+
+So we **don't touch the binaries**. Every invocation sets:
+- `DYLD_FRAMEWORK_PATH` = the `Contents/Frameworks/` directory (where `Python.framework` lives) — dyld searches it before the absolute path baked into `python3`'s `LC_LOAD_DYLIB`.
+- `DYLD_LIBRARY_PATH` = `Python.framework/Versions/3.12/lib` — same trick, for the `.so` modules that load `libssl.3.dylib`, `libcrypto.3.dylib`, etc. by absolute path.
+
+Both are set by `build.sh` (during `pip install`) and by `YTDLP.pythonEnvironment` (every runtime invocation). When upgrading Python, bump `PYTHON_VERSION` in `build.sh`, delete `vendor/Python.framework`, and rebuild — the same DYLD trick works without any per-version patching.
+
+## JS runtime (bundled deno)
+
+yt-dlp solves YouTube's n-param JS challenges by shelling out to `deno`. We bundle a universal2 `deno` at `Contents/Resources/bin/deno` and `YTDLP.pythonEnvironment` puts that directory at the front of `PATH` (and explicitly *omits* `/opt/homebrew/bin` and `/usr/local/bin` so we never accidentally use a system one). To upgrade, bump `DENO_VERSION` in `build.sh`, delete `vendor/deno`, and rebuild. Verified end-to-end: with PATH locked to only the bundle, yt-dlp logs `[jsc:deno] Solving JS challenges using deno` and downloads at full speed.
 
 ## Logo / icon
 

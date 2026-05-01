@@ -1,20 +1,12 @@
 import Foundation
 
+/// Facade for video metadata + downloads.
+///
+/// Metadata flows through `YouTubeAPI` (official Data API).
+/// Downloads shell out to a yt-dlp zipapp running on the bundled Python
+/// framework — see Resources/Frameworks/Python.framework, set up by build.sh.
 enum YTDLP {
     enum Error: Swift.Error { case binaryMissing, nonZeroExit(Int32, String), badJSON, missingFile }
-
-    /// Locate the yt-dlp binary. Prefers the bundled copy; falls back to ./vendor/yt-dlp for `swift run` development.
-    static func binaryURL() -> URL? {
-        if let bundled = Bundle.main.url(forResource: "yt-dlp", withExtension: nil) {
-            return bundled
-        }
-        let exec = Bundle.main.executableURL ?? URL(fileURLWithPath: CommandLine.arguments[0])
-        let vendor = exec.deletingLastPathComponent().appendingPathComponent("vendor/yt-dlp")
-        if FileManager.default.isExecutableFile(atPath: vendor.path) { return vendor }
-        let cwdVendor = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor/yt-dlp")
-        if FileManager.default.isExecutableFile(atPath: cwdVendor.path) { return cwdVendor }
-        return nil
-    }
 
     // MARK: - Metadata
 
@@ -24,122 +16,147 @@ enum YTDLP {
     }
 
     static func fetchPlaylistMetadata(url: String, completion: @escaping (Result<PlaylistMeta, Swift.Error>) -> Void) {
-        runCapturing(args: ["--flat-playlist", "--dump-single-json", "--no-warnings", url]) { result in
+        guard let plId = YouTubeAPI.extractPlaylistId(from: url) else {
+            completion(.failure(Error.badJSON)); return
+        }
+        YouTubeAPI.fetchPlaylist(id: plId) { result in
             switch result {
             case .failure(let e): completion(.failure(e))
-            case .success(let data):
-                do {
-                    guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { throw Error.badJSON }
-                    let title = (json["title"] as? String) ?? "Playlist"
-                    let entries = (json["entries"] as? [[String: Any]]) ?? []
-                    let videos: [Video] = entries.compactMap { e in
-                        guard let id = e["id"] as? String, let t = e["title"] as? String else { return nil }
-                        let thumb = bestThumbnail(from: e) ?? "https://i.ytimg.com/vi/\(id)/mqdefault.jpg"
-                        let dur = (e["duration"] as? Double) ?? (e["duration"] as? NSNumber)?.doubleValue
-                        return Video(videoId: id, title: t, thumbnailURL: thumb, resumeSeconds: 0, duration: dur)
-                    }
-                    completion(.success(PlaylistMeta(title: title, videos: videos)))
-                } catch { completion(.failure(error)) }
+            case .success(let pair): completion(.success(PlaylistMeta(title: pair.title, videos: pair.videos)))
             }
         }
     }
 
     static func fetchVideoMetadata(url: String, completion: @escaping (Result<Video, Swift.Error>) -> Void) {
-        runCapturing(args: ["--dump-single-json", "--no-playlist", "--no-warnings", url]) { result in
-            switch result {
-            case .failure(let e): completion(.failure(e))
-            case .success(let data):
-                do {
-                    guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                          let id = json["id"] as? String,
-                          let title = json["title"] as? String else { throw Error.badJSON }
-                    let thumb = bestThumbnail(from: json) ?? "https://i.ytimg.com/vi/\(id)/mqdefault.jpg"
-                    let dur = (json["duration"] as? Double) ?? (json["duration"] as? NSNumber)?.doubleValue
-                    completion(.success(Video(videoId: id, title: title, thumbnailURL: thumb, resumeSeconds: 0, duration: dur)))
-                } catch { completion(.failure(error)) }
-            }
+        guard let id = YouTubeAPI.extractVideoId(from: url) else {
+            completion(.failure(Error.badJSON)); return
         }
+        YouTubeAPI.fetchVideo(id: id, completion: completion)
     }
-
-    private static func bestThumbnail(from json: [String: Any]) -> String? {
-        if let thumbs = json["thumbnails"] as? [[String: Any]] {
-            // Prefer ~320 width
-            let sorted = thumbs.compactMap { t -> (String, Int)? in
-                guard let url = t["url"] as? String else { return nil }
-                let w = (t["width"] as? Int) ?? (t["preference"] as? Int) ?? 0
-                return (url, w)
-            }
-            if let pick = sorted.min(by: { abs($0.1 - 320) < abs($1.1 - 320) }) { return pick.0 }
-            if let first = thumbs.first?["url"] as? String { return first }
-        }
-        return json["thumbnail"] as? String
-    }
-
-    // MARK: - URL helpers
 
     static func videoURL(forId id: String) -> String { "https://www.youtube.com/watch?v=\(id)" }
 
-    // MARK: - Process plumbing
+    // MARK: - Cache helpers
 
-    /// PATH augmented with Homebrew + system Python locations.
-    /// Apps launched via Finder get launchd's minimal PATH, which doesn't
-    /// include /usr/local/bin or /opt/homebrew/bin — so the yt-dlp zipapp's
-    /// `#!/usr/bin/env python3` shebang fails to find a Python interpreter.
-    private static func augmentedEnvironment() -> [String: String] {
-        var env = ProcessInfo.processInfo.environment
-        let extras = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-        if let existing = env["PATH"], !existing.isEmpty {
-            env["PATH"] = "\(extras):\(existing)"
-        } else {
-            env["PATH"] = extras
+    static func findCachedFile(videoId: String, in dir: URL) -> URL? {
+        let fm = FileManager.default
+        guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return nil }
+        return items.first {
+            let name = $0.lastPathComponent
+            guard name.hasPrefix(videoId + ".") else { return false }
+            if name.hasSuffix(".part") || name.contains(".part.") || name.hasSuffix(".ytdl") { return false }
+            if name.hasSuffix(".vtt") || name.hasSuffix(".srt") { return false }
+            return true
         }
-        return env
     }
 
-    private static func runCapturing(args: [String], completion: @escaping (Result<Data, Swift.Error>) -> Void) {
-        guard let bin = binaryURL() else { completion(.failure(Error.binaryMissing)); return }
-        DispatchQueue.global(qos: .userInitiated).async {
-            let p = Process()
-            p.executableURL = bin
-            p.arguments = args
-            p.environment = augmentedEnvironment()
-            let out = Pipe(); let err = Pipe()
-            p.standardOutput = out; p.standardError = err
-            do {
-                try p.run()
-                let data = out.fileHandleForReading.readDataToEndOfFile()
-                let errData = err.fileHandleForReading.readDataToEndOfFile()
-                p.waitUntilExit()
-                if p.terminationStatus != 0 {
-                    let msg = String(data: errData, encoding: .utf8) ?? ""
-                    completion(.failure(Error.nonZeroExit(p.terminationStatus, msg)))
-                } else {
-                    completion(.success(data))
-                }
-            } catch { completion(.failure(error)) }
+    static func findSubtitleFile(videoId: String, in dir: URL) -> URL? {
+        let fm = FileManager.default
+        guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return nil }
+        return items.first {
+            let name = $0.lastPathComponent
+            return name.hasPrefix(videoId + ".") && name.hasSuffix(".vtt")
         }
+    }
+
+    static func deletePartialFiles(videoId: String, in dir: URL) {
+        let fm = FileManager.default
+        guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return }
+        for url in items where url.lastPathComponent.hasPrefix(videoId + ".") {
+            let name = url.lastPathComponent
+            if name.hasSuffix(".part") || name.contains(".part") || name.hasSuffix(".ytdl") {
+                try? fm.removeItem(at: url)
+            }
+        }
+    }
+
+    // MARK: - Bundled Python + yt-dlp
+
+    /// Locate the bundled python3 binary. Prefers `Contents/Frameworks/Python.framework`
+    /// (release builds), falls back to `vendor/Python.framework` for `swift run`.
+    private static func pythonBinaryAndFrameworkRoot() -> (binary: URL, frameworkParent: URL)? {
+        let frameworksURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Frameworks", isDirectory: true)
+        let bundled = frameworksURL.appendingPathComponent("Python.framework/Versions/3.12/bin/python3")
+        if FileManager.default.isExecutableFile(atPath: bundled.path) {
+            return (bundled, frameworksURL)
+        }
+        // swift run / dev: vendor/Python.framework next to cwd or executable parent
+        let candidates: [URL] = [
+            URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor"),
+            (Bundle.main.executableURL?.deletingLastPathComponent()).map { $0.appendingPathComponent("vendor") } ?? URL(fileURLWithPath: ""),
+        ]
+        for parent in candidates {
+            let py = parent.appendingPathComponent("Python.framework/Versions/3.12/bin/python3")
+            if FileManager.default.isExecutableFile(atPath: py.path) { return (py, parent) }
+        }
+        return nil
+    }
+
+    /// Locate the bundled deno binary (used by yt-dlp for JS challenge solving).
+    /// Release: Contents/Resources/bin/deno. Dev: vendor/deno.
+    private static func bundledBinDirectory() -> URL? {
+        if let res = Bundle.main.resourceURL {
+            let bin = res.appendingPathComponent("bin")
+            if FileManager.default.isExecutableFile(atPath: bin.appendingPathComponent("deno").path) {
+                return bin
+            }
+        }
+        let cwdVendor = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("vendor")
+        if FileManager.default.isExecutableFile(atPath: cwdVendor.appendingPathComponent("deno").path) {
+            return cwdVendor
+        }
+        return nil
+    }
+
+    /// Environment for invoking the bundled python: DYLD_* paths so dyld finds
+    /// the framework + its lib/, and PATH that points at the bundled deno
+    /// (yt-dlp shells out to it for n-param JS challenges).
+    private static func pythonEnvironment(frameworkParent: URL) -> [String: String] {
+        var env = ProcessInfo.processInfo.environment
+        env["DYLD_FRAMEWORK_PATH"] = frameworkParent.path
+        env["DYLD_LIBRARY_PATH"] = frameworkParent.appendingPathComponent("Python.framework/Versions/3.12/lib").path
+        var pathParts: [String] = []
+        if let bin = bundledBinDirectory() { pathParts.append(bin.path) }
+        pathParts.append(contentsOf: ["/usr/bin", "/bin"])
+        if let existing = env["PATH"], !existing.isEmpty {
+            pathParts.append(existing)
+        }
+        env["PATH"] = pathParts.joined(separator: ":")
+        return env
     }
 
     // MARK: - Download
 
-    /// Streams a yt-dlp download. progress: (percent 0..1, downloadedBytes, totalBytes, speedString).
-    /// On success the destination file URL is returned.
+    @discardableResult
     static func download(videoId: String,
                          to destinationDir: URL,
                          progress: @escaping (Double, Int64, Int64, String) -> Void,
                          completion: @escaping (Result<URL, Swift.Error>) -> Void) -> Process? {
-        guard let bin = binaryURL() else { completion(.failure(Error.binaryMissing)); return nil }
-
+        guard let (py, fwParent) = pythonBinaryAndFrameworkRoot() else {
+            completion(.failure(Error.binaryMissing)); return nil
+        }
         try? FileManager.default.createDirectory(at: destinationDir, withIntermediateDirectories: true)
         let outputTemplate = destinationDir.appendingPathComponent("%(id)s.%(ext)s").path
 
         let p = Process()
-        p.executableURL = bin
-        p.environment = augmentedEnvironment()
+        p.executableURL = py
+        p.environment = pythonEnvironment(frameworkParent: fwParent)
         p.arguments = [
+            "-m", "yt_dlp",
             "-f", "22/18/best[ext=mp4][acodec!=none]/best",
             "--no-playlist",
             "--newline",
+            // Lets yt-dlp fetch the EJS challenge-solver script from the
+            // yt-dlp/ejs GitHub release on first use (cached afterwards).
+            // Without it, n-param solving fails on most modern videos.
+            "--remote-components", "ejs:github",
+            // Subtitles: best-effort. en variants only, and don't abort the
+            // whole download if a single language variant rate-limits (e.g. 429).
+            "--write-subs", "--write-auto-subs",
+            "--sub-langs", "en,en-US,en-GB",
+            "--sub-format", "vtt/best",
+            "--convert-subs", "vtt",
+            "--no-abort-on-error",
             "-o", outputTemplate,
             "--progress-template",
             "download:YLPROG|%(progress._percent_str)s|%(progress.downloaded_bytes)s|%(progress.total_bytes)s|%(progress.total_bytes_estimate)s|%(progress._speed_str)s",
@@ -181,7 +198,6 @@ enum YTDLP {
                     completion(.failure(Error.nonZeroExit(proc.terminationStatus, msg)))
                     return
                 }
-                // Find the produced file
                 if let found = findCachedFile(videoId: videoId, in: destinationDir) {
                     completion(.success(found))
                 } else {
@@ -195,47 +211,6 @@ enum YTDLP {
             completion(.failure(error)); return nil
         }
         return p
-    }
-
-    static func findCachedFile(videoId: String, in dir: URL) -> URL? {
-        let fm = FileManager.default
-        guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return nil }
-        return items.first {
-            let name = $0.lastPathComponent
-            return name.hasPrefix(videoId + ".") && !name.hasSuffix(".part") && !name.contains(".part.")
-        }
-    }
-
-    static func deletePartialFiles(videoId: String, in dir: URL) {
-        let fm = FileManager.default
-        guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { return }
-        for url in items where url.lastPathComponent.hasPrefix(videoId + ".") {
-            let name = url.lastPathComponent
-            if name.hasSuffix(".part") || name.contains(".part") || name.hasSuffix(".ytdl") {
-                try? fm.removeItem(at: url)
-            }
-        }
-    }
-
-    // MARK: - Stream URL (no download)
-
-    static func fetchStreamURL(videoId: String, completion: @escaping (Result<URL, Swift.Error>) -> Void) {
-        runCapturing(args: [
-            "-f", "22/18/best[ext=mp4][acodec!=none]/best",
-            "--no-playlist", "--no-warnings", "-g",
-            videoURL(forId: videoId)
-        ]) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let e): completion(.failure(e))
-                case .success(let data):
-                    let str = (String(data: data, encoding: .utf8) ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-                    let firstLine = str.split(separator: "\n").first.map(String.init) ?? str
-                    if let url = URL(string: firstLine) { completion(.success(url)) }
-                    else { completion(.failure(Error.badJSON)) }
-                }
-            }
-        }
     }
 }
 

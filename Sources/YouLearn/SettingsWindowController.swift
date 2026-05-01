@@ -161,18 +161,12 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         let item = NSTabViewItem(identifier: "general"); item.label = "General"
         let v = NSView()
 
-        let streamCheck = NSButton(checkboxWithTitle: "Stream videos instead of downloading", target: self, action: #selector(toggleStreaming(_:)))
-        streamCheck.state = PlayerViewController.streamingMode ? .on : .off
-
         let pwLabel = NSTextField(labelWithString: "Change password:")
         newPasswordField.translatesAutoresizingMaskIntoConstraints = false
         newPasswordField.placeholderString = "new password"
         let pwSave = NSButton(title: "Set Password", target: self, action: #selector(savePassword))
 
-        let divider = NSBox(); divider.boxType = .separator
-        divider.translatesAutoresizingMaskIntoConstraints = false
-
-        let stack = NSStackView(views: [streamCheck, divider, pwLabel, newPasswordField, pwSave])
+        let stack = NSStackView(views: [pwLabel, newPasswordField, pwSave])
         stack.orientation = .vertical; stack.alignment = .leading; stack.spacing = 8
         stack.translatesAutoresizingMaskIntoConstraints = false
         v.addSubview(stack)
@@ -180,8 +174,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
             stack.topAnchor.constraint(equalTo: v.topAnchor, constant: 16),
             stack.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 16),
             stack.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -16),
-            divider.heightAnchor.constraint(equalToConstant: 1),
-            divider.widthAnchor.constraint(equalTo: stack.widthAnchor),
             newPasswordField.widthAnchor.constraint(equalToConstant: 240),
         ])
         item.view = v; return item
@@ -189,11 +181,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
 
     func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
         window?.setContentSize(NSSize(width: 700, height: 500))
-    }
-
-    @objc private func toggleStreaming(_ sender: NSButton) {
-        PlayerViewController.streamingMode = (sender.state == .on)
-        VideoCache.notifyChanged() // refresh sidebar dimming
     }
 
     // MARK: - Actions
@@ -210,7 +197,7 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
                     self?.playlistTable.reloadData()
                     NotificationCenter.default.post(name: .selectPlaylist, object: nil, userInfo: ["playlistId": pl.id])
                 case .failure(let e):
-                    self?.showError("Failed: \(e)")
+                    self?.showError(e, title: "yt-dlp failed")
                 }
             }
         }
@@ -236,7 +223,7 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
                     Library.shared.updatePlaylist(updated)
                     self?.playlistTable.reloadData()
                 case .failure(let e):
-                    self?.showError("Failed: \(e)")
+                    self?.showError(e, title: "yt-dlp failed")
                 }
             }
         }
@@ -258,7 +245,7 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
                     Library.shared.addStandaloneVideo(v)
                     self?.videoTable.reloadData()
                 case .failure(let e):
-                    self?.showError("Failed: \(e)")
+                    self?.showError(e, title: "yt-dlp failed")
                 }
             }
         }
@@ -324,8 +311,8 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         return r == .alertFirstButtonReturn ? field.stringValue : nil
     }
 
-    private func showError(_ msg: String) {
-        let a = NSAlert(); a.messageText = "Error"; a.informativeText = msg; a.runModal()
+    private func showError(_ error: Error, title: String = "Error") {
+        ErrorReporter.show(title: title, error: error)
     }
 
     // MARK: - Table data

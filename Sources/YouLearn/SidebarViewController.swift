@@ -133,7 +133,7 @@ extension SidebarViewController: NSCollectionViewDataSource, NSCollectionViewDel
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: VideoThumbItem.identifier, for: indexPath) as! VideoThumbItem
         let v = currentItems[indexPath.item]
-        let dim = !PlayerViewController.streamingMode && !VideoCache.isCached(videoId: v.videoId)
+        let dim = !VideoCache.isCached(videoId: v.videoId)
         item.configure(with: v, dim: dim)
         return item
     }
@@ -206,6 +206,7 @@ final class VideoThumbItem: NSCollectionViewItem {
 
     @objc private func resumeChanged(_ note: Notification) {
         guard let updatedId = note.userInfo?["videoId"] as? String, updatedId == videoId else { return }
+        if let dur = note.userInfo?["duration"] as? Double, dur > 0 { duration = dur }
         let seconds = (note.userInfo?["seconds"] as? Double) ?? 0
         applyWatched(seconds: seconds)
     }
