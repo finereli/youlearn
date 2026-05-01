@@ -143,7 +143,12 @@ final class PlayerViewController: NSViewController {
         }
 
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 5, preferredTimescale: 1), queue: .main) { [weak self] time in
-            self?.persistResume(seconds: time.seconds)
+            let s = time.seconds
+            // The observer fires once on registration with the current time, before any
+            // pending seek completes — guarding on s >= 1 avoids overwriting the saved
+            // resume with 0 at the start of playback.
+            guard s.isFinite, s >= 1 else { return }
+            self?.persistResume(seconds: s)
         }
 
         endObserver = NotificationCenter.default.addObserver(
