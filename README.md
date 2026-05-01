@@ -14,6 +14,16 @@ A small native macOS app for watching YouTube playlists as study material — wi
 - Settings window for managing playlists, single videos, cache, password, and streaming preference
 - Password gate on launch and on entering Settings
 
+## Download
+
+Grab the latest `.app` from the [Releases page](https://github.com/finereli/youlearn/releases/latest).
+
+Because the build is ad-hoc-signed (not notarized), macOS will refuse to open it on first launch. Right-click → Open, or run once:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/YouLearn.app
+```
+
 ## Requirements
 
 - macOS 11+

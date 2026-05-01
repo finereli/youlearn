@@ -5,3 +5,4 @@ YouLearn.app/
 vendor/
 .DS_Store
 Resources/AppIcon.iconset/
+*.zip
