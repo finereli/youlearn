@@ -18,7 +18,7 @@ A small native macOS app for watching YouTube playlists as study material — wi
 
 Grab the latest `.app` from the [Releases page](https://github.com/finereli/youlearn/releases/latest).
 
-Because the build is ad-hoc-signed (not notarized), macOS will refuse to open it on first launch. Right-click → Open, or run once:
+Releases are signed with a Developer ID but not notarized, so Gatekeeper will warn on first launch. Right-click → Open the first time, or run once:
 
 ```sh
 xattr -dr com.apple.quarantine /Applications/YouLearn.app
@@ -26,18 +26,26 @@ xattr -dr com.apple.quarantine /Applications/YouLearn.app
 
 ## Requirements
 
-- macOS 11+
+**To run:**
+
+- macOS 11+ (universal binary, runs on Intel and Apple Silicon)
+- Python 3.9+ available as `python3` in `/usr/local/bin`, `/opt/homebrew/bin`, or on `PATH` (yt-dlp is bundled as a Python zipapp)
+
+**To build:**
+
 - Swift toolchain (`swift --version`)
 - `librsvg` (only for regenerating the app icon — `brew install librsvg`)
 
 ## Build & run
 
 ```sh
-./build.sh
+./build.sh                # unsigned ad-hoc build (fast, runs on your own machine)
+SIGN=1 ./build.sh         # signed with your Developer ID (for distribution)
+NOTARIZE=1 ./build.sh     # signed + notarized + stapled (no Gatekeeper warning)
 open YouLearn.app
 ```
 
-`build.sh` downloads `yt-dlp_macos` into `vendor/` on first run, builds with SwiftPM in release mode, assembles `YouLearn.app`, and ad-hoc-codesigns it.
+`build.sh` downloads the yt-dlp Python zipapp into `vendor/` on first run, builds with SwiftPM in release mode as a universal binary, and assembles `YouLearn.app`. `SIGN=1` and `NOTARIZE=1` use the Developer ID configured at the top of the script and the `YOULEARN_NOTARY` keychain profile (set up via `xcrun notarytool store-credentials`).
 
 ## Project layout
 
