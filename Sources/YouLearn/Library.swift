@@ -19,6 +19,9 @@ struct Playlist: Codable {
 struct LibraryData: Codable {
     var playlists: [Playlist] = []
     var standaloneVideos: [Video] = []
+    /// Sidebar popup's last-selected source — a playlist's local id, or
+    /// "__standalone__" for the single-videos source. Restored on launch.
+    var lastSelectedSource: String?
 }
 
 final class Library {
@@ -27,6 +30,7 @@ final class Library {
 
     static let didChange = Notification.Name("LibraryDidChange")
     static let resumeDidChange = Notification.Name("LibraryResumeDidChange")
+    static let selectPlaylist = Notification.Name("YouLearn.selectPlaylist")
 
     private var fileURL: URL {
         let fm = FileManager.default
@@ -84,60 +88,24 @@ final class Library {
         postResumeChange(videoId: standaloneVideoId, seconds: seconds)
     }
 
-    /// Persist a video's duration the first time we learn it (e.g. from
-    /// AVPlayerItem during playback). No-op if the value is already set or unchanged.
-    func setDurationIfMissing(videoId: String, duration: Double) {
-        guard duration.isFinite, duration > 0 else { return }
-        var changed = false
-        for pi in data.playlists.indices {
-            for vi in data.playlists[pi].items.indices {
-                if data.playlists[pi].items[vi].videoId == videoId,
-                   data.playlists[pi].items[vi].duration == nil {
-                    data.playlists[pi].items[vi].duration = duration
-                    changed = true
-                }
-            }
-        }
-        for i in data.standaloneVideos.indices where data.standaloneVideos[i].videoId == videoId && data.standaloneVideos[i].duration == nil {
-            data.standaloneVideos[i].duration = duration
-            changed = true
-        }
-        if changed {
-            writeOnly()
-            var seconds = 0.0
-            outer: for p in data.playlists {
-                if let v = p.items.first(where: { $0.videoId == videoId }) { seconds = v.resumeSeconds; break outer }
-            }
-            if seconds == 0, let v = data.standaloneVideos.first(where: { $0.videoId == videoId }) { seconds = v.resumeSeconds }
-            NotificationCenter.default.post(name: Library.resumeDidChange, object: nil,
-                                            userInfo: ["videoId": videoId, "seconds": seconds, "duration": duration])
-        }
-    }
-
     private func postResumeChange(videoId: String, seconds: Double) {
         NotificationCenter.default.post(name: Library.resumeDidChange, object: nil,
                                         userInfo: ["videoId": videoId, "seconds": seconds])
-    }
-
-    func duration(forVideoId id: String) -> Double? {
-        for p in data.playlists {
-            if let v = p.items.first(where: { $0.videoId == id }), let d = v.duration { return d }
-        }
-        if let v = data.standaloneVideos.first(where: { $0.videoId == id }), let d = v.duration { return d }
-        return nil
-    }
-
-    func resumeSeconds(forVideoId id: String) -> Double {
-        for p in data.playlists {
-            if let v = p.items.first(where: { $0.videoId == id }) { return v.resumeSeconds }
-        }
-        if let v = data.standaloneVideos.first(where: { $0.videoId == id }) { return v.resumeSeconds }
-        return 0
     }
 
     func setCurrentIndex(playlistId: String, index: Int) {
         guard let i = data.playlists.firstIndex(where: { $0.id == playlistId }) else { return }
         data.playlists[i].currentIndex = index
         writeOnly()
+        NotificationCenter.default.post(name: Library.currentIndexDidChange, object: nil,
+                                        userInfo: ["playlistId": playlistId, "index": index])
     }
+
+    func setLastSelectedSource(_ key: String) {
+        guard data.lastSelectedSource != key else { return }
+        data.lastSelectedSource = key
+        writeOnly()
+    }
+
+    static let currentIndexDidChange = Notification.Name("LibraryCurrentIndexDidChange")
 }

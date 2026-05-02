@@ -1,5 +1,21 @@
 # YouLearn — notes for Claude
 
+## What this app is
+
+A small macOS app that plays YouTube videos in a kid-friendly, chrome-free
+shell. Sidebar of playlists/videos on the left, an embedded YouTube player on
+the right. The "player" is a `WKWebView` pointed at `https://www.youtube.com/watch?v=…`
+with CSS that hides everything except the player itself, plus a tiny JS bridge
+for resume tracking and playlist advance. See `BrowserPlayerViewController.swift`.
+
+Library metadata (titles, durations, thumbnails) comes from the official
+YouTube Data API v3 — see `YouTubeAPI.swift`. Requires `YOUTUBE_API_KEY` in
+`.env`, which `build.sh` copies into `Resources/youtube-api-key.txt`.
+
+There is **no** local download, no yt-dlp, no Python, no ffmpeg. Earlier
+versions had all of that; v0.3.0 stripped it after we discovered the embedded
+browser just works.
+
 ## Versioning & releases
 
 The app version lives in **`Resources/Info.plist`** (`CFBundleShortVersionString`). When cutting a new release, bump it and tag to match.
@@ -20,52 +36,17 @@ The README links to `releases/latest`, so it does not need editing on each relea
 
 ## Build
 
-`./build.sh` — builds the Swift app, copies the API key from `.env`, ad-hoc-codesigns. Output is ~1.5MB. Heavy dependencies (Python framework, deno, yt-dlp) are **not** bundled — they're downloaded on first launch, see below.
+`./build.sh` — builds the Swift app, copies the API key from `.env`, ad-hoc-codesigns. Output is ~1.5MB. No bundled dependencies; the entire runtime is the app binary plus a few Resources files.
 
-## Runtime — on-demand, lives outside the app bundle
+## CSS-hiding YouTube chrome
 
-`~/Library/Application Support/YouLearn/runtime/` holds everything heavy:
-- `Python.framework/` — universal2 from python.org, ~80MB
-- `bin/deno` — single-arch (matches `uname -m`) from github.com/denoland/deno releases, ~100MB
-- `Python.framework/.../site-packages/yt_dlp` — pip-installed into the bundled Python's site-packages
+`BrowserPlayerViewController.swift` injects a stylesheet at `documentStart` that hides the masthead, right rail, comments, end-screens, autoplay overlay, and the entire below-player section (`#below`, `ytd-watch-metadata`, etc.). When YouTube renames a class these go stale; refresh from DevTools.
 
-This means the shipped app is tiny, and updating yt-dlp doesn't require an app release — bump it via Settings (slice B, not yet built) or rerun the install.
-
-`Runtime.swift` owns paths, version constants, install steps, and an environment helper. `FirstRunWindowController` shows progress on first launch when `Runtime.isInstalled` is false. To force re-download: `rm -rf ~/Library/Application\ Support/YouLearn/runtime`.
-
-When upgrading Python or deno, bump `pythonVersion` / `denoVersion` in `Runtime.swift` and (later, slice B) trigger a re-install for users on older versions.
-
-## Why no install_name relocation
-
-The Python.org pkg bakes `/Library/Frameworks/Python.framework/...` into the install_names of `python3.12` and every `.so` extension module. The textbook fix is `install_name_tool -change` + `-add_rpath` + re-codesign, but on macOS 15 that consistently produces `SIGKILL (Code Signature Invalid)` at launch — `install_name_tool`'s edits no longer survive an immediate ad-hoc re-sign in a way the kernel's codesigning monitor accepts.
-
-So we **don't touch the binaries**. `Runtime.processEnvironment()` sets:
-- `DYLD_FRAMEWORK_PATH` = the runtime directory — dyld searches it before the absolute path baked into `python3`'s `LC_LOAD_DYLIB`.
-- `DYLD_LIBRARY_PATH` = `Python.framework/Versions/3.12/lib` — same trick, for `.so` modules that load `libssl.3.dylib`, `libcrypto.3.dylib`, etc. by absolute path.
-
-When upgrading Python, no per-version patching is needed.
-
-## Resolution / HD playback
-
-We download at 360p combined (itag 18). HD requires merging separate adaptive video + audio streams; every Swift-side approach we tried (`AVAssetExportSession` passthrough, `AVAssetWriter` sample copy) failed on the target hardware (2017 MBA without H.264 hardware encode, which rules out re-encode fallbacks). See `docs/hd-experiment.md` for the full timeline, hypotheses, and the most promising path to revisit (bundling ffmpeg in the on-demand runtime).
+The JS bridge listens for the `<video>` element to actually have frame data before posting `playing` to native — that's what dismisses the dark loading overlay. Resume position is persisted on a 5-second tick; `ended` triggers playlist advance.
 
 ## Hardened runtime / signed builds
 
-When `SIGN=1`, the YouLearn binary gets `--options runtime`. To allow loading the runtime Python's `.so` extension modules from `~/Library/Application Support/...` (outside the app bundle, not signed by us), the entitlements file will need `com.apple.security.cs.disable-library-validation` and `com.apple.security.cs.allow-dyld-environment-variables`. Add these before shipping a Developer-ID-signed build.
-
-## Bundled Python — why no install_name relocation
-
-The Python.org pkg bakes `/Library/Frameworks/Python.framework/...` into the install_names of `python3.12` and every `.so` extension module. The textbook fix is `install_name_tool -change` + `-add_rpath` + re-codesign, but on macOS 15 that consistently produces `SIGKILL (Code Signature Invalid)` at launch — `install_name_tool`'s edits no longer survive an immediate ad-hoc re-sign in a way the kernel's codesigning monitor accepts. (Reproducible: rewrite all `/Library/Frameworks/Python.framework` refs to `@rpath`, `add_rpath @executable_path/../`, `codesign --force --deep -s -`, run `python3 -c 'print(1)'` → exit 137, crash report shows `codeSigningTrustLevel: -1`.)
-
-So we **don't touch the binaries**. Every invocation sets:
-- `DYLD_FRAMEWORK_PATH` = the `Contents/Frameworks/` directory (where `Python.framework` lives) — dyld searches it before the absolute path baked into `python3`'s `LC_LOAD_DYLIB`.
-- `DYLD_LIBRARY_PATH` = `Python.framework/Versions/3.12/lib` — same trick, for the `.so` modules that load `libssl.3.dylib`, `libcrypto.3.dylib`, etc. by absolute path.
-
-Both are set by `build.sh` (during `pip install`) and by `YTDLP.pythonEnvironment` (every runtime invocation). When upgrading Python, bump `PYTHON_VERSION` in `build.sh`, delete `vendor/Python.framework`, and rebuild — the same DYLD trick works without any per-version patching.
-
-## JS runtime (bundled deno)
-
-yt-dlp solves YouTube's n-param JS challenges by shelling out to `deno`. We bundle a universal2 `deno` at `Contents/Resources/bin/deno` and `YTDLP.pythonEnvironment` puts that directory at the front of `PATH` (and explicitly *omits* `/opt/homebrew/bin` and `/usr/local/bin` so we never accidentally use a system one). To upgrade, bump `DENO_VERSION` in `build.sh`, delete `vendor/deno`, and rebuild. Verified end-to-end: with PATH locked to only the bundle, yt-dlp logs `[jsc:deno] Solving JS challenges using deno` and downloads at full speed.
+When `SIGN=1`, the YouLearn binary gets `--options runtime`. The app loads no external dylibs of its own, so the entitlements file does not need `disable-library-validation`.
 
 ## Logo / icon
 

@@ -6,11 +6,7 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
     private let tabs = NSTabView()
     private let playlistTable = NSTableView()
     private let videoTable = NSTableView()
-    private let cacheTable = NSTableView()
-    private let cacheTotalLabel = NSTextField(labelWithString: "")
     private let newPasswordField = NSSecureTextField()
-
-    private var cacheEntries: [VideoCache.Entry] = []
 
     private convenience init() {
         let window = NSWindow(
@@ -28,7 +24,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         tabs.delegate = self
         tabs.addTabViewItem(makePlaylistTab())
         tabs.addTabViewItem(makeVideosTab())
-        tabs.addTabViewItem(makeCacheTab())
         tabs.addTabViewItem(makeGeneralTab())
         content.addSubview(tabs)
         NSLayoutConstraint.activate([
@@ -43,7 +38,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
         window?.setContentSize(NSSize(width: 700, height: 500))
-        reloadCache()
     }
 
     // MARK: - Playlists tab
@@ -110,51 +104,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         item.view = v; return item
     }
 
-    // MARK: - Cache tab
-
-    private func makeCacheTab() -> NSTabViewItem {
-        let item = NSTabViewItem(identifier: "cache"); item.label = "Cache"
-        let v = NSView()
-
-        cacheTotalLabel.translatesAutoresizingMaskIntoConstraints = false
-        cacheTotalLabel.font = NSFont.systemFont(ofSize: 12, weight: .medium)
-
-        let scroll = NSScrollView()
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.hasVerticalScroller = true
-
-        let titleCol = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("title"))
-        titleCol.title = "Title"; titleCol.width = 380
-        let sizeCol = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("size"))
-        sizeCol.title = "Size"; sizeCol.width = 100
-        let dateCol = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("date"))
-        dateCol.title = "Modified"; dateCol.width = 160
-        cacheTable.addTableColumn(titleCol); cacheTable.addTableColumn(sizeCol); cacheTable.addTableColumn(dateCol)
-        cacheTable.dataSource = self; cacheTable.delegate = self
-        cacheTable.identifier = NSUserInterfaceItemIdentifier("cache")
-        cacheTable.allowsMultipleSelection = true
-        scroll.documentView = cacheTable
-
-        let delSel = NSButton(title: "Delete Selected", target: self, action: #selector(deleteSelectedCache))
-        let delAll = NSButton(title: "Delete All", target: self, action: #selector(deleteAllCache))
-        let refresh = NSButton(title: "Refresh", target: self, action: #selector(reloadCacheAction))
-        let stack = NSStackView(views: [delSel, delAll, refresh])
-        stack.translatesAutoresizingMaskIntoConstraints = false; stack.orientation = .horizontal
-
-        v.addSubview(cacheTotalLabel); v.addSubview(scroll); v.addSubview(stack)
-        NSLayoutConstraint.activate([
-            cacheTotalLabel.topAnchor.constraint(equalTo: v.topAnchor, constant: 12),
-            cacheTotalLabel.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 12),
-            scroll.topAnchor.constraint(equalTo: cacheTotalLabel.bottomAnchor, constant: 8),
-            scroll.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 8),
-            scroll.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -8),
-            scroll.bottomAnchor.constraint(equalTo: stack.topAnchor, constant: -8),
-            stack.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 8),
-            stack.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: -8),
-        ])
-        item.view = v; return item
-    }
-
     // MARK: - General tab
 
     private func makeGeneralTab() -> NSTabViewItem {
@@ -186,18 +135,21 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
     // MARK: - Actions
 
     @objc private func addPlaylist() {
-        guard let url = promptForString(title: "Add playlist", message: "Paste a YouTube playlist URL") else { return }
-        YTDLP.fetchPlaylistMetadata(url: url) { [weak self] result in
+        guard let input = promptForString(title: "Add playlist", message: "Paste a YouTube playlist URL") else { return }
+        guard let plId = YouTubeAPI.extractPlaylistId(from: input) else {
+            showError(YouTubeAPI.Error.notFound("playlist id in \(input)"), title: "Invalid URL")
+            return
+        }
+        YouTubeAPI.fetchPlaylist(id: plId) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let meta):
-                    let yid = (URLComponents(string: url)?.queryItems?.first { $0.name == "list" }?.value) ?? url
-                    let pl = Playlist(id: UUID().uuidString, title: meta.title, youtubePlaylistId: yid, currentIndex: 0, items: meta.videos)
+                case .success(let (title, videos)):
+                    let pl = Playlist(id: UUID().uuidString, title: title, youtubePlaylistId: plId, currentIndex: 0, items: videos)
                     Library.shared.addPlaylist(pl)
                     self?.playlistTable.reloadData()
-                    NotificationCenter.default.post(name: .selectPlaylist, object: nil, userInfo: ["playlistId": pl.id])
+                    NotificationCenter.default.post(name: Library.selectPlaylist, object: nil, userInfo: ["playlistId": pl.id])
                 case .failure(let e):
-                    self?.showError(e, title: "yt-dlp failed")
+                    self?.showError(e, title: "Could not load playlist")
                 }
             }
         }
@@ -207,15 +159,14 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         let row = playlistTable.selectedRow
         guard row >= 0, row < Library.shared.data.playlists.count else { return }
         let pl = Library.shared.data.playlists[row]
-        let url = pl.youtubePlaylistId.contains("://") ? pl.youtubePlaylistId : "https://www.youtube.com/playlist?list=\(pl.youtubePlaylistId)"
-        YTDLP.fetchPlaylistMetadata(url: url) { [weak self] result in
+        YouTubeAPI.fetchPlaylist(id: pl.youtubePlaylistId) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let meta):
+                case .success(let (title, videos)):
                     var updated = pl
                     let oldResume = Dictionary(uniqueKeysWithValues: pl.items.map { ($0.videoId, $0.resumeSeconds) })
-                    updated.title = meta.title
-                    updated.items = meta.videos.map {
+                    updated.title = title
+                    updated.items = videos.map {
                         var v = $0
                         v.resumeSeconds = oldResume[$0.videoId] ?? 0
                         return v
@@ -223,7 +174,7 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
                     Library.shared.updatePlaylist(updated)
                     self?.playlistTable.reloadData()
                 case .failure(let e):
-                    self?.showError(e, title: "yt-dlp failed")
+                    self?.showError(e, title: "Could not refresh playlist")
                 }
             }
         }
@@ -238,14 +189,18 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
 
     @objc private func addVideo() {
         guard let input = promptForString(title: "Add video", message: "Paste a YouTube video URL") else { return }
-        YTDLP.fetchVideoMetadata(url: input) { [weak self] result in
+        guard let vid = YouTubeAPI.extractVideoId(from: input) else {
+            showError(YouTubeAPI.Error.notFound("video id in \(input)"), title: "Invalid URL")
+            return
+        }
+        YouTubeAPI.fetchVideo(id: vid) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let v):
                     Library.shared.addStandaloneVideo(v)
                     self?.videoTable.reloadData()
                 case .failure(let e):
-                    self?.showError(e, title: "yt-dlp failed")
+                    self?.showError(e, title: "Could not load video")
                 }
             }
         }
@@ -264,34 +219,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         PasswordGate.setPassword(pw)
         newPasswordField.stringValue = ""
         let a = NSAlert(); a.messageText = "Password updated."; a.runModal()
-    }
-
-    @objc private func reloadCacheAction() { reloadCache() }
-
-    @objc private func deleteSelectedCache() {
-        let rows = cacheTable.selectedRowIndexes
-        let toDelete = rows.compactMap { $0 < cacheEntries.count ? cacheEntries[$0] : nil }
-        guard !toDelete.isEmpty else { return }
-        VideoCache.delete(toDelete)
-        reloadCache()
-    }
-
-    @objc private func deleteAllCache() {
-        let alert = NSAlert()
-        alert.messageText = "Delete all cached videos?"
-        alert.informativeText = "This frees \(VideoCache.formatBytes(VideoCache.totalBytes())) of disk."
-        alert.addButton(withTitle: "Delete")
-        alert.addButton(withTitle: "Cancel")
-        if alert.runModal() == .alertFirstButtonReturn {
-            VideoCache.deleteAll()
-            reloadCache()
-        }
-    }
-
-    private func reloadCache() {
-        cacheEntries = VideoCache.list()
-        cacheTotalLabel.stringValue = "\(cacheEntries.count) videos · \(VideoCache.formatBytes(VideoCache.totalBytes())) total"
-        cacheTable.reloadData()
     }
 
     // MARK: - Helpers
@@ -321,7 +248,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
         switch tableView.identifier?.rawValue {
         case "playlists": return Library.shared.data.playlists.count
         case "videos": return Library.shared.data.standaloneVideos.count
-        case "cache": return cacheEntries.count
         default: return 0
         }
     }
@@ -337,15 +263,6 @@ final class SettingsWindowController: NSWindowController, NSTableViewDataSource,
             cell.stringValue = colId == "count" ? "\(pl.items.count)" : pl.title
         case "videos":
             cell.stringValue = Library.shared.data.standaloneVideos[row].title
-        case "cache":
-            let e = cacheEntries[row]
-            switch colId {
-            case "size": cell.stringValue = VideoCache.formatBytes(e.bytes)
-            case "date":
-                let f = DateFormatter(); f.dateStyle = .short; f.timeStyle = .short
-                cell.stringValue = f.string(from: e.modified)
-            default: cell.stringValue = e.title
-            }
         default: break
         }
         return cell

@@ -11,12 +11,6 @@ if [ "$NOTARIZE" = "1" ]; then SIGN=1; fi
 DEVELOPER_ID="Developer ID Application: ELI FINER (A59G53TN44)"
 NOTARY_PROFILE="YOULEARN_NOTARY"
 
-# Bundle Python.org's universal2 framework + yt-dlp into vendor/Python.framework.
-# The framework's binaries hardcode /Library/Frameworks/Python.framework as load
-# paths. Rather than rewriting them with install_name_tool (which trips macOS
-# 15's stricter codesign verification and crashes the binary at launch), we
-# leave the framework untouched and set DYLD_FRAMEWORK_PATH + DYLD_LIBRARY_PATH
-# at runtime when invoking python — see YTDLP.swift.
 swift build -c release --arch arm64 --arch x86_64
 
 BIN=$(swift build -c release --arch arm64 --arch x86_64 --show-bin-path)
