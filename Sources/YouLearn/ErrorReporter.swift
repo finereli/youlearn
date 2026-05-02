@@ -16,15 +16,6 @@ enum ErrorReporter {
         if let api = error as? YouTubeAPI.Error {
             return api.description
         }
-        if let yt = error as? YTDLP.Error {
-            switch yt {
-            case .binaryMissing: return "yt-dlp binary not found."
-            case .nonZeroExit(let code, let stderr):
-                return "yt-dlp exited with code \(code).\n\n\(stderr)"
-            case .badJSON: return "Could not parse yt-dlp JSON output."
-            case .missingFile: return "yt-dlp finished but no output file was found."
-            }
-        }
         return String(describing: error)
     }
 

@@ -8,15 +8,14 @@ final class MainWindowController: NSWindowController {
             backing: .buffered, defer: false)
         window.title = "YouLearn"
         window.center()
-        window.setFrameAutosaveName("YouLearnMain")
         self.init(window: window)
 
         let split = NSSplitViewController()
         split.splitView.dividerStyle = .thin
 
         let sidebar = SidebarViewController()
-        let player = PlayerViewController()
-        sidebar.onSelectVideo = { [weak player] context in player?.play(context: context) }
+        let player = BrowserPlayerViewController()
+        sidebar.onSelectVideo = { [weak player] ctx in player?.play(context: ctx) }
 
         let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebar)
         sidebarItem.minimumThickness = 240
@@ -28,5 +27,8 @@ final class MainWindowController: NSWindowController {
         split.addSplitViewItem(playerItem)
 
         window.contentViewController = split
+        // Autosave name set last — `contentViewController =` resizes the window
+        // to fit the content view, which would otherwise overwrite the saved frame.
+        window.setFrameAutosaveName("YouLearnMain")
     }
 }

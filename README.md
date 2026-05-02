@@ -1,6 +1,6 @@
 # YouLearn
 
-A small native macOS app for watching YouTube playlists as study material — with per-video resume, a local cache, and a password gate to keep the dock icon honest.
+A small native macOS app for watching YouTube playlists as study material — with per-video resume, a chrome-free embedded player, and a password gate to keep the dock icon honest.
 
 <p align="center">
   <img src="logos/export/logo-512.png" width="180" alt="YouLearn icon">
@@ -8,10 +8,9 @@ A small native macOS app for watching YouTube playlists as study material — wi
 
 ## Features
 
-- Sidebar of playlists and standalone videos, fetched via `yt-dlp`
-- Per-video resume (picks up where you left off, per playlist or per video)
-- Local video cache, or stream-on-demand mode
-- Settings window for managing playlists, single videos, cache, password, and streaming preference
+- Sidebar of playlists and standalone videos, fetched via the YouTube Data API
+- Embedded YouTube player (`WKWebView`) with masthead, comments, recommendations, and end-screens hidden
+- Per-video resume + auto-advance to the next video in a playlist
 - Password gate on launch and on entering Settings
 
 ## Download
@@ -26,14 +25,12 @@ xattr -dr com.apple.quarantine /Applications/YouLearn.app
 
 ## Requirements
 
-**To run:**
-
-- macOS 11+ (universal binary, runs on Intel and Apple Silicon)
-- Python 3.9+ available as `python3` in `/usr/local/bin`, `/opt/homebrew/bin`, or on `PATH` (yt-dlp is bundled as a Python zipapp)
+**To run:** macOS 11+ (universal binary, runs on Intel and Apple Silicon).
 
 **To build:**
 
 - Swift toolchain (`swift --version`)
+- A `YOUTUBE_API_KEY` in `.env` (Data API v3 key from Google Cloud)
 - `librsvg` (only for regenerating the app icon — `brew install librsvg`)
 
 ## Build & run
@@ -45,15 +42,14 @@ NOTARIZE=1 ./build.sh     # signed + notarized + stapled (no Gatekeeper warning)
 open YouLearn.app
 ```
 
-`build.sh` downloads the yt-dlp Python zipapp into `vendor/` on first run, builds with SwiftPM in release mode as a universal binary, and assembles `YouLearn.app`. `SIGN=1` and `NOTARIZE=1` use the Developer ID configured at the top of the script and the `YOULEARN_NOTARY` keychain profile (set up via `xcrun notarytool store-credentials`).
+`build.sh` builds with SwiftPM as a universal binary, copies the API key from `.env` into the bundle, and ad-hoc-codesigns. The whole app is the binary plus a few resource files (no bundled Python, ffmpeg, or yt-dlp). `SIGN=1` and `NOTARIZE=1` use the Developer ID configured at the top of the script and the `YOULEARN_NOTARY` keychain profile (set up via `xcrun notarytool store-credentials`).
 
 ## Project layout
 
 ```
 Sources/YouLearn/   Swift sources (AppKit, no storyboards)
-Resources/          Info.plist, AppIcon.icns
+Resources/          Info.plist, AppIcon.icns, entitlements
 logos/              Logo SVGs and exported PNGs
-vendor/             yt-dlp binary (gitignored)
 build.sh            Build + bundle script
 ```
 

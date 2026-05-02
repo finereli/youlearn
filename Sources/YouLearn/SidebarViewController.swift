@@ -63,8 +63,8 @@ final class SidebarViewController: NSViewController {
         super.viewDidLoad()
         rebuildPopUp()
         NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged), name: Library.didChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(cacheChanged), name: .videoCacheDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(selectPlaylist(_:)), name: .selectPlaylist, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(selectPlaylist(_:)), name: Library.selectPlaylist, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentIndexChanged(_:)), name: Library.currentIndexDidChange, object: nil)
     }
 
     @objc private func selectPlaylist(_ note: Notification) {
@@ -77,17 +77,22 @@ final class SidebarViewController: NSViewController {
         }
     }
 
+    @objc private func currentIndexChanged(_ note: Notification) {
+        guard let plId = note.userInfo?["playlistId"] as? String,
+              let idx = note.userInfo?["index"] as? Int,
+              plId == currentPlaylistId,
+              idx >= 0, idx < currentItems.count else { return }
+        let ip = IndexPath(item: idx, section: 0)
+        collection.selectItems(at: [ip], scrollPosition: .nearestHorizontalEdge)
+    }
+
     @objc private func libraryChanged() {
         rebuildPopUp()
         loadCurrentSource()
     }
 
-    @objc private func cacheChanged() {
-        collection.reloadData()
-    }
-
     private func rebuildPopUp() {
-        let prevTitle = popUp.titleOfSelectedItem
+        let prevKey = (popUp.selectedItem?.representedObject as? String) ?? Library.shared.data.lastSelectedSource
         popUp.removeAllItems()
         for p in Library.shared.data.playlists {
             popUp.addItem(withTitle: p.title.isEmpty ? "Playlist" : p.title)
@@ -97,8 +102,8 @@ final class SidebarViewController: NSViewController {
         popUp.addItem(withTitle: "Single videos")
         popUp.lastItem?.representedObject = "__standalone__"
 
-        if let prev = prevTitle, popUp.itemTitles.contains(prev) {
-            popUp.selectItem(withTitle: prev)
+        if let key = prevKey, let idx = popUp.itemArray.firstIndex(where: { ($0.representedObject as? String) == key }) {
+            popUp.selectItem(at: idx)
         } else {
             popUp.selectItem(at: 0)
         }
@@ -121,6 +126,7 @@ final class SidebarViewController: NSViewController {
             currentPlaylistId = nil
             currentItems = []
         }
+        if let key { Library.shared.setLastSelectedSource(key) }
         collection.reloadData()
     }
 }
@@ -132,9 +138,7 @@ extension SidebarViewController: NSCollectionViewDataSource, NSCollectionViewDel
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: VideoThumbItem.identifier, for: indexPath) as! VideoThumbItem
-        let v = currentItems[indexPath.item]
-        let dim = !VideoCache.isCached(videoId: v.videoId)
-        item.configure(with: v, dim: dim)
+        item.configure(with: currentItems[indexPath.item])
         return item
     }
 
@@ -230,11 +234,10 @@ final class VideoThumbItem: NSCollectionViewItem {
     override func mouseEntered(with event: NSEvent) { NSCursor.pointingHand.set() }
     override func mouseExited(with event: NSEvent) { NSCursor.arrow.set() }
 
-    func configure(with video: Video, dim: Bool = false) {
+    func configure(with video: Video) {
         videoId = video.videoId
         duration = video.duration
         titleLabel.stringValue = video.title
-        view.alphaValue = dim ? 0.45 : 1.0
         applyWatched(seconds: video.resumeSeconds)
         thumb.image = nil
         guard let urlStr = video.thumbnailURL, let url = URL(string: urlStr) else { return }
