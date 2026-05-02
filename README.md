@@ -15,13 +15,7 @@ A small native macOS app for watching YouTube playlists as study material — wi
 
 ## Download
 
-Grab the latest `.app` from the [Releases page](https://github.com/finereli/youlearn/releases/latest).
-
-Releases are signed with a Developer ID but not notarized, so Gatekeeper will warn on first launch. Right-click → Open the first time, or run once:
-
-```sh
-xattr -dr com.apple.quarantine /Applications/YouLearn.app
-```
+Grab the latest `.app` from the [Releases page](https://github.com/finereli/youlearn/releases/latest). Releases are Developer ID–signed and notarized — drag to `/Applications` and open.
 
 ## Requirements
 
