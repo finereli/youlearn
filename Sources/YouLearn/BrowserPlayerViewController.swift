@@ -18,6 +18,16 @@ final class BrowserPlayerViewController: NSViewController, WKScriptMessageHandle
 
         let config = WKWebViewConfiguration()
         config.mediaTypesRequiringUserActionForPlayback = []
+        // Let YouTube's fullscreen button work: enable the HTML5 element-fullscreen
+        // API so WebKit presents (and tears down) its own native fullscreen window.
+        // WebKit then handles ESC and the in-player un-fullscreen button — which
+        // calls document.exitFullscreen() — for free. The public preference is
+        // macOS 12.3+; fall back to the long-standing private SPI key on 11–12.2.
+        if #available(macOS 12.3, *) {
+            config.preferences.isElementFullscreenEnabled = true
+        } else {
+            config.preferences.setValue(true, forKey: "fullScreenEnabled")
+        }
         let ucc = WKUserContentController()
         ucc.add(self, name: "ylevent")
         ucc.addUserScript(WKUserScript(source: cssInjector, injectionTime: .atDocumentStart, forMainFrameOnly: true))
