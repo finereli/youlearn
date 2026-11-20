@@ -1,0 +1,96 @@
+/* pwa-kit: settings/css/settings.css v2 */
+/* Shared by every settings page. Global on purpose, scoped under .settings so
+   it can't leak into other views. The .rows block is the multi-pane index;
+   the rest serves flat and sub-pages alike. */
+.settings {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 20px 24px calc(40px + var(--safe-bottom));
+}
+@media (max-width: 480px) {
+  .settings { padding: 16px 16px calc(32px + var(--safe-bottom)); }
+}
+.settings h2 { margin: 0 0 20px; font-size: 1.2rem; color: var(--text-primary); }
+.settings section { margin-bottom: 28px; }
+.settings h3 { margin: 0 0 4px; font-size: 0.95rem; color: var(--text-primary); }
+.settings .hint { margin: 0 0 12px; font-size: 0.82rem; line-height: 1.45; color: var(--text-secondary); }
+.settings .hint.warn { color: var(--danger); }
+.settings .error {
+  margin: 0 0 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--bg-message, var(--bg-hover));
+  color: var(--danger);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.settings .field {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-input, var(--bg-raised));
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.settings .field:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.settings .confirm-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.settings .apply-btn {
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--accent-deep);
+  color: #fff;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: inline-block;
+}
+.settings .apply-btn:hover:not(:disabled) { background: var(--accent); }
+.settings .apply-btn:disabled { opacity: 0.45; }
+.settings .danger-btn, .settings .quiet-btn {
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+.settings .danger-btn:hover { background: #ef444422; }
+.settings .danger-btn.solid { background: var(--danger); color: #fff; }
+.settings .danger-btn:disabled, .settings .quiet-btn:disabled { opacity: 0.6; }
+.settings .quiet-btn { border-color: var(--text-secondary); color: var(--text-secondary); }
+.settings .quiet-btn:hover { background: var(--bg-hover); }
+.settings .quiet-btn.neutral { border-color: var(--border); color: var(--text-primary); }
+
+/* A list of tappable rows, phone-settings style. */
+.settings .rows {
+  list-style: none;
+  margin: 0 -14px;
+  padding: 0;
+}
+.settings .rows li + li { border-top: 1px solid var(--border); }
+.settings .rows a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.settings .rows a:hover { background: var(--bg-hover); border-radius: 10px; }
+.settings .rows .row-text { flex: 1; min-width: 0; }
+.settings .rows .row-title { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+.settings .rows .row-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.settings .chev { flex: none; color: var(--text-secondary); }
+
+.settings .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--text-secondary); }
+.settings .dot.ok { background: var(--ok); }
+.settings .dot.warn { background: #f59e0b; }
+.settings .dot.error { background: var(--danger); }

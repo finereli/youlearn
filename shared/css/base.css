@@ -1,4 +1,4 @@
-/* pwa-kit: shell/css/base.css v11 */
+/* pwa-kit: shell/css/base.css v15 */
 /* App-wide tokens, reset and shell rules. Import first from main.ts.
    Seams: the token VALUES in :root (and .dark, if the app has dark mode) -
    everything in shared/ui references only these names, so re-skinning an

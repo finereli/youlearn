@@ -1,30 +1,28 @@
 <script lang="ts">
-  // Three screens for the child: all shows, one show, the player; and the
-  // parent's console. The route lives in the hash so the back button and a
-  // home-screen relaunch both work:
+  // Three screens for the child: all shows, one show, the player. The route
+  // lives in the hash so the back button and a home-screen relaunch both work:
   //   #/              shows
   //   #/show/<id>     a show's seasons and episodes
   //   #/watch/<id>    an episode, over its show's page
-  //   #/parent        the parent's remote (sign-in, timer, devices)
   //
-  // A device that isn't paired to a child shows the pairing screen instead of
-  // the shows, or the console when a parent is signed in on it. A paired
-  // device is locked until a parent gives it time.
+  // One address for everyone. A device paired to a child is that child's: the
+  // shows, locked until a parent gives it time. Any other device shows the
+  // welcome screen (a parent signs in, or a child's device takes a code), and
+  // with a parent signed in, the parent's console (ParentApp, its own routes).
   import Shows from './components/Shows.svelte'
   import ShowPage from './components/ShowPage.svelte'
   import Player from './components/Player.svelte'
-  import Pair from './components/Pair.svelte'
-  import Parent from './components/Parent.svelte'
+  import Welcome from './components/Welcome.svelte'
+  import ParentApp from './components/ParentApp.svelte'
   import Locked from './components/Locked.svelte'
   import Countdown from './components/Countdown.svelte'
   import { find, findShow } from './lib/library.svelte'
   import { device } from './lib/remote.svelte'
   import { account } from './lib/account.svelte'
 
-  type Route = { view: 'shows' } | { view: 'show'; show: string } | { view: 'watch'; video: string; show: string } | { view: 'parent' }
+  type Route = { view: 'shows' } | { view: 'show'; show: string } | { view: 'watch'; video: string; show: string }
 
   function parse(): Route {
-    if (location.hash === '#/parent') return { view: 'parent' }
     let m = location.hash.match(/^#\/watch\/([\w-]{11})$/)
     const hit = m && find(m[1])
     if (hit) return { view: 'watch', video: hit.video.id, show: hit.show.id }
@@ -59,13 +57,11 @@
   }
 </script>
 
-{#if route.view === 'parent'}
-  <Parent onback={() => up('#/')} />
-{:else if !device.paired}
+{#if !device.paired}
   {#if account.user}
-    <Parent />
+    <ParentApp />
   {:else}
-    <Pair />
+    <Welcome />
   {/if}
 {:else}
   {#if show}

@@ -32,12 +32,16 @@ iPhone has none for this, so the button hides there.
 
 ## Watch time and the parent's console
 
-The child's device never signs in to anything. On the parent's phone,
-`#/parent` signs in with finereli login, and "Add a device" shows a six-digit
-code that works once for ten minutes.
+One address for everyone. A device that isn't set up shows the welcome
+screen (`Welcome.svelte`, the kit's Login gate): a parent signs in with
+finereli login and lands in the console, or a child's device types a code.
+The console (`ParentApp.svelte`) is the kit shell: TopBar, Drawer with
+AccountMenu, SettingsPage pages for the child's remote, Devices and Parents
+(`src/components/parent/`). The child's device never signs in to anything:
+Devices → "Get a code" shows a six-digit code that works once for ten minutes.
 The device trades it for its own random token (`POST /api/pair`), which only
 means "this device belongs to this child". Removing the device in the console
-sends it back to the pairing screen.
+sends it back to the welcome screen.
 
 The timer is a deadline on the server's clock. One Durable Object per family
 (`worker/family.ts`) holds each child's `until` and what she's watching; the

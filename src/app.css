@@ -5,7 +5,9 @@
 :root {
   color-scheme: dark;
   --accent: #e5b84b;
-  --accent-deep: #c99a2e;
+  /* The kit's top bar, login backdrop and solid buttons: a deep teal, so
+     cream text reads on it. */
+  --accent-deep: #0a2422;
   --accent-light: #f0d184;
   --accent-text: #e5b84b;
   --accent-soft: #2a3f3a;
@@ -17,6 +19,9 @@
   --text-primary: #f4e9d0;
   --text-secondary: #a9c2bb;
   --border: #24504c;
+  --ok: #6fcf97;
+  --danger: #e8725c;
+  --danger-deep: #c9563f;
 
   --font-body: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
