@@ -2,7 +2,7 @@
   // The home page: one big card per show, and "keep watching" on top.
   import Icon from './Icon.svelte'
   import ResetButton from '$shared/ui/ResetButton.svelte'
-  import { find, progress, shows, thumb } from '../lib/library.svelte'
+  import { find, library, progress, thumb, type Show } from '../lib/library.svelte'
 
   let { onshow, onplay }: { onshow: (id: string) => void; onplay: (id: string) => void } = $props()
 
@@ -12,10 +12,10 @@
     const hit = find(id)
     const p = progress.get(id)
     if (!hit || !p || p.done || p.t < 10) return null
-    return { ...hit, pct: (100 * p.t) / Math.max(1, hit.video.duration) }
+    return { ...hit, pct: progress.pct(id, hit.video.duration) }
   })
 
-  const count = (s: (typeof shows)[number]) => s.seasons.reduce((n, x) => n + x.videos.length, 0)
+  const count = (s: Show) => s.seasons.reduce((n, x) => n + x.videos.length, 0)
 </script>
 
 <div class="page">
@@ -40,12 +40,12 @@
   {/if}
 
   <ul class="shows">
-    {#each shows as s (s.id)}
+    {#each library.shows as s (s.id)}
       <li>
         <button class="show" onclick={() => onshow(s.id)}>
           <img src={s.art} alt="" />
           <span class="name">{s.title}</span>
-          <span class="sub">{s.seasons.length === 1 ? '1 season' : `${s.seasons.length} seasons`} · {count(s)} episodes</span>
+          <span class="sub">{s.id === 'extras' ? (count(s) === 1 ? '1 video' : `${count(s)} videos`) : `${s.seasons.length === 1 ? '1 season' : `${s.seasons.length} seasons`} · ${count(s)} episodes`}</span>
         </button>
       </li>
     {/each}

@@ -1,4 +1,5 @@
 // What travels over the family socket, shared by the Worker and the app.
+import type { Library } from './library'
 //
 // Time is the server's: every state message carries `now` (server ms), and a
 // client keeps the offset to its own clock, so a wrong clock on the iPad
@@ -51,6 +52,7 @@ export type ServerMsg =
   | { type: 'child'; now: number; id: string; name: string; until: number | null }
   | { type: 'code'; child: string; code: string; exp: number }
   | { type: 'error'; message: string }
+  | { type: 'library'; library: Library } // on connect, and after every change
 
 // Stop this far before an episode's end (the player's end guard), plus a
 // little slack, when a parent lets her finish the episode.

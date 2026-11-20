@@ -5,6 +5,9 @@
   // else. Three pages:
   //   #/          the child's remote: time left, add time, wrap up, lock
   //   #/devices   devices paired to the child, and a code to add one
+  //   #/library   the shows and videos the child can watch
+  //   #/devices   (above)
+  //   #/agents    AI assistants that manage the library over MCP
   //   #/parents   who else can run the remote; the owner invites and removes
   import TopBar from '$shared/ui/TopBar.svelte'
   import Drawer from '$shared/ui/Drawer.svelte'
@@ -14,11 +17,15 @@
   import Remote from './parent/Remote.svelte'
   import Devices from './parent/Devices.svelte'
   import Parents from './parent/Parents.svelte'
+  import Library from './parent/Library.svelte'
+  import Agents from './parent/Agents.svelte'
   import { account, login } from '../lib/account.svelte'
   import { family } from '../lib/remote.svelte'
 
-  type View = 'remote' | 'devices' | 'parents'
-  const parse = (): View => (location.hash === '#/devices' ? 'devices' : location.hash === '#/parents' ? 'parents' : 'remote')
+  type View = 'remote' | 'library' | 'devices' | 'agents' | 'parents'
+  const VIEWS: View[] = ['library', 'devices', 'agents', 'parents']
+  const parse = (): View => VIEWS.find((v) => location.hash === `#/${v}`) ?? 'remote'
+  const TITLES: Record<View, string> = { remote: '', library: 'Library', devices: 'Devices', agents: 'Agents', parents: 'Parents' }
   let view = $state<View>(parse())
   let menuOpen = $state(false)
 
@@ -39,10 +46,12 @@
   const child = $derived(family.children[0] ?? null)
   const entries = $derived([
     { label: child?.name ?? 'Watch time', hash: '/', current: view === 'remote' },
+    { label: 'Library', hash: '/library', current: view === 'library' },
     { label: 'Devices', hash: '/devices', current: view === 'devices' },
+    { label: 'Agents', hash: '/agents', current: view === 'agents' },
     { label: 'Parents', hash: '/parents', current: view === 'parents' },
   ])
-  const title = $derived(view === 'devices' ? 'Devices' : view === 'parents' ? 'Parents' : (child?.name ?? 'YouLearn'))
+  const title = $derived(TITLES[view] || (child?.name ?? 'YouLearn'))
   const ready = $derived(family.allowed === true && family.loaded)
 
   function signOut() {
@@ -75,6 +84,10 @@
       </SettingsPage>
     {:else if !ready}
       <div class="loading"><div class="spinner"></div></div>
+    {:else if view === 'library'}
+      <Library {child} />
+    {:else if view === 'agents'}
+      <Agents />
     {:else if view === 'devices'}
       <Devices {child} />
     {:else if view === 'parents'}

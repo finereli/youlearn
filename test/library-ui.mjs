@@ -1,0 +1,64 @@
+// The library from the console to the iPad, in two browsers, against
+// wrangler dev + test/fake-login.mjs. Run after test/e2e.mjs on the same
+// server (it reuses the child it made).
+import { createRequire } from 'node:module'
+const { chromium, devices } = createRequire(import.meta.url)(process.env.PLAYWRIGHT ?? 'playwright')
+
+const BASE = 'http://localhost:8787'
+const shots = process.argv[2] || '.'
+const log = (...a) => console.log('✓', ...a)
+const assert = (c, m) => { if (!c) throw new Error('FAILED: ' + m); log(m) }
+const btn = (page, name) => page.getByRole('button', { name, exact: true })
+
+const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || undefined })
+const pctx = await browser.newContext({ ...devices['iPhone 13'] })
+const tok = await (await fetch(`http://localhost:8790/mint?email=parent@example.com&aud=${BASE}`)).json()
+await pctx.addInitScript((s) => localStorage.setItem('yl:login', s), JSON.stringify(tok))
+const P = await pctx.newPage()
+await P.goto(`${BASE}/#/devices`)
+await btn(P, 'Get a code').click()
+const code = (await P.locator('.code').innerText()).replace(/\D/g, '')
+
+const K = await (await browser.newContext({ ...devices['iPad Pro 11 landscape'] })).newPage()
+K.on('pageerror', (e) => console.log('PAGEERROR', e.message)); K.on('console', (m) => m.type() === 'error' && console.log('CONSOLE', m.text()))
+await K.goto(BASE)
+await K.getByLabel(/Setting up a child's device/).fill(code)
+await btn(K, 'Done').click()
+await P.goto(`${BASE}/#/`)
+await P.getByRole('button', { name: /^\+?30 min$/ }).click()
+await K.getByText('Time for a break').waitFor({ state: 'detached', timeout: 3000 })
+assert((await K.locator('.show .name').allInnerTexts()).length === 4, 'the iPad shows the four catalog shows')
+
+await P.goto(`${BASE}/#/library`)
+await P.getByText("Yara's shows").waitFor()
+const row = P.locator('li', { hasText: 'Nature Cat' })
+await row.getByRole('button', { name: 'Remove' }).click()
+await row.getByRole('button', { name: 'Remove?' }).click()
+await K.locator('.show .name', { hasText: 'Nature Cat' }).waitFor({ state: 'detached', timeout: 3000 })
+log('removing a show takes it off the iPad at once')
+await P.locator('li', { hasText: 'Nature Cat' }).getByRole('button', { name: 'Add' }).waitFor()
+log('…and offers it under "Add a show"')
+
+await P.getByPlaceholder('https://youtu.be/...').fill('https://youtu.be/aaaaaaaaaaa')
+await P.locator('form').getByRole('button', { name: 'Add' }).click()
+await P.locator('.error').waitFor()
+log(`a bad link is refused: "${await P.locator('.error').innerText()}"`)
+await P.getByPlaceholder('https://youtu.be/...').fill('https://www.youtube.com/watch?v=RHhi8Lnb8Pc')
+await P.locator('form').getByRole('button', { name: 'Add' }).click()
+await K.locator('.show .name', { hasText: 'More videos' }).waitFor({ timeout: 5000 })
+log('a pasted video shows up on the iPad under "More videos"')
+await P.screenshot({ path: `${shots}/parent-library.png`, fullPage: true })
+await K.screenshot({ path: `${shots}/ipad-home.png` })
+
+await K.locator('.show', { hasText: 'More videos' }).click()
+await K.locator('.card').first().click()
+await K.waitForFunction(() => location.hash === '#/watch/RHhi8Lnb8Pc')
+await K.locator('iframe').waitFor({ timeout: 8000 })
+log('it opens in the player')
+
+await K.reload()
+await K.locator('iframe').waitFor({ timeout: 8000 })
+log('after a relaunch the cached library still knows it')
+
+await browser.close()
+console.log('all done')

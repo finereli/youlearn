@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run check && vite build",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p worker",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "library": "python3 -I scripts/build-shows.py",

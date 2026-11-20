@@ -10,7 +10,7 @@
     "directory": "dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*", "/ws/*"]
+    "run_worker_first": ["/api/*", "/ws/*", "/mcp", "/.well-known/*", "/oauth/*"]
   },
   "durable_objects": {
     "bindings": [
@@ -19,6 +19,8 @@
       { "name": "DIRECTORY", "class_name": "Directory" }
     ]
   },
+  // MCP agents and their tokens (worker/mcp.ts); schema in migrations/.
+  "d1_databases": [{ "binding": "DB", "database_name": "youlearn", "database_id": "e4c44707-a200-4cbd-88bf-d73106f6639b" }],
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Family", "Codes", "Directory"] }],
   "vars": { "SIGNUPS": "closed" },
   "routes": [{ "pattern": "youlearn.finereli.com", "custom_domain": true }]

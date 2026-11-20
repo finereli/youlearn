@@ -24,7 +24,7 @@ The original native macOS app lives in git history (tag `v0.3.1`).
 ```sh
 npm install
 npm run dev
-npm run library     # rebuild src/lib/library.json from content/
+npm run library     # rebuild the catalog (worker/catalog.json) from content/
 ```
 
 ## License

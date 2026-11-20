@@ -10,7 +10,7 @@ const log = (...a) => console.log('✓', ...a)
 const assert = (c, m) => { if (!c) throw new Error('FAILED: ' + m); log(m) }
 const btn = (page, name) => page.getByRole('button', { name, exact: true })
 
-const browser = await chromium.launch()
+const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || undefined })
 const asParent = async (email, device = devices['iPhone 13']) => {
   const ctx = await browser.newContext({ ...device })
   const tok = await (await fetch(`http://localhost:8790/mint?email=${email}&aud=${BASE}`)).json()

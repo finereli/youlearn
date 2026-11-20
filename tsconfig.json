@@ -12,5 +12,5 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "paths": { "$shared/*": ["./shared/*"] }
   },
-  "include": ["src/**/*", "shared/**/*", "worker/protocol.ts", "vite.config.ts"]
+  "include": ["src/**/*", "shared/lib/**/*", "shared/ui/**/*", "shared/build/**/*", "worker/protocol.ts", "vite.config.ts"]
 }

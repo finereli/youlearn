@@ -20,11 +20,7 @@
     localStorage.setItem(key, id)
   }
 
-  function pct(id: string, duration: number) {
-    const p = progress.get(id)
-    if (!p) return 0
-    return p.done ? 100 : (100 * p.t) / Math.max(1, duration)
-  }
+  const pct = (id: string, duration: number) => progress.pct(id, duration)
 </script>
 
 <div class="page">

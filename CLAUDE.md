@@ -70,12 +70,51 @@ Tests run against `wrangler dev` with a stand-in login service:
 `SEED_FAMILY={"owner":"parent@example.com","parents":["second@example.com"]}`,
 then `npm run test:e2e` (two browsers; set PLAYWRIGHT to the global
 playwright path) and `npm run test:timer` (socket level). Start wrangler with
-a fresh `--persist-to` directory: the e2e test expects no children yet.
+a fresh `--persist-to` directory (and `npx wrangler d1 migrations apply
+youlearn --local --persist-to <dir>`): the e2e test expects no children yet.
+Then `node test/library-ui.mjs` on the same server: console to iPad, live.
+Playwright: `PLAYWRIGHT=<path to playwright-core>` and
+`CHROMIUM=/usr/lib/chromium/chromium`.
+
+MCP: run `node test/dev-login.mjs tester@example.com sub-1` (port 8788; it
+prints a parent login token) with `LOGIN_ISSUER="http://localhost:8788"` and
+`tester@example.com` as SEED_FAMILY's owner, then
+`node test/mcp-flow-test.mjs` (the OAuth flow; its last line is an access
+token) and `node test/library.mjs http://localhost:8787 <access> <login>`.
 
 ## The library
 
-Baked into the bundle for now (`src/lib/library.json`), built by
-`npm run library` (`scripts/build-shows.py`) from files in `content/`:
+Each family has its own library, kept in its Durable Object (`worker/family.ts`,
+storage key `library`) and sent over the family socket to every device and
+console on connect and after every change. Devices keep the last one in
+localStorage (`yl:library`) for offline launches; before the first one
+arrives, the catalog stands in. Types and helpers shared by both sides are in
+`worker/library.ts`.
+
+A library is an ordered list of shows plus "More videos" (single videos, shown
+as one more card on her home page). A show is either a catalog id, resolved on
+read so catalog fixes reach every family, or the family's own copy. A family
+that never touched its library gets the whole catalog. Every video added goes
+through `check()`: YouTube's oEmbed must say it exists and can be embedded
+(401 means blocked), 40 per Durable Object call to stay under the free plan's
+50 outbound requests, with good answers cached per family.
+
+Parents change it two ways:
+
+- the console's Library page (`src/components/parent/Library.svelte`): remove
+  a show, add a catalog show, paste a link for "More videos" (`POST /api/library`)
+- their own AI agent over MCP (`worker/mcp.ts`), which can also build whole
+  shows. The agent finds and judges videos with its own search; the server
+  gives it no YouTube tools, only the library and the check. The rules for
+  agents live in the `guide` tool. OAuth is the pwa kit's `mcp` item
+  (`shared/functions/`), with tokens in D1 (`migrations/`); an agent acts as
+  the parent's email and stops working when they leave the family. The
+  console's Agents page lists and disconnects them.
+
+### The catalog
+
+The shows we built by hand, `worker/catalog.json`, built by `npm run library`
+(`scripts/build-shows.py`) from files in `content/`:
 
 - `raw/<channel>.jsonl`: every upload of a channel, from
   `scripts/fetch-channel.py <@handle>` (scrapes the public page and follows
@@ -90,7 +129,6 @@ episode and its title matches a Wikipedia episode; compilations, "best of",
 shorts and promos are filtered out, and each episode appears once. Each show
 has its own rules in `build-shows.py` (Zoboomafoo uses the episode number in
 its titles; Nature Cat comes from Scholastic's half-episodes plus PBS KIDS).
-Check new episodes are embeddable with YouTube's oEmbed (401 means blocked).
 
 Show art lives in `public/shows/<id>.jpg`, 1200x600, cropped from the
 official channels' banners (Nature Cat from a PBS KIDS clip thumbnail).
@@ -101,7 +139,8 @@ minisodes and compilations; the full episodes on YouTube are pirated uploads.
 ## Build and deploy
 
 ```sh
-npm run build                                   # svelte-check + vite build
+npm run build                                   # svelte-check, tsc on worker/, vite build
+secret-env cloudflare -- npx wrangler d1 migrations apply youlearn --remote   # after adding a migration
 secret-env cloudflare -- npx wrangler deploy    # to youlearn.finereli.com
 ```
 

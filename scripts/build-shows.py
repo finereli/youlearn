@@ -5,7 +5,7 @@ Inputs, all under content/:
   raw/<channel>.jsonl   every upload of a channel (scripts/fetch-channel.py)
   wiki/<show>.wiki      the show's Wikipedia episode list (wikitext)
   <playlist>.json       ready-made season playlists (scripts/fetch-playlist.py)
-Output: src/lib/library.json, the shows the app lists.
+Output: worker/catalog.json, the shows the app lists.
 
 Only single full episodes go in: no compilations, marathons, "best of",
 shorts or promos. A video counts when its length fits one episode and its
@@ -191,4 +191,4 @@ shows = [wildkratts(), octonauts(), zoboomafoo(), naturecat()]
 for s in shows:
     s['art'] = f'/shows/{s["id"]}.jpg'
     print(f"{s['title']}: " + ', '.join(f"{x['title']} ({len(x['videos'])})" for x in s['seasons']))
-(root / 'src/lib/library.json').write_text(json.dumps({'shows': shows}, ensure_ascii=False, indent=1) + '\n')
+(root / 'worker/catalog.json').write_text(json.dumps({'shows': shows}, ensure_ascii=False, indent=1) + '\n')

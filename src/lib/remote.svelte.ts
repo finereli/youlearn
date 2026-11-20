@@ -11,6 +11,8 @@
 import { WsClient, type ConnState } from '$shared/lib/ws-client'
 import { episodeLeft, type ChildState, type ClientMsg, type DeviceInfo, type ServerMsg } from '../../worker/protocol'
 import { login } from './account.svelte'
+import { library } from './library.svelte'
+import type { Library } from '../../worker/library'
 
 const DEVICE_KEY = 'yl:device'
 const DEADLINE_KEY = 'yl:deadline'
@@ -107,6 +109,7 @@ class Device {
 
   #onMessage(m: ServerMsg) {
     if (m.type === 'auth:ok' && this.#last) this.#send(this.#last)
+    else if (m.type === 'library') library.set(m.library)
     else if (m.type === 'auth:fail') this.unpair()
     else if (m.type === 'child') {
       const offset = m.now - Date.now()
@@ -176,6 +179,13 @@ export interface Me {
   family: { id: string; owner: string; parents: string[]; isOwner: boolean } | null
 }
 
+export interface Agent {
+  id: string
+  name: string | null
+  created_at: string
+  last_used: string | null
+}
+
 class Family {
   // null: not checked yet; false: signed in but in no family (or removed).
   allowed = $state<boolean | null>(null)
@@ -184,6 +194,7 @@ class Family {
   conn = $state<ConnState>('disconnected')
   children = $state<ChildState[]>([])
   devices = $state<DeviceInfo[]>([])
+  library = $state<Library | null>(null)
   loaded = $state(false)
   offset = 0 // server clock minus ours
   code = $state<{ child: string; code: string; exp: number; shown: number } | null>(null)
@@ -231,6 +242,32 @@ class Family {
     return this.#api('DELETE', '/api/parents', { email })
   }
 
+  // A change to the library. The new library comes back over the socket;
+  // the answer is just whether it worked.
+  async edit(change: { op: string; id?: string; url?: string; ids?: string[] }): Promise<string | null> {
+    const res = await fetch('/api/library', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${login.token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(change),
+    }).catch(() => null)
+    if (!res) return "Couldn't reach YouLearn."
+    if (res.status === 401) {
+      login.handleUnauthorized()
+      return 'Sign in again.'
+    }
+    if (res.ok) return null
+    return ((await res.json().catch(() => ({}))) as { error?: string }).error ?? 'That didn’t work.'
+  }
+
+  async agents(): Promise<Agent[]> {
+    const res = await fetch('/api/agents', { headers: { Authorization: `Bearer ${login.token}` } }).catch(() => null)
+    return res?.ok ? ((await res.json()) as Agent[]) : []
+  }
+
+  async disconnect(id: string) {
+    await fetch(`/api/agents/${encodeURIComponent(id)}`, { method: 'DELETE', headers: { Authorization: `Bearer ${login.token}` } }).catch(() => null)
+  }
+
   #connect(me: Me) {
     if (!me.family || this.#ws) return
     const family = me.family.id
@@ -251,6 +288,8 @@ class Family {
           // A device just paired with the code on screen: it's used up.
           const code = this.code
           if (code && m.devices.some((d) => d.child === code.child && d.created - this.offset >= code.shown - 1000)) this.code = null
+        } else if (m.type === 'library') {
+          this.library = m.library
         } else if (m.type === 'code') {
           this.code = { child: m.child, code: m.code, exp: m.exp - this.offset, shown: Date.now() }
         } else if (m.type === 'auth:fail') {

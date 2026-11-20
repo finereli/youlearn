@@ -1,27 +1,13 @@
-// The shows, their seasons and episodes, and per-episode progress. The list
-// is baked into the bundle for now (scripts/build-shows.py); the parent console will move it
-// to the server. Progress lives in localStorage on each device.
-import data from './library.json'
+// The shows, their seasons and episodes, and per-episode progress. The
+// library is the family's (worker/library.ts): it arrives over the family
+// socket and is kept here for the next launch, offline included. Before the
+// first one arrives, the catalog stands in. Progress lives in localStorage on
+// each device.
+import { CATALOG, EXTRAS_ID, thumb, type Library, type Season, type Show, type Video } from '../../worker/library'
 
-export interface Video {
-  id: string
-  title: string
-  duration: number
-}
-export interface Season {
-  id: string
-  title: string
-  videos: Video[]
-}
-export interface Show {
-  id: string
-  title: string
-  channel: string
-  art: string
-  seasons: Season[]
-}
+export { thumb, type Season, type Show, type Video }
 
-export const shows: Show[] = data.shows
+const LIB_KEY = 'yl:library'
 
 interface Hit {
   video: Video
@@ -29,31 +15,60 @@ interface Hit {
   season: Season
   index: number
 }
-const byId = new Map<string, Hit>()
-for (const show of shows)
-  for (const season of show.seasons)
-    season.videos.forEach((video, index) => byId.set(video.id, { video, show, season, index }))
+
+function cached(): Library | null {
+  try {
+    return JSON.parse(localStorage.getItem(LIB_KEY) || 'null')
+  } catch {
+    return null
+  }
+}
+
+class LibraryStore {
+  data = $state<Library>(cached() ?? { shows: CATALOG, extras: [] })
+
+  // The shows on the home page, with "More videos" as one more show at the
+  // end when there are any.
+  shows = $derived.by((): Show[] => {
+    const { shows, extras } = this.data
+    if (!extras.length) return shows
+    return [...shows, { id: EXTRAS_ID, title: 'More videos', art: thumb(extras[0].id, 'hq'), seasons: [{ id: 'all', title: 'All', videos: extras }] }]
+  })
+
+  index = $derived.by(() => {
+    const byId = new Map<string, Hit>()
+    for (const show of this.shows)
+      for (const season of show.seasons)
+        season.videos.forEach((video, index) => byId.has(video.id) || byId.set(video.id, { video, show, season, index }))
+    return byId
+  })
+
+  set(lib: Library) {
+    this.data = lib
+    try {
+      localStorage.setItem(LIB_KEY, JSON.stringify(lib))
+    } catch {}
+  }
+}
+
+export const library = new LibraryStore()
 
 export function find(id: string): Hit | null {
-  return byId.get(id) ?? null
+  return library.index.get(id) ?? null
 }
 
 export function findShow(id: string): Show | null {
-  return shows.find((s) => s.id === id) ?? null
+  return library.shows.find((s) => s.id === id) ?? null
 }
 
 // The next episode in the same show: on through the season, then the first
-// episode of the next season. Never into another show.
+// episode of the next season. Never into another show, and nothing after a
+// single video.
 export function nextAfter(id: string): Video | null {
-  const hit = byId.get(id)
-  if (!hit) return null
+  const hit = find(id)
+  if (!hit || hit.show.id === EXTRAS_ID) return null
   const i = hit.show.seasons.indexOf(hit.season)
   return hit.season.videos[hit.index + 1] ?? hit.show.seasons[i + 1]?.videos[0] ?? null
-}
-
-export function thumb(id: string, size: 'mq' | 'hq' | 'maxres' = 'mq') {
-  // mqdefault is 16:9 with no letterbox bars; hq/maxres for the big poster.
-  return `https://i.ytimg.com/vi/${id}/${size === 'maxres' ? 'maxresdefault' : size + 'default'}.jpg`
 }
 
 // --- progress ---------------------------------------------------------------
@@ -64,6 +79,7 @@ const LAST = 'yl:last'
 export interface Progress {
   t: number // seconds watched
   done?: boolean
+  d?: number // the episode's length, as the player found it
 }
 
 function readAll(): Record<string, Progress> {
@@ -82,6 +98,14 @@ class ProgressStore {
     return this.all[id]
   }
 
+  // How far in, 0-100. Videos a parent added may not know their length
+  // until the player has seen them.
+  pct(id: string, duration: number): number {
+    const p = this.all[id]
+    if (!p) return 0
+    return p.done ? 100 : (100 * p.t) / Math.max(1, duration || p.d || 0)
+  }
+
   // Where to start: the saved spot, unless it's in the first 10s (start
   // over) or the episode was finished.
   startAt(id: string): number {
@@ -94,7 +118,7 @@ class ProgressStore {
     if (!isFinite(t) || t < 1) return
     // The last 30 seconds are credits: count it as watched.
     const done = duration > 0 && t >= duration - 30
-    this.all[id] = done ? { t: 0, done: true } : { t, done: this.all[id]?.done }
+    this.all[id] = done ? { t: 0, done: true } : { t, done: this.all[id]?.done, d: duration || undefined }
     this.last = id
     this.#persist()
   }

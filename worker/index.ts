@@ -14,6 +14,9 @@
 // the parent's phone changes the state there and reaches the iPad at once.
 import { directory, familyStub, signedIn, type Env } from './auth'
 import type { FamilyInfo } from './directory'
+import { mcpAuth, mcpEndpoint } from './mcp'
+import { videoId } from './library'
+import { checkVideos } from './videos'
 export { Family } from './family'
 export { Codes } from './codes'
 export { Directory } from './directory'
@@ -26,6 +29,11 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
 
+    // Agents: OAuth discovery and approval, then the MCP endpoint (mcp.ts).
+    const oauth = await mcpAuth(env).route(request, env.DB, url)
+    if (oauth) return oauth
+    if (url.pathname === '/mcp') return mcpEndpoint(env)(request, env.DB)
+
     // The socket: /ws/<family>. Auth is the first message, handled inside the
     // Durable Object, so the token never sits in a URL.
     const ws = url.pathname.match(/^\/ws\/([\w-]+)$/)
@@ -36,7 +44,7 @@ export default {
     }
 
     // The parent's side: who am I, which family, start one, manage parents.
-    if (url.pathname === '/api/me' || url.pathname === '/api/family' || url.pathname === '/api/parents') {
+    if (['/api/me', '/api/family', '/api/parents', '/api/library'].includes(url.pathname) || url.pathname.startsWith('/api/agents')) {
       const user = await signedIn(request.headers.get('Authorization')?.replace(/^Bearer /, ''), env)
       if (!user) return json({ error: 'Sign in again' }, 401)
       const dir = directory(env)
@@ -61,6 +69,37 @@ export default {
         // A removed parent loses their open console at once.
         if (request.method === 'DELETE') await familyStub(env, f.id).kick(email)
         return me(f)
+      }
+
+      // The library, from the console. The new library reaches every
+      // console and device over the family socket.
+      if (url.pathname === '/api/library' && request.method === 'POST') {
+        const f = await dir.familyOf(user.email)
+        if (!f) return json({ error: 'Not in a family' }, 403)
+        const stub = familyStub(env, f.id)
+        const b = (await request.json().catch(() => ({}))) as { op?: string; id?: string; url?: string; ids?: string[] }
+        let r: { ok: true } | { error: string }
+        if (b.op === 'add-show') r = await stub.addCatalogShow(String(b.id))
+        else if (b.op === 'remove-show') r = await stub.removeShow(String(b.id))
+        else if (b.op === 'order') r = await stub.orderShows((b.ids ?? []).map(String))
+        else if (b.op === 'remove-video') r = await stub.removeExtras([String(b.id)])
+        else if (b.op === 'add-video') {
+          const id = videoId(String(b.url ?? ''))
+          if (!id) return json({ error: "That isn't a YouTube video link." }, 400)
+          const c = (await checkVideos(stub, [id]))[id]
+          if (!c?.ok) return json({ error: `Can't add it: ${c?.reason ?? 'unknown'}.` }, 400)
+          r = await stub.addExtras([{ id, title: c.title, duration: 0 }])
+        } else return json({ error: 'Unknown change' }, 400)
+        return 'error' in r ? json(r, 400) : json({ ok: true })
+      }
+
+      // The agents this parent approved, and taking one back.
+      if (url.pathname === '/api/agents' && request.method === 'GET')
+        return json(await mcpAuth(env).listClients(env.DB, user.email.toLowerCase()))
+      const agent = url.pathname.match(/^\/api\/agents\/([\w-]+)$/)
+      if (agent && request.method === 'DELETE') {
+        await mcpAuth(env).revoke(env.DB, agent[1], user.email.toLowerCase())
+        return json({ ok: true })
       }
       return json({ error: 'Not found' }, 404)
     }

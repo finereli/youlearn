@@ -4,6 +4,7 @@ import { verifyLoginToken, type LoginClaims } from './verify-login'
 
 export interface Env {
   ASSETS: Fetcher
+  DB: D1Database // MCP agents and their tokens (migrations/)
   FAMILY: DurableObjectNamespace<import('./family').Family>
   CODES: DurableObjectNamespace<import('./codes').Codes>
   DIRECTORY: DurableObjectNamespace<import('./directory').Directory>

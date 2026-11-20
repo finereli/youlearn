@@ -9,6 +9,7 @@
 import { DurableObject } from 'cloudflare:workers'
 import { directory, signedIn, type Env } from './auth'
 import { episodeLeft, FINISH_SLACK_S, type ChildState, type ClientMsg, type DeviceInfo, type ServerMsg, type Watching } from './protocol'
+import { CATALOG, DEFAULT_LIBRARY, EXTRAS_ID, resolve, type Library, type Show, type StoredLibrary, type Video } from './library'
 
 interface Child {
   id: string
@@ -32,6 +33,14 @@ interface Attachment {
 }
 
 const MAX_MINUTES = 24 * 60
+// One check() call stays under the free plan's 50 outbound requests.
+export const CHECK_BATCH = 40
+const MAX_SHOWS = 100
+const MAX_VIDEOS = 2000 // per show
+const MAX_EXTRAS = 500
+
+export type Checked = { ok: true; title: string; channel: string } | { ok: false; reason: string }
+type Edit = { ok: true; library: Library } | { error: string }
 
 export class Family extends DurableObject<Env> {
   #state: State | null = null
@@ -49,6 +58,117 @@ export class Family extends DurableObject<Env> {
 
   async #save() {
     await this.ctx.storage.put('state', this.#state)
+  }
+
+  // --- the library -----------------------------------------------------------
+  // What the family's devices can play. Kept apart from `state` because it's
+  // much bigger and changes far less often.
+
+  #lib: StoredLibrary | null = null
+
+  async #loadLib(): Promise<StoredLibrary> {
+    this.#lib ??= (await this.ctx.storage.get<StoredLibrary>('library')) ?? structuredClone(DEFAULT_LIBRARY)
+    return this.#lib
+  }
+
+  async #saveLib(): Promise<Edit> {
+    await this.ctx.storage.put('library', this.#lib)
+    const library = resolve(this.#lib!)
+    const msg: ServerMsg = { type: 'library', library }
+    for (const s of this.#sockets()) if ((s.deserializeAttachment() as Attachment).role) send(s, msg)
+    return { ok: true, library }
+  }
+
+  async getLibrary(): Promise<Library> {
+    return resolve(await this.#loadLib())
+  }
+
+  // Whether each video exists and may be played embedded, from YouTube's
+  // oEmbed (no key needed): 401 means the owner turned embedding off, 404 or
+  // 400 that there's no such video. Good answers are remembered. At most
+  // CHECK_BATCH ids per call; the caller splits bigger lists.
+  async check(ids: string[]): Promise<Record<string, Checked>> {
+    const known = (await this.ctx.storage.get<Record<string, { title: string; channel: string }>>('checked')) ?? {}
+    const catalog = new Map(CATALOG.flatMap((s) => s.seasons.flatMap((x) => x.videos)).map((v) => [v.id, v]))
+    const out: Record<string, Checked> = {}
+    let learned = false
+    await Promise.all(
+      ids.slice(0, CHECK_BATCH).map(async (id) => {
+        const k = known[id] ?? (catalog.has(id) ? { title: catalog.get(id)!.title, channel: '' } : null)
+        if (k) return void (out[id] = { ok: true, ...k })
+        const res = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent('https://www.youtube.com/watch?v=' + id)}`).catch(() => null)
+        if (!res) return void (out[id] = { ok: false, reason: "couldn't reach YouTube, try again" })
+        if (res.ok) {
+          const o = (await res.json().catch(() => ({}))) as { title?: string; author_name?: string }
+          known[id] = { title: o.title ?? id, channel: o.author_name ?? '' }
+          learned = true
+          return void (out[id] = { ok: true, ...known[id] })
+        }
+        out[id] = {
+          ok: false,
+          reason: res.status === 401 || res.status === 403 ? "its owner doesn't allow it to be played outside YouTube" : res.status === 404 || res.status === 400 ? 'no such video (check the id)' : `YouTube said ${res.status}`,
+        }
+      })
+    )
+    if (learned) await this.ctx.storage.put('checked', known)
+    return out
+  }
+
+  async addCatalogShow(id: string): Promise<Edit> {
+    const lib = await this.#loadLib()
+    if (!CATALOG.some((c) => c.id === id)) return { error: `No catalog show "${id}".` }
+    if (lib.shows.some((s) => (typeof s === 'string' ? s : s.id) === id)) return { error: 'That show is already in the library.' }
+    lib.shows.push(id)
+    return this.#saveLib()
+  }
+
+  // Create a show, or replace the one with the same id. The caller has
+  // checked every video already.
+  async saveShow(show: Show): Promise<Edit> {
+    const lib = await this.#loadLib()
+    if (show.id === EXTRAS_ID) return { error: `"${EXTRAS_ID}" is taken; pick another id.` }
+    if (show.seasons.reduce((n, s) => n + s.videos.length, 0) > MAX_VIDEOS) return { error: `A show holds at most ${MAX_VIDEOS} videos.` }
+    const i = lib.shows.findIndex((s) => (typeof s === 'string' ? s : s.id) === show.id)
+    const own: Show = { ...show, catalog: undefined }
+    if (i >= 0) lib.shows[i] = own
+    else if (lib.shows.length >= MAX_SHOWS) return { error: `A library holds at most ${MAX_SHOWS} shows.` }
+    else lib.shows.push(own)
+    return this.#saveLib()
+  }
+
+  async removeShow(id: string): Promise<Edit> {
+    const lib = await this.#loadLib()
+    const before = lib.shows.length
+    lib.shows = lib.shows.filter((s) => (typeof s === 'string' ? s : s.id) !== id)
+    if (lib.shows.length === before) return { error: `No show "${id}" in the library.` }
+    return this.#saveLib()
+  }
+
+  // A new order for the home page. Shows left out keep their place at the end.
+  async orderShows(ids: string[]): Promise<Edit> {
+    const lib = await this.#loadLib()
+    const key = (s: string | Show) => (typeof s === 'string' ? s : s.id)
+    const rank = (s: string | Show) => {
+      const r = ids.indexOf(key(s))
+      return r < 0 ? ids.length : r
+    }
+    lib.shows = [...lib.shows].sort((a, b) => rank(a) - rank(b))
+    return this.#saveLib()
+  }
+
+  async addExtras(videos: Video[]): Promise<Edit> {
+    const lib = await this.#loadLib()
+    const have = new Set(lib.extras.map((v) => v.id))
+    const fresh = videos.filter((v) => !have.has(v.id))
+    if (lib.extras.length + fresh.length > MAX_EXTRAS) return { error: `"More videos" holds at most ${MAX_EXTRAS}.` }
+    lib.extras.push(...fresh)
+    return this.#saveLib()
+  }
+
+  async removeExtras(ids: string[]): Promise<Edit> {
+    const lib = await this.#loadLib()
+    lib.extras = lib.extras.filter((v) => !ids.includes(v.id))
+    return this.#saveLib()
   }
 
   // --- sockets ---------------------------------------------------------------
@@ -107,6 +227,7 @@ export class Family extends DurableObject<Env> {
       await this.#save()
       ws.serializeAttachment({ ...att, role: 'device', child: device.child, device: device.id } satisfies Attachment)
       send(ws, { type: 'auth:ok', role: 'device' })
+      send(ws, { type: 'library', library: resolve(await this.#loadLib()) })
       this.#toChild(device.child)
       this.#toParents()
       return
@@ -120,6 +241,7 @@ export class Family extends DurableObject<Env> {
     ws.serializeAttachment({ ...att, role: 'parent', email: user.email.toLowerCase() } satisfies Attachment)
     send(ws, { type: 'auth:ok', role: 'parent' })
     send(ws, this.#familyMsg())
+    send(ws, { type: 'library', library: resolve(await this.#loadLib()) })
   }
 
   // --- the parent's remote ---------------------------------------------------
