@@ -128,6 +128,9 @@
   @media (min-width: 768px) {
     .shell { margin-inline-start: min(78vw, 300px); }
   }
+  /* The top bar carries the page title at every width here, so the settings
+     pages' own desktop title would say it twice. */
+  .body :global(.settings > h2) { display: none; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 1.05rem; }
   .brand img { width: 30px; height: 30px; border-radius: 8px; }
   .footer-row { display: flex; align-items: center; gap: 4px; }

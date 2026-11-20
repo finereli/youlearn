@@ -3,6 +3,10 @@
   // Settings > Agents: the address to give an agent, and the agents that have been approved, each with a disconnect button.
   // The parent owns the data (load with the list endpoint, revoke optimistically); this only draws it.
   // Re-fetch the list when the panel opens: an agent may have been connected since the settings screen loaded.
+  // Goes inside a SettingsPage, which carries the page title: this draws two plain settings sections (h3 + hint) in
+  // settings.css's classes, so it looks like the app's other settings.
+  import ConfirmButton from './ConfirmButton.svelte'
+
   interface Agent {
     id: string
     name: string | null
@@ -17,28 +21,31 @@
       copied = true
       setTimeout(() => (copied = false), 1400)
     } catch {
-      // clipboard blocked: the field below is selectable
+      // clipboard blocked: the field is selectable
     }
   }
 </script>
 
-<section class="agents">
-  <h2>Agents</h2>
-  <p class="hint">
-    Connect Claude, ChatGPT or any agent that supports MCP. Add a custom connector, paste this address, and sign in to allow it.
-  </p>
+<section>
+  <h3>Connect an agent</h3>
+  <p class="hint">Claude, ChatGPT or any agent that supports MCP: add a custom connector, paste this address, and sign in to allow it.</p>
   <div class="address">
-    <input readonly value={address} aria-label="Address to give the agent" onfocus={(e) => e.currentTarget.select()} />
-    <button type="button" onclick={copy}>{copied ? 'Copied' : 'Copy'}</button>
+    <input class="field" readonly value={address} aria-label="Address to give the agent" onfocus={(e) => e.currentTarget.select()} />
+    <button type="button" class="quiet-btn neutral" onclick={copy}>{copied ? 'Copied' : 'Copy'}</button>
   </div>
+</section>
+
+<section>
   <h3>Connected</h3>
   {#if agents.length}
-    <ul>
+    <ul class="list">
       {#each agents as a (a.id)}
         <li>
-          <span>{a.name || 'An agent'}</span>
-          <span class="hint">{a.last_used ? `used ${a.last_used.slice(0, 10)}` : 'not used yet'}</span>
-          <button type="button" aria-label={`Disconnect ${a.name || 'agent'}`} onclick={() => onRevoke(a.id)}>Disconnect</button>
+          <span class="grow">
+            <span class="name">{a.name || 'An agent'}</span>
+            <span class="sub">{a.last_used ? `Last used ${new Date(a.last_used.replace(' ', 'T') + 'Z').toLocaleDateString()}` : 'Not used yet'}</span>
+          </span>
+          <ConfirmButton class="row-btn" confirmLabel="Disconnect?" onconfirm={() => onRevoke(a.id)}>Disconnect</ConfirmButton>
         </li>
       {/each}
     </ul>
@@ -48,11 +55,12 @@
 </section>
 
 <style>
-  .hint { color: var(--text-secondary); font-size: 0.9rem; }
-  .address { display: flex; gap: 8px; }
-  .address input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-surface); color: var(--text-primary); font: inherit; }
-  button { padding: 8px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-raised); color: var(--text-primary); font: inherit; cursor: pointer; }
-  ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-  li { display: flex; align-items: center; gap: 12px; }
-  li span:first-child { flex: 1; }
+  .address { display: flex; gap: 8px; margin-top: 10px; }
+  .address .field { flex: 1; min-width: 0; }
+  .list { list-style: none; margin: 4px -14px 0; }
+  .list li { display: flex; align-items: center; gap: 12px; padding: 10px 14px; min-height: 52px; }
+  .list li + li { border-top: 1px solid var(--border); }
+  .grow { flex: 1; min-width: 0; display: grid; }
+  .name { font-size: 0.95rem; }
+  .sub { font-size: 0.8rem; color: var(--text-secondary); }
 </style>
