@@ -9,6 +9,13 @@
   import Icon from '../Icon.svelte'
   import { clock, family, mmss } from '../../lib/remote.svelte'
 
+  let newName = $state('')
+  function add(e: SubmitEvent) {
+    e.preventDefault()
+    family.addChild(newName)
+    newName = ''
+  }
+
   let renaming = $state<string | null>(null)
   let name = $state('')
   function rename(e: SubmitEvent, id: string) {
@@ -61,7 +68,15 @@
       {/if}
     </section>
   {/each}
-  <p class="hint">A device is set up with a code from here: nobody signs in on it, and it only ever shows that child's shows. To add a child, use "+ Add a child" in the menu.</p>
+  <section>
+    <h3>Add a child</h3>
+    <p class="hint">Each child gets their own watch time, shows and devices, and their own entry in the menu.</p>
+    <form class="inline" onsubmit={add}>
+      <input class="field" bind:value={newName} placeholder="Name" maxlength="30" />
+      <button class="apply-btn" disabled={!newName.trim()}>Add</button>
+    </form>
+  </section>
+  <p class="hint">A device is set up with a code from here: nobody signs in on it, and it only ever shows that child's shows.</p>
 </SettingsPage>
 
 <style>

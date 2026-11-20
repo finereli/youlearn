@@ -1,6 +1,6 @@
 <script lang="ts">
-  // Who's watching? The first screen of a new family, and "+ Add a child" in
-  // the drawer. Once the server has made the child, their page opens.
+  // Who's watching? The first screen of a new family. Once the server has
+  // made the child, their page opens. Later children are added in Settings.
   import SettingsPage from '$shared/ui/SettingsPage.svelte'
   import { family } from '../../lib/remote.svelte'
 

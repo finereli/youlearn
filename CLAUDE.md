@@ -36,11 +36,13 @@ One address for everyone. A device that isn't set up shows the welcome
 screen (`Welcome.svelte`, the kit's Login gate): a parent signs in with
 finereli login and lands in the console, or a child's device types a code.
 The console (`ParentApp.svelte`, pages in `src/components/parent/`) is the
-kit shell: TopBar, and a Drawer with an entry per child, "+ Add a child", and
-Settings below a divider. A child's page (`#/child/<id>`) is their remote with
+kit shell: TopBar, and a Drawer with an entry per child and Settings below a
+divider. The first child is named on the first screen (`#/add-child`); more
+are added in Settings → Children and devices. A child's page (`#/child/<id>`) is their remote with
 their shelf under it; "Change" opens their shows (`#/child/<id>/shows`).
 Settings is the kit's multi-pane index (`#/settings/<section>`): Children and
-devices (a section per child: devices, a pairing code, rename, remove),
+devices (a section per child: devices, a pairing code, rename, remove; and
+adding a child),
 Parents, Agents, Account. Every page about a child has the child's id in its
 address, so nothing is "currently selected"; `#/` opens the first child. Back
 pops an entry we pushed, or on a deep link replaces it with the parent page.

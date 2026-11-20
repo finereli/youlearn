@@ -1,11 +1,12 @@
 <script lang="ts">
   // The parent's console, in the kit shell: top bar, drawer (a sidebar on a
-  // wide screen), one scrolling body. The drawer has an entry per child, then
+  // wide screen), one scrolling body. The drawer has an entry per child (more
+  // are added in Settings → Children and devices), then
   // Settings as an entry of its own (the kit's footer gear was too easy to
   // miss here, where settings hold real setup: devices, parents, agents).
   //   #/child/<id>            the child: their remote, and their shelf below it
   //   #/child/<id>/shows      changing the shelf: shows and single videos
-  //   #/add-child             who's watching? (also the first screen)
+  //   #/add-child             who's watching? (the first screen, before any child)
   //   #/settings              index: children and devices, parents, agents, account
   //   #/settings/<section>
   // Every page about a child has the child in its address, so nothing is
@@ -104,7 +105,6 @@
     {
       entries: [
         ...family.children.map((c) => ({ label: c.name, hash: `/child/${c.id}`, current: current(c.id) })),
-        { label: '+ Add a child', hash: '/add-child', current: route.view === 'add' },
       ],
     },
     { entries: [{ label: 'Settings', hash: '/settings', current: route.view === 'settings' || route.view === 'section' }] },
