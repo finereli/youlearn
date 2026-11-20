@@ -1,0 +1,57 @@
+<!doctype html>
+<!-- pwa-kit: updates/public/reset.html v5 -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Reloading</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/icons/icon-192.png" type="image/png" />
+    <style>
+      html, body { height: 100%; margin: 0; }
+      /* Seams: lang/dir, title, the two strings, and these three colours
+         (page background, text, link) - match the app's own. No CSS tokens
+         here on purpose: this page must not depend on anything cached. */
+      body {
+        display: grid;
+        place-items: center;
+        background: #0f2e2c;
+        color: #a9c2bb;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        text-align: center;
+        padding: 24px;
+      }
+      p { margin: 0 0 12px; font-size: 1.05rem; line-height: 1.5; }
+      a { color: #e5b84b; }
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <!--
+      Escape hatch for a stuck app: this page is never precached and never
+      served by the service worker (see build/pwa-build.ts), so it always comes
+      fresh from the network. It forgets the worker and every cache, then
+      loads the app again from scratch. localStorage (login) is kept.
+    -->
+    <div>
+      <p id="busy">Reloading the app...</p>
+      <p id="fail" class="hidden">Something went wrong. <a href="/">Back to the app</a></p>
+    </div>
+    <script>
+      ;(async () => {
+        try {
+          const regs = (await navigator.serviceWorker?.getRegistrations()) ?? []
+          await Promise.all(regs.map((r) => r.unregister()))
+          if (self.caches) {
+            const keys = await caches.keys()
+            await Promise.all(keys.map((k) => caches.delete(k)))
+          }
+          location.replace('/')
+        } catch (e) {
+          document.getElementById('busy').className = 'hidden'
+          document.getElementById('fail').className = ''
+        }
+      })()
+    </script>
+  </body>
+</html>

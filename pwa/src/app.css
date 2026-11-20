@@ -1,0 +1,22 @@
+@import '../shared/css/base.css';
+
+/* Dark, from the logo: teal, cream, gold, coral. Dark because it's a video
+   app watched on the sofa and in bed. */
+:root {
+  color-scheme: dark;
+  --accent: #e5b84b;
+  --accent-deep: #c99a2e;
+  --accent-light: #f0d184;
+  --accent-text: #e5b84b;
+  --accent-soft: #2a3f3a;
+  --on-accent: #1d1608;
+
+  --bg-surface: #0f2e2c;
+  --bg-raised: #17403d;
+  --bg-hover: #1f4f4b;
+  --text-primary: #f4e9d0;
+  --text-secondary: #a9c2bb;
+  --border: #24504c;
+
+  --font-body: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}

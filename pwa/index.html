@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- pwa-kit: shell/index.html v11 -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover for the safe areas (iOS); no user scaling because
+         this is an app, not a page (a deliberate choice - see
+         reference/shell.md); resizes-content so the keyboard shrinks the
+         layout viewport, and with it the fixed #app (css/base.css). -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content"
+    />
+    <title>YouLearn</title>
+    <meta name="description" content="Wild Kratts without the rest of YouTube." />
+
+    <meta name="theme-color" content="#0f2e2c" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="YouLearn" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="icon" href="/icons/icon-192.png" type="image/png" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Captured here, before the bundle: the event fires before Svelte mounts
+         and a component listener misses it. InstallBanner picks it up. -->
+    <script>window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__pwaInstallPrompt=e})</script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

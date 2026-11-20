@@ -51,3 +51,21 @@ When `SIGN=1`, the YouLearn binary gets `--options runtime`. The app loads no ex
 ## Logo / icon
 
 Source SVG: `logos/export/logo.svg`. To regenerate `Resources/AppIcon.icns`, render the iconset PNGs with `rsvg-convert` at the standard sizes (16, 32, 64, 128, 256, 512, 1024 — including @2x variants), then `iconutil -c icns Resources/AppIcon.iconset -o Resources/AppIcon.icns`. `librsvg` via `brew install librsvg`.
+
+## The PWA (`pwa/`)
+
+A web rebuild for other devices, mainly Yara's iPad: youlearn.finereli.com.
+Svelte 5 + Vite from the pwa skill's kit (`shared/` holds the kit files),
+deployed as a static Cloudflare Worker (`npm run deploy`, with
+`secret-env cloudflare --`).
+
+A web page can't restyle youtube.com, so the PWA uses YouTube's IFrame API
+with `controls=0` and covers it: a transparent shield takes every tap, an
+opaque poster hides the frame whenever it isn't playing (YouTube's pause
+overlay), and playback stops 1.5s before the end so YouTube's end screen
+never shows. See the comment at the top of `src/components/Player.svelte`,
+including the iPad fallback when our tap can't start playback.
+
+The episode list is baked in for now: `scripts/fetch-playlist.py <playlistId>
+<title> > content/<name>.json`, then `npm run library`. A parent console that
+keeps the list on the server comes next.
