@@ -35,17 +35,10 @@ iPhone has none for this, so the button hides there.
 One address for everyone. A device that isn't set up shows the welcome
 screen (`Welcome.svelte`, the kit's Login gate): a parent signs in with
 finereli login and lands in the console, or a child's device types a code.
-The console (`ParentApp.svelte`, pages in `src/components/parent/`) is
-organized by how often each part is used. Home is a card per child (locked
-or time left, what they're watching, quick unlock and lock); a card opens
-that child's whole remote, with rows to their shows and devices. Settings
-(the gear; no drawer) holds what's set up once: the children with their
-devices, name and removal, the other parents, agents, the account. Every
-page about a child has the child's id in its address (`#/child/<id>`,
-`#/child/<id>/shows`, `#/settings/child/<id>`), so nothing is "currently
-selected". Back follows the same rule as the child's side: pop an entry we
-pushed, otherwise replace with the parent page. The child's device never signs in to anything:
-Settings → the child → "Get a code" shows a six-digit code that works once for ten minutes.
+The console (`ParentApp.svelte`) is the kit shell: TopBar, Drawer with
+AccountMenu, SettingsPage pages for the child's remote, Devices and Parents
+(`src/components/parent/`). The child's device never signs in to anything:
+Devices → "Get a code" shows a six-digit code that works once for ten minutes.
 The device trades it for its own random token (`POST /api/pair`), which only
 means "this device belongs to this child". Removing the device in the console
 sends it back to the welcome screen.
@@ -68,13 +61,14 @@ The owner adds and removes parents in the console, and a removed parent's
 console closes at once. Anyone signed in can start a family while `SIGNUPS`
 is "open", up to `SIGNUP_LIMIT` new families (wrangler.jsonc, 100 since Nov
 20 2026; the Directory counts them, the seed doesn't count). Past the limit
-they see "YouLearn is full for now". A new family's Home shows a getting-
+they see "YouLearn is full for now". A new family's remote shows a getting-
 started checklist (`FirstRun.svelte`: child, device, time, other parents) and
-an invited parent gets a one-time welcome there saying whose family they joined. The first family came from the `SEED_FAMILY` secret
+an invited parent gets a one-time welcome saying whose family they joined. The first family came from the `SEED_FAMILY` secret
 (`{"owner": email, "parents": [emails]}`), read once when the directory was
 empty: Eli owns it, Yael and Tom are parents. A family has any number of
-children; removing one (Settings → the child) takes their devices and
-library too.
+children; the console's picker (`ChildPicker.svelte`, choice kept in
+`yl:child`) chooses whose watch time, library and devices it shows, and
+Devices renames or removes a child (their devices and library go too).
 
 Tests run against `wrangler dev` with a stand-in login service:
 `node test/fake-login.mjs` (port 8790), `.dev.vars` with
@@ -115,7 +109,7 @@ through `check()`: YouTube's oEmbed must say it exists and can be embedded
 
 Parents change it two ways:
 
-- the child's Shows page (`src/components/parent/Library.svelte`): remove
+- the console's Library page (`src/components/parent/Library.svelte`): remove
   a show, add a catalog show, paste a link for "More videos" (`POST /api/library`
   with the child's id)
 - their own AI agent over MCP (`worker/mcp.ts`); every tool takes the child's
@@ -125,8 +119,8 @@ Parents change it two ways:
   shows and single videos. The server checks every video. The rules for
   agents live in the `guide` tool. OAuth is the pwa kit's `mcp` item
   (`shared/functions/`), with tokens in D1 (`migrations/`); an agent acts as
-  the parent's email and stops working when they leave the family. Settings
-  → Agents lists and disconnects them.
+  the parent's email and stops working when they leave the family. The
+  console's Agents page lists and disconnects them.
 
 ### The catalog
 

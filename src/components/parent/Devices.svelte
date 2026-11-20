@@ -1,31 +1,33 @@
 <script lang="ts">
-  // A child's setup, under Settings: their devices and a code to add one,
-  // their name, and removing them. A code works once for ten minutes; it
-  // disappears as soon as a device uses it. Removing a device sends it back
-  // to the welcome screen at once.
+  // The devices paired to the child, and a code to add one. A code works once
+  // for ten minutes; it disappears as soon as a device uses it. Removing a
+  // device sends it back to the welcome screen at once.
   import SettingsPage from '$shared/ui/SettingsPage.svelte'
   import ConfirmButton from '$shared/ui/ConfirmButton.svelte'
   import Icon from '../Icon.svelte'
   import { clock, family, mmss } from '../../lib/remote.svelte'
   import type { ChildState } from '../../../worker/protocol'
 
-  let { child }: { child: ChildState } = $props()
+  let { child }: { child: ChildState | null } = $props()
 
   let rename = $state('')
   function doRename(e: SubmitEvent) {
     e.preventDefault()
-    if (!rename.trim()) return
+    if (!child || !rename.trim()) return
     family.send({ type: 'child:rename', child: child.id, name: rename.trim() })
     rename = ''
   }
 
-  const devices = $derived(family.devices.filter((d) => d.child === child.id))
-  const code = $derived(family.code?.child === child.id && family.code.exp > clock.now ? family.code : null)
+  const devices = $derived(child ? family.devices.filter((d) => d.child === child.id) : [])
+  const code = $derived(child && family.code?.child === child.id && family.code.exp > clock.now ? family.code : null)
 </script>
 
-<SettingsPage title={child.name}>
+<SettingsPage title="Devices">
+  {#if !child}
+    <section><p class="hint">Add your child first, on the <a href="#/">watch time</a> page.</p></section>
+  {:else}
     <section>
-      <h3>Devices</h3>
+      <h3>{child.name}'s devices</h3>
       {#if devices.length}
         <ul class="list">
           {#each devices as d (d.id)}
@@ -56,18 +58,15 @@
     </section>
 
     <section>
-      <h3>Name</h3>
+      <h3>{child.name}</h3>
       <form class="inline" onsubmit={doRename}>
         <input class="field" bind:value={rename} placeholder="New name" maxlength="30" />
         <button class="apply-btn" disabled={!rename.trim()}>Rename</button>
       </form>
-    </section>
-
-    <section>
-      <h3>Remove {child.name}</h3>
-      <p class="hint">Removing {child.name} also removes their devices and their shows.</p>
+      <p class="hint gap">Removing {child.name} also removes their devices and their shows.</p>
       <ConfirmButton class="quiet-btn" confirmLabel={`Remove ${child.name}?`} onconfirm={() => family.send({ type: 'child:remove', child: child.id })}>Remove {child.name}</ConfirmButton>
     </section>
+  {/if}
 </SettingsPage>
 
 <style>
@@ -80,5 +79,6 @@
   :global(.settings .row-btn) { padding: 8px 12px; font-size: 0.85rem; border-radius: var(--radius); }
   :global(.settings .row-btn:hover) { background: var(--bg-hover); }
   .inline { display: flex; gap: 8px; margin-top: 8px; }
+  .gap { margin: 16px 0 8px; }
   .code { font-size: 2.4rem; font-weight: 500; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; color: var(--accent); }
 </style>

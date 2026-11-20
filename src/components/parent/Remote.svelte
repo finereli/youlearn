@@ -6,19 +6,20 @@
   import SettingsPage from '$shared/ui/SettingsPage.svelte'
   import Btn from '$shared/ui/Btn.svelte'
   import Icon from '../Icon.svelte'
-  import SettingsRow from '$shared/ui/SettingsRow.svelte'
+  import FirstRun from './FirstRun.svelte'
   import { clock, family, mmss } from '../../lib/remote.svelte'
   import { findIn, thumb } from '../../lib/library.svelte'
   import type { ChildState } from '../../../worker/protocol'
 
-  let { child }: { child: ChildState } = $props()
+  let { child }: { child: ChildState | null } = $props()
 
   const ADD = [15, 30, 60]
   const WIND = [2, 3, 5]
+  let newName = $state('')
 
   const left = $derived(child ? family.remaining(child) : 0)
   const unlocked = $derived(left > 0)
-  const hit = $derived(child.watching ? findIn(family.libraries[child.id], child.watching.video) : null)
+  const hit = $derived(child?.watching ? findIn(family.libraries[child.id], child.watching.video) : null)
   // How much longer than her current time "let her finish" gives.
   const gain = $derived.by(() => {
     if (!child?.watching) return 0
@@ -35,13 +36,26 @@
   }
   const label = (m: number) => (m >= 60 ? `${m / 60} hour` : `${m} min`)
 
-  const lib = $derived(family.libraries[child.id])
-  const devices = $derived(family.devices.filter((d) => d.child === child.id))
-  const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`
+  function addChild(e: SubmitEvent) {
+    e.preventDefault()
+    if (!newName.trim()) return
+    family.send({ type: 'child:add', name: newName.trim() })
+    newName = ''
+  }
 </script>
 
-<SettingsPage title={child.name}>
-  {#if child}
+<SettingsPage title={child?.name ?? 'Watch time'}>
+  {#if !child}
+    <section>
+      <h3>Who's watching?</h3>
+      <p class="hint">Your child's name, as their device will greet them.</p>
+      <form class="inline" onsubmit={addChild}>
+        <input class="field" bind:value={newName} placeholder="Name" maxlength="30" />
+        <button class="apply-btn" disabled={!newName.trim()}>Add</button>
+      </form>
+    </section>
+  {:else}
+    <FirstRun {child} />
     <section class="status" class:unlocked>
       <Icon name={unlocked ? 'lock_open' : 'lock'} size={26} />
       <div>
@@ -55,7 +69,7 @@
       </div>
     </section>
 
-    {#if child.online === 0 && devices.length}
+    {#if child.online === 0}
       <p class="hint warn-text">{child.name}'s device isn't connected right now. Changes reach it when it's back online.</p>
     {/if}
 
@@ -102,13 +116,6 @@
         </Btn>
       </section>
     {/if}
-
-    <section>
-      <ul class="rows">
-        <SettingsRow href={`#/child/${child.id}/shows`} title="Shows" sub={lib ? `${plural(lib.shows.length, 'show')}${lib.extras.length ? `, ${plural(lib.extras.length, 'video')}` : ''}` : ''} />
-        <SettingsRow href={`#/settings/child/${child.id}`} title="Devices" sub={devices.length ? devices.map((d) => d.name).join(', ') : 'None paired yet'} />
-      </ul>
-    </section>
   {/if}
 </SettingsPage>
 
@@ -125,4 +132,5 @@
   .label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-text); }
   .title { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+  .inline { display: flex; gap: 8px; }
 </style>

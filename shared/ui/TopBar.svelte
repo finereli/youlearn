@@ -5,20 +5,16 @@
   // the menu or goes back; everything else stays put, which is what makes it
   // read as an app rather than a page. Colours come from the host app's
   // tokens, so the same bar is sage in one app and amber in its sibling.
-  // `leading = 'none'` is for a home screen with no menu (YouLearn's
-  // console: Home plus a gear). `trailing` is an optional action on the far side (a snippet rendering
+  // `trailing` is an optional action on the far side (a snippet rendering
   // the icon, with `trailingLabel` + `ontrailing`), used sparingly - most
   // screens have none. Seams: the aria labels.
   let { leading = 'menu', title = '', onleading, menuLabel = 'Menu', backLabel = 'Back', trailing, trailingLabel = '', ontrailing }: {
-    leading?: 'menu' | 'back' | 'none'; title?: string; onleading?: () => void; menuLabel?: string; backLabel?: string
+    leading?: 'menu' | 'back'; title?: string; onleading?: () => void; menuLabel?: string; backLabel?: string
     trailing?: Snippet; trailingLabel?: string; ontrailing?: () => void
   } = $props()
 </script>
 
 <header class="topbar">
-  {#if leading === 'none'}
-    <span class="trail"></span>
-  {:else}
   <button class="lead" class:menu-btn={leading !== 'back'} onclick={onleading} aria-label={leading === 'back' ? backLabel : menuLabel}>
     {#if leading === 'back'}
       <svg class="chevron" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
@@ -26,7 +22,6 @@
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
     {/if}
   </button>
-  {/if}
 
   <h1>{title}</h1>
 
