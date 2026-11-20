@@ -7,7 +7,7 @@
   import Btn from '$shared/ui/Btn.svelte'
   import Icon from '../Icon.svelte'
   import { clock, family, mmss } from '../../lib/remote.svelte'
-  import { find, thumb } from '../../lib/library.svelte'
+  import { findIn, thumb } from '../../lib/library.svelte'
   import type { ChildState } from '../../../worker/protocol'
 
   let { child }: { child: ChildState | null } = $props()
@@ -18,7 +18,7 @@
 
   const left = $derived(child ? family.remaining(child) : 0)
   const unlocked = $derived(left > 0)
-  const hit = $derived(child?.watching ? find(child.watching.video) : null)
+  const hit = $derived(child?.watching ? findIn(family.libraries[child.id], child.watching.video) : null)
   // How much longer than her current time "let her finish" gives.
   const gain = $derived.by(() => {
     if (!child?.watching) return 0

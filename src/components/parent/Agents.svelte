@@ -22,6 +22,6 @@
   <AgentsPanel address={location.origin + '/mcp'} {agents} onRevoke={revoke} />
   <section>
     <h3>What it can do</h3>
-    <p class="hint">Find shows with full episodes on YouTube and add them by season, add single videos, and remove or reorder what's there. It can't see anything else, and it stops working the moment you disconnect it here or leave the family.</p>
+    <p class="hint">Change each child's shows: add catalog shows and single videos, remove and reorder them, and, for agents that can run code (Claude Code, Codex), build whole shows from a channel's full episodes by season. It can't see anything else, and it stops working the moment you disconnect it here or leave the family.</p>
   </section>
 </SettingsPage>

@@ -13,14 +13,16 @@
   Object and reach the iPad live. The console turns catalog shows on and off
   and adds single videos by link.
 - **Agents manage the library.** A parent connects Claude, ChatGPT or any MCP
-  agent, which builds whole shows (full episodes, by season) with its own
-  search. We build no search or channel import of our own.
+  agent. Agents that can run code build whole shows (full episodes, by
+  season); we build no search or channel import of our own.
+
+- **Several children.** Each with their own watch time, devices and library;
+  the console picks whose.
 
 ## Next
 
 - **Grow the catalog.** More shows with official full episodes, built once
   (by an agent through the same tools, or by hand) and offered to everyone.
-- **Several children** per family, on one device or on different ones.
 - **Open signups** for a public release: families, owners and parents are in
   place; flip `SIGNUPS` to "open" once there's a sign-up and abuse story.
 

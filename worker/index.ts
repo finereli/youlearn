@@ -71,24 +71,25 @@ export default {
         return me(f)
       }
 
-      // The library, from the console. The new library reaches every
+      // A child's library, from the console. The new library reaches every
       // console and device over the family socket.
       if (url.pathname === '/api/library' && request.method === 'POST') {
         const f = await dir.familyOf(user.email)
         if (!f) return json({ error: 'Not in a family' }, 403)
         const stub = familyStub(env, f.id)
-        const b = (await request.json().catch(() => ({}))) as { op?: string; id?: string; url?: string; ids?: string[] }
+        const b = (await request.json().catch(() => ({}))) as { child?: string; op?: string; id?: string; url?: string; ids?: string[] }
+        const child = String(b.child ?? '')
         let r: { ok: true } | { error: string }
-        if (b.op === 'add-show') r = await stub.addCatalogShow(String(b.id))
-        else if (b.op === 'remove-show') r = await stub.removeShow(String(b.id))
-        else if (b.op === 'order') r = await stub.orderShows((b.ids ?? []).map(String))
-        else if (b.op === 'remove-video') r = await stub.removeExtras([String(b.id)])
+        if (b.op === 'add-show') r = await stub.addCatalogShow(child, String(b.id))
+        else if (b.op === 'remove-show') r = await stub.removeShow(child, String(b.id))
+        else if (b.op === 'order') r = await stub.orderShows(child, (b.ids ?? []).map(String))
+        else if (b.op === 'remove-video') r = await stub.removeExtras(child, [String(b.id)])
         else if (b.op === 'add-video') {
           const id = videoId(String(b.url ?? ''))
           if (!id) return json({ error: "That isn't a YouTube video link." }, 400)
           const c = (await checkVideos(stub, [id]))[id]
           if (!c?.ok) return json({ error: `Can't add it: ${c?.reason ?? 'unknown'}.` }, 400)
-          r = await stub.addExtras([{ id, title: c.title, duration: 0 }])
+          r = await stub.addExtras(child, [{ id, title: c.title, duration: 0 }])
         } else return json({ error: 'Unknown change' }, 400)
         return 'error' in r ? json(r, 400) : json({ ok: true })
       }

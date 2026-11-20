@@ -32,9 +32,12 @@ interface Ctx {
   email: string
 }
 
-const GUIDE = `YouLearn shows a child only the YouTube videos her parents chose, in our own player: no recommendations, no comments, no next-video pull. You are working for one of her parents. Everything you save appears on the child's devices within seconds.
+const GUIDE = `YouLearn shows a child only the YouTube videos their parents chose, in our own player: no recommendations, no comments, no next-video pull. You are working for one of her parents. Everything you save appears on that child's devices within seconds.
 
-What she sees
+Children
+- Each child in the family has their own library. list_children names them; the other tools take the child's name (optional when there is only one). To give a show to two children, save it for each.
+
+What the child sees
 - The home page: one card per show, in library order, then "More videos" (single videos that belong to no show).
 - A show: season tabs, then the episodes of that season in order. When an episode ends, the next one in the same show is offered; nothing else is.
 
@@ -42,6 +45,7 @@ The catalog
 - list_catalog shows the shows we already built and checked by hand (only real full episodes, from official channels, in season order). Prefer add_catalog_show over building a show the catalog already has.
 
 Building a show (save_show)
+- You need every episode's YouTube video id. Web search rarely gives them and YouTube's pages need JavaScript, so building a show takes an agent that can run code: list the official channel's uploads (yt-dlp --flat-playlist --print "%(id)s %(duration)s %(title)s" <channel or playlist URL>, or the channel page's ytInitialData) and match them to the episode list. If you can't run code, say so to the parent: you can still add catalog shows and single videos they give you links to.
 - Only real full episodes from the show's official channel(s) or its broadcaster (PBS KIDS, the studio, the distributor). No compilations, marathons, "best of", shorts, clips, songs, trailers or re-uploads by other channels. If the parent asks for something else, do what they ask.
 - One video per episode. Channels upload the same episode several times; keep one.
 - Seasons in order, episodes in broadcast order. The show's Wikipedia "List of ... episodes" page is the best source for both.
@@ -83,6 +87,41 @@ async function family(ctx: Ctx) {
   const f = await directory(ctx.env).familyOf(ctx.email)
   if (!f) throw new Error('This parent is no longer in a family.')
   return familyStub(ctx.env, f.id)
+}
+
+// The child a tool works on: by name or id, and optional when the family has
+// only one. Throws a refusal the agent can act on.
+async function scope(ctx: Ctx, which: unknown) {
+  const stub = await family(ctx)
+  const kids = await stub.children()
+  const w = String(which ?? '').trim().toLowerCase()
+  const child = w ? kids.find((k) => k.id.toLowerCase() === w || k.name.toLowerCase() === w) : kids.length === 1 ? kids[0] : null
+  if (!child) {
+    if (!kids.length) throw new Refusal('This family has no children yet. A parent adds one in the YouLearn console.')
+    throw new Refusal(`Say which child: ${kids.map((k) => `"${k.name}"`).join(', ')}. Each has their own library.`)
+  }
+  const library = (await stub.getLibrary(child.id))!
+  return { stub, child, library }
+}
+
+class Refusal extends Error {}
+
+// Every tool but guide and list_children names a child.
+const childArg = { child: { type: 'string', description: "The child's name (or id). Optional when the family has one child." } }
+function withChild(t: McpTool<Ctx>): McpTool<Ctx> {
+  const schema = t.inputSchema as { properties?: Record<string, unknown> }
+  return {
+    ...t,
+    inputSchema: { ...schema, properties: { ...childArg, ...(schema.properties ?? {}) } },
+    run: async (args, ctx) => {
+      try {
+        return await t.run(args, ctx)
+      } catch (e) {
+        if (e instanceof Refusal) return fail(e.message)
+        throw e
+      }
+    },
+  }
 }
 
 type VideoIn = string | { id?: string; url?: string; title?: string; duration?: number }
@@ -130,17 +169,26 @@ const tools: McpTool<Ctx>[] = [
     run: async () => GUIDE,
   },
   {
+    name: 'list_children',
+    description: 'The children in this family. Each has their own library; the other tools take the child\'s name.',
+    inputSchema: { type: 'object', properties: {} },
+    run: async (_, ctx) => (await (await family(ctx)).children()).map((k) => k.name),
+  },
+  {
     name: 'list_library',
     description: 'The shows the child can watch, in home-page order, with season and episode counts, plus "More videos".',
     inputSchema: { type: 'object', properties: {} },
-    run: async (_, ctx) => summary(await (await family(ctx)).getLibrary()),
+    run: async (args, ctx) => {
+      const { child, library } = await scope(ctx, args.child)
+      return { child: child.name, ...summary(library) }
+    },
   },
   {
     name: 'get_show',
     description: "One show in the library with every season and episode (ids, titles, durations). Use 'extras' for More videos.",
     inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] },
-    run: async ({ id }, ctx) => {
-      const lib = await (await family(ctx)).getLibrary()
+    run: async ({ id, child }, ctx) => {
+      const { library: lib } = await scope(ctx, child)
       if (id === EXTRAS_ID) return { id: EXTRAS_ID, title: 'More videos', videos: lib.extras }
       const s = lib.shows.find((x) => x.id === id)
       return s ? show(s) : fail(`No show "${id}" in the library. list_library shows the ids.`)
@@ -150,8 +198,8 @@ const tools: McpTool<Ctx>[] = [
     name: 'list_catalog',
     description: 'Shows already built and checked by hand (only full episodes, in season order), and whether each is in the library.',
     inputSchema: { type: 'object', properties: {} },
-    run: async (_, ctx) => {
-      const lib = await (await family(ctx)).getLibrary()
+    run: async (args, ctx) => {
+      const { library: lib } = await scope(ctx, args.child)
       return CATALOG.map((s) => ({
         id: s.id,
         title: s.title,
@@ -164,8 +212,9 @@ const tools: McpTool<Ctx>[] = [
     name: 'add_catalog_show',
     description: 'Add a catalog show to the library, at the end of the home page.',
     inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] },
-    run: async ({ id }, ctx) => {
-      const r = await (await family(ctx)).addCatalogShow(String(id))
+    run: async ({ id, child }, ctx) => {
+      const k = await scope(ctx, child)
+      const r = await k.stub.addCatalogShow(k.child.id, String(id))
       return 'error' in r ? fail(r.error) : summary(r.library)
     },
   },
@@ -195,8 +244,7 @@ const tools: McpTool<Ctx>[] = [
       if (!title) return fail('Give the show a title.')
       const seasonsIn = Array.isArray(args.seasons) ? (args.seasons as { title?: string; videos?: VideoIn[] }[]) : []
       if (!seasonsIn.length || seasonsIn.some((s) => !Array.isArray(s.videos) || !s.videos.length)) return fail('Give at least one season, each with at least one video.')
-      const stub = await family(ctx)
-      const lib = await stub.getLibrary()
+      const { stub, child, library: lib } = await scope(ctx, args.child)
       const id = args.id ? String(args.id) : uniqueId(slug(title), lib)
 
       const all = await checked(stub, seasonsIn.flatMap((s) => s.videos!))
@@ -218,7 +266,7 @@ const tools: McpTool<Ctx>[] = [
 
       const art = args.art_video ? videoId(String(args.art_video)) : null
       if (args.art_video && (!art || !seen.has(art))) return fail('art_video must be one of the show\'s own videos.')
-      const r = await stub.saveShow({ id, title, art: thumb(art ?? seasons[0].videos[0].id, 'hq'), seasons })
+      const r = await stub.saveShow(child.id, { id, title, art: thumb(art ?? seasons[0].videos[0].id, 'hq'), seasons })
       return 'error' in r ? fail(r.error) : { saved: true, show: id, episodes: seen.size, library: summary(r.library).shows.map((s) => s.title) }
     },
   },
@@ -226,8 +274,9 @@ const tools: McpTool<Ctx>[] = [
     name: 'remove_show',
     description: 'Take a show out of the library. Catalog shows can be added back any time.',
     inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] },
-    run: async ({ id }, ctx) => {
-      const r = await (await family(ctx)).removeShow(String(id))
+    run: async ({ id, child }, ctx) => {
+      const k = await scope(ctx, child)
+      const r = await k.stub.removeShow(k.child.id, String(id))
       return 'error' in r ? fail(r.error) : summary(r.library)
     },
   },
@@ -235,8 +284,9 @@ const tools: McpTool<Ctx>[] = [
     name: 'order_shows',
     description: 'Set the order of shows on the home page. Shows you leave out keep their place after the ones you list.',
     inputSchema: { type: 'object', properties: { ids: { type: 'array', items: { type: 'string' } } }, required: ['ids'] },
-    run: async ({ ids }, ctx) => {
-      const r = await (await family(ctx)).orderShows((Array.isArray(ids) ? ids : []).map(String))
+    run: async ({ ids, child }, ctx) => {
+      const k = await scope(ctx, child)
+      const r = await k.stub.orderShows(k.child.id, (Array.isArray(ids) ? ids : []).map(String))
       return 'error' in r ? fail(r.error) : summary(r.library)
     },
   },
@@ -244,12 +294,12 @@ const tools: McpTool<Ctx>[] = [
     name: 'add_videos',
     description: 'Add single videos to "More videos" (for one-offs that belong to no show). Each is checked first; nothing is added if any fail.',
     inputSchema: { type: 'object', properties: { videos: { type: 'array', items: videoItem } }, required: ['videos'] },
-    run: async ({ videos }, ctx) => {
-      const stub = await family(ctx)
+    run: async ({ videos, child }, ctx) => {
+      const { stub, child: kid } = await scope(ctx, child)
       const r = await checked(stub, Array.isArray(videos) ? (videos as VideoIn[]) : [])
       if (r.problems.length) return fail({ added: false, fix_these: r.problems })
       if (!r.videos.length) return fail('Give at least one video.')
-      const e = await stub.addExtras(r.videos)
+      const e = await stub.addExtras(kid.id, r.videos)
       return 'error' in e ? fail(e.error) : { added: r.videos.map((v) => v.title), more_videos: e.library.extras.length }
     },
   },
@@ -257,9 +307,10 @@ const tools: McpTool<Ctx>[] = [
     name: 'remove_videos',
     description: 'Take videos off "More videos". To change a show, use get_show and save_show.',
     inputSchema: { type: 'object', properties: { ids: { type: 'array', items: { type: 'string' } } }, required: ['ids'] },
-    run: async ({ ids }, ctx) => {
+    run: async ({ ids, child }, ctx) => {
       const list = (Array.isArray(ids) ? ids : []).map((x) => videoId(String(x)) ?? String(x))
-      const r = await (await family(ctx)).removeExtras(list)
+      const k = await scope(ctx, child)
+      const r = await k.stub.removeExtras(k.child.id, list)
       return 'error' in r ? fail(r.error) : { more_videos: r.library.extras }
     },
   },
@@ -278,7 +329,7 @@ export function mcpEndpoint(env: Env) {
     name: 'youlearn',
     instructions:
       "YouLearn: the shows and videos a parent's child can watch, without the rest of YouTube. Call guide first: it has the rules (full episodes from official channels, one per episode, seasons in order). Changes reach the child's devices at once.",
-    tools,
+    tools: tools.map((t) => (t.name === 'guide' || t.name === 'list_children' ? t : withChild(t))),
     context: (email) => ({ env, email }),
   })
 }

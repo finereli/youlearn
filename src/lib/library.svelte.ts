@@ -57,6 +57,15 @@ export function find(id: string): Hit | null {
   return library.index.get(id) ?? null
 }
 
+// A video in some other library: the console looking up what a child is
+// watching in that child's own shows.
+export function findIn(lib: Library | null | undefined, id: string): { video: Video; show: Show } | null {
+  if (!lib) return null
+  for (const show of lib.shows) for (const season of show.seasons) for (const video of season.videos) if (video.id === id) return { video, show }
+  const video = lib.extras.find((v) => v.id === id)
+  return video ? { video, show: { id: EXTRAS_ID, title: 'More videos', art: '', seasons: [] } } : null
+}
+
 export function findShow(id: string): Show | null {
   return library.shows.find((s) => s.id === id) ?? null
 }

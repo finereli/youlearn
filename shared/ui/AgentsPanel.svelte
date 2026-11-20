@@ -1,4 +1,4 @@
-<!-- pwa-kit: mcp/ui/AgentsPanel.svelte v1 -->
+<!-- pwa-kit: mcp/ui/AgentsPanel.svelte v2 -->
 <script lang="ts">
   // Settings > Agents: the address to give an agent, and the agents that have been approved, each with a disconnect button.
   // The parent owns the data (load with the list endpoint, revoke optimistically); this only draws it.

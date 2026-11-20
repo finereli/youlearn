@@ -1,4 +1,4 @@
-// pwa-kit: mcp/scripts/mcp-flow-test.mjs v1
+// pwa-kit: mcp/scripts/mcp-flow-test.mjs v2
 // Walks the whole MCP OAuth flow against a running dev server, as an agent would, and lists the tools it ends up with.
 // Needs scripts/dev-login.mjs running (the stand-in for login.finereli.com) and the app pointed at it.
 //

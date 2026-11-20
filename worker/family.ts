@@ -41,6 +41,7 @@ const MAX_EXTRAS = 500
 
 export type Checked = { ok: true; title: string; channel: string } | { ok: false; reason: string }
 type Edit = { ok: true; library: Library } | { error: string }
+const NO_CHILD = { error: 'No such child in this family.' }
 
 export class Family extends DurableObject<Env> {
   #state: State | null = null
@@ -64,23 +65,46 @@ export class Family extends DurableObject<Env> {
   // What the family's devices can play. Kept apart from `state` because it's
   // much bigger and changes far less often.
 
-  #lib: StoredLibrary | null = null
+  // One library per child, under `library:<child id>`. Before there were
+  // several children the family had one, under `library`: it belongs to the
+  // first child. A child with neither gets the whole catalog.
+  #libs = new Map<string, StoredLibrary>()
 
-  async #loadLib(): Promise<StoredLibrary> {
-    this.#lib ??= (await this.ctx.storage.get<StoredLibrary>('library')) ?? structuredClone(DEFAULT_LIBRARY)
-    return this.#lib
+  async #loadLib(child: string): Promise<StoredLibrary> {
+    let lib = this.#libs.get(child)
+    if (!lib) {
+      const state = await this.#load()
+      lib =
+        (await this.ctx.storage.get<StoredLibrary>(`library:${child}`)) ??
+        (state.children[0]?.id === child ? await this.ctx.storage.get<StoredLibrary>('library') : undefined) ??
+        structuredClone(DEFAULT_LIBRARY)
+      this.#libs.set(child, lib)
+    }
+    return lib
   }
 
-  async #saveLib(): Promise<Edit> {
-    await this.ctx.storage.put('library', this.#lib)
-    const library = resolve(this.#lib!)
-    const msg: ServerMsg = { type: 'library', library }
-    for (const s of this.#sockets()) if ((s.deserializeAttachment() as Attachment).role) send(s, msg)
+  async #saveLib(child: string): Promise<Edit> {
+    await this.ctx.storage.put(`library:${child}`, this.#libs.get(child))
+    const library = resolve(this.#libs.get(child)!)
+    const msg: ServerMsg = { type: 'library', child, library }
+    for (const s of this.#sockets()) {
+      const a = s.deserializeAttachment() as Attachment
+      if (a.role === 'parent' || (a.role === 'device' && a.child === child)) send(s, msg)
+    }
     return { ok: true, library }
   }
 
-  async getLibrary(): Promise<Library> {
-    return resolve(await this.#loadLib())
+  // The child an edit is for, or why not.
+  async #kid(child: string): Promise<Child | null> {
+    return (await this.#load()).children.find((c) => c.id === child) ?? null
+  }
+
+  async children(): Promise<{ id: string; name: string }[]> {
+    return (await this.#load()).children.map(({ id, name }) => ({ id, name }))
+  }
+
+  async getLibrary(child: string): Promise<Library | null> {
+    return (await this.#kid(child)) ? resolve(await this.#loadLib(child)) : null
   }
 
   // Whether each video exists and may be played embedded, from YouTube's
@@ -114,18 +138,20 @@ export class Family extends DurableObject<Env> {
     return out
   }
 
-  async addCatalogShow(id: string): Promise<Edit> {
-    const lib = await this.#loadLib()
+  async addCatalogShow(child: string, id: string): Promise<Edit> {
+    if (!(await this.#kid(child))) return NO_CHILD
+    const lib = await this.#loadLib(child)
     if (!CATALOG.some((c) => c.id === id)) return { error: `No catalog show "${id}".` }
     if (lib.shows.some((s) => (typeof s === 'string' ? s : s.id) === id)) return { error: 'That show is already in the library.' }
     lib.shows.push(id)
-    return this.#saveLib()
+    return this.#saveLib(child)
   }
 
   // Create a show, or replace the one with the same id. The caller has
   // checked every video already.
-  async saveShow(show: Show): Promise<Edit> {
-    const lib = await this.#loadLib()
+  async saveShow(child: string, show: Show): Promise<Edit> {
+    if (!(await this.#kid(child))) return NO_CHILD
+    const lib = await this.#loadLib(child)
     if (show.id === EXTRAS_ID) return { error: `"${EXTRAS_ID}" is taken; pick another id.` }
     if (show.seasons.reduce((n, s) => n + s.videos.length, 0) > MAX_VIDEOS) return { error: `A show holds at most ${MAX_VIDEOS} videos.` }
     const i = lib.shows.findIndex((s) => (typeof s === 'string' ? s : s.id) === show.id)
@@ -133,42 +159,46 @@ export class Family extends DurableObject<Env> {
     if (i >= 0) lib.shows[i] = own
     else if (lib.shows.length >= MAX_SHOWS) return { error: `A library holds at most ${MAX_SHOWS} shows.` }
     else lib.shows.push(own)
-    return this.#saveLib()
+    return this.#saveLib(child)
   }
 
-  async removeShow(id: string): Promise<Edit> {
-    const lib = await this.#loadLib()
+  async removeShow(child: string, id: string): Promise<Edit> {
+    if (!(await this.#kid(child))) return NO_CHILD
+    const lib = await this.#loadLib(child)
     const before = lib.shows.length
     lib.shows = lib.shows.filter((s) => (typeof s === 'string' ? s : s.id) !== id)
     if (lib.shows.length === before) return { error: `No show "${id}" in the library.` }
-    return this.#saveLib()
+    return this.#saveLib(child)
   }
 
   // A new order for the home page. Shows left out keep their place at the end.
-  async orderShows(ids: string[]): Promise<Edit> {
-    const lib = await this.#loadLib()
+  async orderShows(child: string, ids: string[]): Promise<Edit> {
+    if (!(await this.#kid(child))) return NO_CHILD
+    const lib = await this.#loadLib(child)
     const key = (s: string | Show) => (typeof s === 'string' ? s : s.id)
     const rank = (s: string | Show) => {
       const r = ids.indexOf(key(s))
       return r < 0 ? ids.length : r
     }
     lib.shows = [...lib.shows].sort((a, b) => rank(a) - rank(b))
-    return this.#saveLib()
+    return this.#saveLib(child)
   }
 
-  async addExtras(videos: Video[]): Promise<Edit> {
-    const lib = await this.#loadLib()
+  async addExtras(child: string, videos: Video[]): Promise<Edit> {
+    if (!(await this.#kid(child))) return NO_CHILD
+    const lib = await this.#loadLib(child)
     const have = new Set(lib.extras.map((v) => v.id))
     const fresh = videos.filter((v) => !have.has(v.id))
     if (lib.extras.length + fresh.length > MAX_EXTRAS) return { error: `"More videos" holds at most ${MAX_EXTRAS}.` }
     lib.extras.push(...fresh)
-    return this.#saveLib()
+    return this.#saveLib(child)
   }
 
-  async removeExtras(ids: string[]): Promise<Edit> {
-    const lib = await this.#loadLib()
+  async removeExtras(child: string, ids: string[]): Promise<Edit> {
+    if (!(await this.#kid(child))) return NO_CHILD
+    const lib = await this.#loadLib(child)
     lib.extras = lib.extras.filter((v) => !ids.includes(v.id))
-    return this.#saveLib()
+    return this.#saveLib(child)
   }
 
   // --- sockets ---------------------------------------------------------------
@@ -227,7 +257,7 @@ export class Family extends DurableObject<Env> {
       await this.#save()
       ws.serializeAttachment({ ...att, role: 'device', child: device.child, device: device.id } satisfies Attachment)
       send(ws, { type: 'auth:ok', role: 'device' })
-      send(ws, { type: 'library', library: resolve(await this.#loadLib()) })
+      send(ws, { type: 'library', child: device.child, library: resolve(await this.#loadLib(device.child)) })
       this.#toChild(device.child)
       this.#toParents()
       return
@@ -241,7 +271,7 @@ export class Family extends DurableObject<Env> {
     ws.serializeAttachment({ ...att, role: 'parent', email: user.email.toLowerCase() } satisfies Attachment)
     send(ws, { type: 'auth:ok', role: 'parent' })
     send(ws, this.#familyMsg())
-    send(ws, { type: 'library', library: resolve(await this.#loadLib()) })
+    for (const c of state.children) send(ws, { type: 'library', child: c.id, library: resolve(await this.#loadLib(c.id)) })
   }
 
   // --- the parent's remote ---------------------------------------------------
@@ -253,8 +283,40 @@ export class Family extends DurableObject<Env> {
     if (msg.type === 'child:add') {
       const name = String(msg.name).trim().slice(0, 30)
       if (!name) return
-      state.children.push({ id: randomId(8), name, until: null, watching: null })
+      const id = randomId(8)
+      state.children.push({ id, name, until: null, watching: null })
       await this.#save()
+      this.#toParents()
+      // Their library starts as the catalog.
+      const library = resolve(await this.#loadLib(id))
+      for (const s of this.#sockets()) if ((s.deserializeAttachment() as Attachment).role === 'parent') send(s, { type: 'library', child: id, library })
+      return
+    }
+    if (msg.type === 'child:rename') {
+      const child = state.children.find((c) => c.id === msg.child)
+      const name = String(msg.name).trim().slice(0, 30)
+      if (!child || !name) return
+      child.name = name
+      await this.#save()
+      this.#toChild(child.id)
+      return this.#toParents()
+    }
+    if (msg.type === 'child:remove') {
+      // The child, their devices (sent back to the welcome screen) and their library.
+      const child = state.children.find((c) => c.id === msg.child)
+      if (!child) return
+      state.children = state.children.filter((c) => c !== child)
+      state.devices = state.devices.filter((d) => d.child !== child.id)
+      await this.#save()
+      this.#libs.delete(child.id)
+      await this.ctx.storage.delete(`library:${child.id}`)
+      for (const s of this.#sockets()) {
+        const a = s.deserializeAttachment() as Attachment
+        if (a.role === 'device' && a.child === child.id) {
+          send(s, { type: 'auth:fail', reason: 'revoked' })
+          s.close(4001, 'revoked')
+        }
+      }
       return this.#toParents()
     }
     if (msg.type === 'revoke') {

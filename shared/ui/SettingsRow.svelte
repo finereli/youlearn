@@ -1,4 +1,4 @@
-<!-- pwa-kit: settings/ui/SettingsRow.svelte v2 -->
+<!-- pwa-kit: settings/ui/SettingsRow.svelte v3 -->
 <script lang="ts">
   // One row of a multi-pane settings index: title, a one-line summary of the
   // section's CURRENT STATE, chevron. The summary is what makes the index read

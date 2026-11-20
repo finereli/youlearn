@@ -11,7 +11,9 @@ const ok = (name, cond, extra = '') => {
   console.log(cond ? 'PASS' : 'FAIL', name, cond ? '' : extra)
 }
 let n = 0
+let CHILD
 async function call(name, args = {}) {
+  if (CHILD && !('child' in args) && name !== 'guide' && name !== 'list_children') args = { child: CHILD, ...args }
   const res = await fetch(`${H}/mcp`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${ACCESS}`, 'Content-Type': 'application/json' },
@@ -24,18 +26,35 @@ async function call(name, args = {}) {
   return { error: !!r.isError, data, text }
 }
 
-// A parent's console socket: collects library messages.
+// A parent's console socket: collects library messages per child.
 const libs = []
 const ws = new WebSocket(H.replace('http', 'ws') + '/ws/' + (await (await fetch(`${H}/api/me`, { headers: { Authorization: `Bearer ${LOGIN}` } })).json()).family.id)
 await new Promise((r) => ws.addEventListener('open', r))
+let kids = []
 ws.addEventListener('message', (e) => {
   const m = JSON.parse(e.data)
-  if (m.type === 'library') libs.push(m.library)
+  if (m.type === 'library') libs.push(m)
+  if (m.type === 'family') kids = m.children
 })
 ws.send(JSON.stringify({ type: 'auth', token: LOGIN }))
 const settle = () => new Promise((r) => setTimeout(r, 400))
 await settle()
-ok('console socket gets the library on connect', libs.length === 1 && libs[0].shows.length === 4, JSON.stringify(libs.length))
+
+let r0 = await call('list_library')
+ok('with no children, tools say to add one', r0.error && /no children/.test(r0.text), r0.text)
+ws.send(JSON.stringify({ type: 'child:add', name: 'Yara' }))
+await settle()
+ok('a new child gets the catalog as their library', libs.at(-1)?.child === kids[0]?.id && libs.at(-1).library.shows.length === 4)
+r0 = await call('list_library')
+ok('with one child, the child can be left out', !r0.error && r0.data.child === 'Yara', r0.text)
+ws.send(JSON.stringify({ type: 'child:add', name: 'Noa' }))
+await settle()
+r0 = await call('list_library')
+ok('with two, tools ask which child', r0.error && /Yara/.test(r0.text) && /Noa/.test(r0.text), r0.text)
+r0 = await call('list_children')
+ok('list_children', JSON.stringify(r0.data) === '["Yara","Noa"]', r0.text)
+CHILD = 'yara'
+const YARA = kids[0].id
 
 let r = await call('guide')
 ok('guide', /full episodes/i.test(r.text))
@@ -55,7 +74,9 @@ r = await call('save_show', {
 })
 ok('save_show creates a show from ids and links', r.data.saved && r.data.show === 'test-show' && r.data.episodes === 3, r.text)
 await settle()
-ok('console socket hears the new show', libs.at(-1)?.shows.some((s) => s.id === 'test-show'))
+ok('console socket hears the new show, for that child', libs.at(-1)?.child === YARA && libs.at(-1).library.shows.some((s) => s.id === 'test-show'))
+let noa = await call('list_library', { child: 'Noa' })
+ok("the other child's library is untouched", noa.data.shows.length === 4 && !noa.data.shows.some((s) => s.id === 'test-show'), noa.text)
 
 r = await call('get_show', { id: 'test-show' })
 const s1 = r.data.seasons?.[0]?.videos
@@ -86,7 +107,7 @@ r = await call('remove_videos', { ids: ['RHhi8Lnb8Pc'] })
 ok('remove_videos', !r.error && r.data.more_videos.length === 0, r.text)
 
 // The console's own API
-const api = (body) => fetch(`${H}/api/library`, { method: 'POST', headers: { Authorization: `Bearer ${LOGIN}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+const api = (body) => fetch(`${H}/api/library`, { method: 'POST', headers: { Authorization: `Bearer ${LOGIN}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ child: YARA, ...body }) })
 let res = await api({ op: 'add-video', url: 'https://youtu.be/nE-hoTqf7X0?t=12' })
 ok('console: add a video by link', res.ok, await res.clone().text())
 res = await api({ op: 'add-video', url: 'https://example.com/x' })
@@ -94,7 +115,13 @@ ok('console: refuses a non-YouTube link', res.status === 400)
 res = await api({ op: 'add-video', url: 'https://youtu.be/aaaaaaaaaaa' })
 ok('console: refuses a missing video', res.status === 400 && /no such video/.test((await res.json()).error))
 await settle()
-ok('console socket hears it', libs.at(-1)?.extras.length === 1)
+ok('console socket hears it', libs.at(-1)?.library.extras.length === 1)
+res = await fetch(`${H}/api/library`, { method: 'POST', headers: { Authorization: `Bearer ${LOGIN}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ child: 'nobody', op: 'remove-show', id: 'wildkratts' }) })
+ok('console: refuses a child not in the family', res.status === 400)
+ws.send(JSON.stringify({ type: 'child:remove', child: kids[1].id }))
+await settle()
+r0 = await call('list_children')
+ok('removing a child', JSON.stringify(r0.data) === '["Yara"]', r0.text)
 res = await fetch(`${H}/api/library`, { method: 'POST', body: '{}' })
 ok('console API needs a parent', res.status === 401)
 

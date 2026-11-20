@@ -1,4 +1,4 @@
-// pwa-kit: mcp/functions/mcp-auth.ts v1
+// pwa-kit: mcp/functions/mcp-auth.ts v2
 // OAuth 2.1 for MCP clients (Claude, ChatGPT, Claude Code...): discovery documents (RFC 9728, RFC 8414), dynamic client
 // registration (RFC 7591), authorization code with PKCE (S256 only), rotating refresh tokens. The user approves an agent
 // by signing in through login.finereli.com; `identify` turns that sign-in into the account the agent will act as.

@@ -109,7 +109,7 @@ class Device {
 
   #onMessage(m: ServerMsg) {
     if (m.type === 'auth:ok' && this.#last) this.#send(this.#last)
-    else if (m.type === 'library') library.set(m.library)
+    else if (m.type === 'library' && m.child === this.pairing?.child.id) library.set(m.library)
     else if (m.type === 'auth:fail') this.unpair()
     else if (m.type === 'child') {
       const offset = m.now - Date.now()
@@ -194,7 +194,11 @@ class Family {
   conn = $state<ConnState>('disconnected')
   children = $state<ChildState[]>([])
   devices = $state<DeviceInfo[]>([])
-  library = $state<Library | null>(null)
+  libraries = $state<Record<string, Library>>({})
+  // The child the console is about, remembered on this phone; a child just
+  // added by name gets picked as soon as the server has made them.
+  selected = $state<string | null>(localStorage.getItem('yl:child'))
+  pendingSelect: string | null = null
   loaded = $state(false)
   offset = 0 // server clock minus ours
   code = $state<{ child: string; code: string; exp: number; shown: number } | null>(null)
@@ -244,7 +248,7 @@ class Family {
 
   // A change to the library. The new library comes back over the socket;
   // the answer is just whether it worked.
-  async edit(change: { op: string; id?: string; url?: string; ids?: string[] }): Promise<string | null> {
+  async edit(change: { child: string; op: string; id?: string; url?: string; ids?: string[] }): Promise<string | null> {
     const res = await fetch('/api/library', {
       method: 'POST',
       headers: { Authorization: `Bearer ${login.token}`, 'Content-Type': 'application/json' },
@@ -283,13 +287,18 @@ class Family {
         if (m.type === 'family') {
           this.offset = m.now - Date.now()
           this.children = m.children
+          const fresh = this.pendingSelect && m.children.find((c) => c.name === this.pendingSelect)
+          if (fresh) {
+            this.pendingSelect = null
+            this.select(fresh.id)
+          }
           this.devices = m.devices
           this.loaded = true
           // A device just paired with the code on screen: it's used up.
           const code = this.code
           if (code && m.devices.some((d) => d.child === code.child && d.created - this.offset >= code.shown - 1000)) this.code = null
         } else if (m.type === 'library') {
-          this.library = m.library
+          this.libraries = { ...this.libraries, [m.child]: m.library }
         } else if (m.type === 'code') {
           this.code = { child: m.child, code: m.code, exp: m.exp - this.offset, shown: Date.now() }
         } else if (m.type === 'auth:fail') {
@@ -298,6 +307,11 @@ class Family {
       },
     })
     this.#ws.connect()
+  }
+
+  select(id: string) {
+    this.selected = id
+    localStorage.setItem('yl:child', id)
   }
 
   stop() {

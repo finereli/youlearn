@@ -1,4 +1,4 @@
-/* pwa-kit: settings/css/settings.css v2 */
+/* pwa-kit: settings/css/settings.css v3 */
 /* Shared by every settings page. Global on purpose, scoped under .settings so
    it can't leak into other views. The .rows block is the multi-pane index;
    the rest serves flat and sub-pages alike. */

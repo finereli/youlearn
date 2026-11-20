@@ -10,6 +10,14 @@
 
   let { child }: { child: ChildState | null } = $props()
 
+  let rename = $state('')
+  function doRename(e: SubmitEvent) {
+    e.preventDefault()
+    if (!child || !rename.trim()) return
+    family.send({ type: 'child:rename', child: child.id, name: rename.trim() })
+    rename = ''
+  }
+
   const devices = $derived(child ? family.devices.filter((d) => d.child === child.id) : [])
   const code = $derived(child && family.code?.child === child.id && family.code.exp > clock.now ? family.code : null)
 </script>
@@ -48,6 +56,16 @@
         <button class="apply-btn" onclick={() => family.send({ type: 'pair', child: child.id })}>Get a code</button>
       {/if}
     </section>
+
+    <section>
+      <h3>{child.name}</h3>
+      <form class="inline" onsubmit={doRename}>
+        <input class="field" bind:value={rename} placeholder="New name" maxlength="30" />
+        <button class="apply-btn" disabled={!rename.trim()}>Rename</button>
+      </form>
+      <p class="hint gap">Removing {child.name} also removes their devices and their shows.</p>
+      <ConfirmButton class="quiet-btn" confirmLabel={`Remove ${child.name}?`} onconfirm={() => family.send({ type: 'child:remove', child: child.id })}>Remove {child.name}</ConfirmButton>
+    </section>
   {/if}
 </SettingsPage>
 
@@ -60,5 +78,7 @@
   .sub { font-size: 0.8rem; }
   :global(.settings .row-btn) { padding: 8px 12px; font-size: 0.85rem; border-radius: var(--radius); }
   :global(.settings .row-btn:hover) { background: var(--bg-hover); }
+  .inline { display: flex; gap: 8px; margin-top: 8px; }
+  .gap { margin: 16px 0 8px; }
   .code { font-size: 2.4rem; font-weight: 500; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; color: var(--accent); }
 </style>

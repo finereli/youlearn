@@ -11,7 +11,7 @@
 
   let { child }: { child: ChildState | null } = $props()
 
-  const lib = $derived(family.library)
+  const lib = $derived(child ? (family.libraries[child.id] ?? null) : null)
   const missing = $derived(lib ? CATALOG.filter((c) => !lib.shows.some((s) => s.id === c.id)) : [])
   const name = $derived(child?.name ?? 'your child')
 
@@ -21,9 +21,10 @@
 
   const episodes = (s: Show) => s.seasons.reduce((n, x) => n + x.videos.length, 0)
 
-  async function edit(change: Parameters<typeof family.edit>[0]) {
+  async function edit(change: Omit<Parameters<typeof family.edit>[0], 'child'>) {
+    if (!child) return false
     busy = true
-    error = (await family.edit(change)) ?? ''
+    error = (await family.edit({ ...change, child: child.id })) ?? ''
     busy = false
     return !error
   }
@@ -98,7 +99,7 @@
 
     <section>
       <h3>Build a new show</h3>
-      <p class="hint">Ask your AI assistant. Connect it on the <a href="#/agents">Agents</a> page, then ask something like "add Bluey to YouLearn, full episodes only, by season".</p>
+      <p class="hint">Ask an AI agent that can run code, like Claude Code or Codex: it lists the show's official YouTube channel and picks out the full episodes. Connect it on the <a href="#/agents">Agents</a> page, then ask something like "add Bluey to {name}'s YouLearn, full episodes only, by season". Assistants in a browser can add catalog shows and single videos.</p>
     </section>
   {:else}
     <div class="loading"><div class="spinner"></div></div>

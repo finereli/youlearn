@@ -1,4 +1,4 @@
-// pwa-kit: mcp/functions/mcp-server.ts v1
+// pwa-kit: mcp/functions/mcp-server.ts v2
 // The MCP endpoint itself: Streamable HTTP with JSON replies (no SSE, no sessions), behind mcp-auth's bearer check.
 // Describe the app's tools; this does the JSON-RPC.
 //

@@ -1,4 +1,4 @@
-// pwa-kit: mcp/scripts/dev-login.mjs v1
+// pwa-kit: mcp/scripts/dev-login.mjs v2
 // A stand-in for login.finereli.com so signed-in behaviour (and an MCP approval) can be tested against a local dev server
 // without Google. It serves /jwks.json and /exchange (any code is accepted, as the made-up account) and prints a login token.
 //

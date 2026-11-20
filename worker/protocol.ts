@@ -40,6 +40,8 @@ export type ClientMsg =
   | { type: 'pair'; child: string }
   | { type: 'revoke'; device: string }
   | { type: 'child:add'; name: string }
+  | { type: 'child:rename'; child: string; name: string }
+  | { type: 'child:remove'; child: string }
   // device
   | { type: 'watching'; video: string; t: number; duration: number; playing: boolean }
   | { type: 'idle' }
@@ -52,7 +54,7 @@ export type ServerMsg =
   | { type: 'child'; now: number; id: string; name: string; until: number | null }
   | { type: 'code'; child: string; code: string; exp: number }
   | { type: 'error'; message: string }
-  | { type: 'library'; library: Library } // on connect, and after every change
+  | { type: 'library'; child: string; library: Library } // on connect, and after every change
 
 // Stop this far before an episode's end (the player's end guard), plus a
 // little slack, when a parent lets her finish the episode.

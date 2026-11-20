@@ -61,8 +61,10 @@ The owner adds and removes parents in the console, and a removed parent's
 console closes at once. New families are off while `SIGNUPS` isn't "open"
 (wrangler.jsonc). The first family came from the `SEED_FAMILY` secret
 (`{"owner": email, "parents": [emails]}`), read once when the directory was
-empty: Eli owns it, Yael and Tom are parents. One child per family in the UI
-for now, though the data holds a list.
+empty: Eli owns it, Yael and Tom are parents. A family has any number of
+children; the console's picker (`ChildPicker.svelte`, choice kept in
+`yl:child`) chooses whose watch time, library and devices it shows, and
+Devices renames or removes a child (their devices and library go too).
 
 Tests run against `wrangler dev` with a stand-in login service:
 `node test/fake-login.mjs` (port 8790), `.dev.vars` with
@@ -84,17 +86,18 @@ token) and `node test/library.mjs http://localhost:8787 <access> <login>`.
 
 ## The library
 
-Each family has its own library, kept in its Durable Object (`worker/family.ts`,
-storage key `library`) and sent over the family socket to every device and
-console on connect and after every change. Devices keep the last one in
+Each child has their own library, kept in the family's Durable Object
+(`worker/family.ts`, storage key `library:<child id>`; the older family-wide
+`library` key belongs to the first child) and sent over the family socket to
+the consoles and that child's devices on connect and after every change. Devices keep the last one in
 localStorage (`yl:library`) for offline launches; before the first one
 arrives, the catalog stands in. Types and helpers shared by both sides are in
 `worker/library.ts`.
 
 A library is an ordered list of shows plus "More videos" (single videos, shown
 as one more card on her home page). A show is either a catalog id, resolved on
-read so catalog fixes reach every family, or the family's own copy. A family
-that never touched its library gets the whole catalog. Every video added goes
+read so catalog fixes reach every family, or the family's own copy. A child
+whose library was never touched gets the whole catalog. Every video added goes
 through `check()`: YouTube's oEmbed must say it exists and can be embedded
 (401 means blocked), 40 per Durable Object call to stay under the free plan's
 50 outbound requests, with good answers cached per family.
@@ -102,10 +105,13 @@ through `check()`: YouTube's oEmbed must say it exists and can be embedded
 Parents change it two ways:
 
 - the console's Library page (`src/components/parent/Library.svelte`): remove
-  a show, add a catalog show, paste a link for "More videos" (`POST /api/library`)
-- their own AI agent over MCP (`worker/mcp.ts`), which can also build whole
-  shows. The agent finds and judges videos with its own search; the server
-  gives it no YouTube tools, only the library and the check. The rules for
+  a show, add a catalog show, paste a link for "More videos" (`POST /api/library`
+  with the child's id)
+- their own AI agent over MCP (`worker/mcp.ts`); every tool takes the child's
+  name (optional with one child). Building a whole show takes an agent that
+  can run code (Claude Code, Codex) to list a channel's uploads: we decided
+  against YouTube tools on the server, so agents in a browser only add catalog
+  shows and single videos. The server checks every video. The rules for
   agents live in the `guide` tool. OAuth is the pwa kit's `mcp` item
   (`shared/functions/`), with tokens in D1 (`migrations/`); an agent acts as
   the parent's email and stops working when they leave the family. The

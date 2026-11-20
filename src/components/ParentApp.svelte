@@ -19,6 +19,7 @@
   import Parents from './parent/Parents.svelte'
   import Library from './parent/Library.svelte'
   import Agents from './parent/Agents.svelte'
+  import ChildPicker from './parent/ChildPicker.svelte'
   import { account, login } from '../lib/account.svelte'
   import { family } from '../lib/remote.svelte'
 
@@ -43,9 +44,11 @@
     return () => family.stop()
   })
 
-  const child = $derived(family.children[0] ?? null)
+  const child = $derived(family.children.find((c) => c.id === family.selected) ?? family.children[0] ?? null)
+  // Pages about one child get the picker on top, once there's a child to pick.
+  const perChild = $derived(['remote', 'library', 'devices'].includes(view) && family.children.length > 0)
   const entries = $derived([
-    { label: child?.name ?? 'Watch time', hash: '/', current: view === 'remote' },
+    { label: 'Watch time', hash: '/', current: view === 'remote' },
     { label: 'Library', hash: '/library', current: view === 'library' },
     { label: 'Devices', hash: '/devices', current: view === 'devices' },
     { label: 'Agents', hash: '/agents', current: view === 'agents' },
@@ -84,7 +87,11 @@
       </SettingsPage>
     {:else if !ready}
       <div class="loading"><div class="spinner"></div></div>
-    {:else if view === 'library'}
+    {:else}
+      {#if perChild}
+        <ChildPicker selected={child?.id ?? null} onselect={(id) => family.select(id)} />
+      {/if}
+      {#if view === 'library'}
       <Library {child} />
     {:else if view === 'agents'}
       <Agents />
@@ -92,8 +99,9 @@
       <Devices {child} />
     {:else if view === 'parents'}
       <Parents />
-    {:else}
-      <Remote {child} />
+      {:else}
+        <Remote {child} />
+      {/if}
     {/if}
   </div>
 </div>
@@ -128,9 +136,6 @@
   @media (min-width: 768px) {
     .shell { margin-inline-start: min(78vw, 300px); }
   }
-  /* The top bar carries the page title at every width here, so the settings
-     pages' own desktop title would say it twice. */
-  .body :global(.settings > h2) { display: none; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 1.05rem; }
   .brand img { width: 30px; height: 30px; border-radius: 8px; }
   .footer-row { display: flex; align-items: center; gap: 4px; }

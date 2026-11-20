@@ -1,4 +1,4 @@
--- pwa-kit: mcp/db/mcp.sql v1
+-- pwa-kit: mcp/db/mcp.sql v2
 -- MCP over OAuth 2.1: dynamic client registration, authorization code with PKCE, rotating refresh tokens.
 -- The account that approved an agent is `sub` on every token, so the agent works as that account. A single-owner app
 -- can store a constant there (e.g. 'owner'). Tokens are stored as sha256 hashes, never raw.
