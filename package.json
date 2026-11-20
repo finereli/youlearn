@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "library": "python3 -I scripts/build-shows.py",
-    "icon": "./scripts/icons.sh"
+    "icon": "./scripts/icons.sh",
+    "test:e2e": "node test/e2e.mjs",
+    "test:timer": "node test/finish.mjs"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.2.1",

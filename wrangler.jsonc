@@ -2,8 +2,21 @@
   "name": "youlearn",
   "compatibility_date": "2025-09-01",
   "account_id": "7485eb8ab648601f411b650cd794bce3",
-  // Static only for now: the episode list is baked into the bundle. The parent
-  // console will add a Worker, D1 and login here.
-  "assets": { "directory": "dist", "not_found_handling": "single-page-application" },
+  // The app is static; the Worker only answers /api and /ws: the parent's
+  // remote control (worker/index.ts). PARENT_EMAILS is a secret.
+  "main": "worker/index.ts",
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/ws/*"]
+  },
+  "durable_objects": {
+    "bindings": [
+      { "name": "FAMILY", "class_name": "Family" },
+      { "name": "CODES", "class_name": "Codes" }
+    ]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Family", "Codes"] }],
   "routes": [{ "pattern": "youlearn.finereli.com", "custom_domain": true }]
 }

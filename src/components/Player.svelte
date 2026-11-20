@@ -12,8 +12,15 @@
   // taken in a couple of seconds we open a hole in the middle of the shield
   // and ask for one tap on the video itself. After that first tap the frame's
   // media is unlocked and our buttons work.
+  //
+  // Watch time: when the device locks, the episode pauses and full screen
+  // exits so the locked screen covers it; nothing plays until a parent gives
+  // more time. What's playing is reported to the parent's console, so the
+  // parent can let her finish this episode.
   import { onDestroy, onMount } from 'svelte'
   import Icon from './Icon.svelte'
+  import Countdown from './Countdown.svelte'
+  import { device } from '../lib/remote.svelte'
   import { createPlayer, State, type YTPlayer } from '../lib/youtube'
   import { find, nextAfter, progress, thumb, type Video } from '../lib/library.svelte'
   import * as fs from '../lib/fullscreen'
@@ -86,6 +93,7 @@
   })
 
   onDestroy(() => {
+    device.watching(null)
     clearInterval(tick)
     clearTimeout(hideTimer)
     clearTimeout(startTimer)
@@ -111,8 +119,31 @@
     armStartTimer(true)
   }
 
+  // Time's up: stop where she is. The poster comes back, the locked screen
+  // goes over everything, and play stays off until she has time again.
+  $effect(() => {
+    if (!device.locked) return
+    if (phase === 'playing' || phase === 'starting' || phase === 'tap') {
+      clearTimeout(startTimer)
+      player?.pauseVideo()
+      phase = 'paused'
+      saveNow()
+    }
+    if (fs.active()) fs.exit()
+  })
+
+  function report() {
+    if (!player || !loadedId) return
+    device.watching({
+      video: loadedId,
+      t: player.getCurrentTime?.() ?? time,
+      duration,
+      playing: phase === 'playing',
+    })
+  }
+
   function requestPlay(fromTap = true) {
-    if (!player) return
+    if (!player || device.locked) return
     if (phase === 'ended') {
       player.seekTo(0, true)
       time = 0
@@ -139,9 +170,11 @@
       duration = player?.getDuration() || duration
       startTick()
       flashControls()
+      report()
     } else if (s === State.PAUSED) {
       if (phase === 'playing') phase = 'paused'
       saveNow()
+      report()
     } else if (s === State.ENDED) {
       finish()
     }
@@ -156,6 +189,7 @@
       if (!duration) duration = player.getDuration()
       if (duration && t >= duration - END_GUARD_S) return finish()
       if (Date.now() - lastSave > 5000) saveNow()
+      report()
     }, 250)
   }
 
@@ -165,6 +199,7 @@
     clearInterval(tick)
     progress.finish(loadedId)
     phase = 'ended'
+    device.watching(null)
   }
 
   function saveNow() {
@@ -178,6 +213,7 @@
     if (phase === 'playing') {
       player?.pauseVideo()
       phase = 'paused'
+      report()
     } else requestPlay()
   }
 
@@ -246,6 +282,7 @@
 
 <div class="player" class:hide-cursor={!showControls} bind:this={root}>
   <div class="frame"><div bind:this={mountEl}></div></div>
+  <Countdown />
 
   {#if covered}
     <div class="poster" style:background-image="url({thumb(videoId, 'hq')})"></div>

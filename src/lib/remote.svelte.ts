@@ -1,0 +1,246 @@
+// The live link to the family's Durable Object, from both ends.
+//
+// `device` is the child's side: paired once with a code, then it holds a
+// socket, counts down to the deadline it was given, and locks at zero. It
+// fails closed: locked until told otherwise, and with no connection it keeps
+// counting down from the last deadline it heard (saved, so a relaunch
+// offline doesn't unlock it).
+//
+// `family` is the parent's side: the console's view of every child, and the
+// commands.
+import { WsClient, type ConnState } from '$shared/lib/ws-client'
+import { episodeLeft, type ChildState, type ClientMsg, type DeviceInfo, type ServerMsg } from '../../worker/protocol'
+import { login } from './account.svelte'
+
+const DEVICE_KEY = 'yl:device'
+const DEADLINE_KEY = 'yl:deadline'
+
+// Her countdown shows for the last five minutes, which is also the longest
+// gentle stop a parent can give.
+export const COUNTDOWN_FROM = 5 * 60_000
+
+function wsUrl(family: string) {
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:'
+  return `${proto}//${location.host}/ws/${family}`
+}
+
+function load<T>(key: string): T | null {
+  try {
+    return JSON.parse(localStorage.getItem(key) || 'null')
+  } catch {
+    return null
+  }
+}
+function store(key: string, value: unknown) {
+  try {
+    if (value == null) localStorage.removeItem(key)
+    else localStorage.setItem(key, JSON.stringify(value))
+  } catch {}
+}
+
+// One clock tick for everyone who shows a countdown.
+class Clock {
+  now = $state(Date.now())
+  constructor() {
+    setInterval(() => (this.now = Date.now()), 250)
+  }
+}
+export const clock = new Clock()
+
+export function mmss(ms: number) {
+  const s = Math.max(0, Math.ceil(ms / 1000))
+  const h = Math.floor(s / 3600)
+  const m = Math.floor((s % 3600) / 60)
+  const ss = String(s % 60).padStart(2, '0')
+  return h ? `${h}:${String(m).padStart(2, '0')}:${ss}` : `${m}:${ss}`
+}
+
+// --- the child's device ------------------------------------------------------
+
+interface Pairing {
+  token: string
+  family: string
+  child: { id: string; name: string }
+}
+
+export interface Watch {
+  video: string
+  t: number
+  duration: number
+  playing: boolean
+}
+
+class Device {
+  pairing = $state<Pairing | null>(load(DEVICE_KEY))
+  // The deadline on this device's own clock (server deadline minus offset).
+  deadline = $state<number | null>(load(DEADLINE_KEY))
+  conn = $state<ConnState>('disconnected')
+  #ws: WsClient<ServerMsg, ClientMsg> | null = null
+  #last: Watch | null = null
+  #lastSent = 0
+
+  get paired() {
+    return !!this.pairing
+  }
+  get remaining() {
+    return this.deadline ? Math.max(0, this.deadline - clock.now) : 0
+  }
+  get locked() {
+    return this.remaining <= 0
+  }
+
+  start() {
+    if (!this.pairing || this.#ws) return
+    const { token, family } = this.pairing
+    this.#ws = new WsClient<ServerMsg, ClientMsg>({
+      url: wsUrl(family),
+      authMessage: () => ({ type: 'auth', token }),
+      isAuthOk: (m) => m.type === 'auth:ok',
+      isAuthFail: (m) => m.type === 'auth:fail',
+      isPong: (m) => m.type === 'pong',
+      ping: () => ({ type: 'ping' }),
+      onState: (s) => (this.conn = s),
+      onMessage: (m) => this.#onMessage(m),
+    })
+    this.#ws.connect()
+  }
+
+  #onMessage(m: ServerMsg) {
+    if (m.type === 'auth:ok' && this.#last) this.#send(this.#last)
+    else if (m.type === 'auth:fail') this.unpair()
+    else if (m.type === 'child') {
+      const offset = m.now - Date.now()
+      this.deadline = m.until && m.until > m.now ? m.until - offset : null
+      store(DEADLINE_KEY, this.deadline)
+      if (this.pairing && this.pairing.child.name !== m.name) {
+        this.pairing = { ...this.pairing, child: { id: m.id, name: m.name } }
+        store(DEVICE_KEY, this.pairing)
+      }
+    }
+  }
+
+  async pair(code: string): Promise<string | null> {
+    const res = await fetch('/api/pair', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, name: deviceName() }),
+    }).catch(() => null)
+    if (!res) return "Couldn't reach YouLearn. Check the internet."
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) return (data as { error?: string }).error ?? 'That didn’t work.'
+    this.pairing = data as Pairing
+    store(DEVICE_KEY, this.pairing)
+    this.start()
+    return null
+  }
+
+  unpair() {
+    this.#ws?.disconnect()
+    this.#ws = null
+    this.pairing = null
+    this.deadline = null
+    store(DEVICE_KEY, null)
+    store(DEADLINE_KEY, null)
+  }
+
+  // What's on screen, for the parent's "finish this episode". Sent on every
+  // change of video or play state, and every 15s while playing.
+  watching(w: Watch | null) {
+    const changed = !w || !this.#last || w.video !== this.#last.video || w.playing !== this.#last.playing
+    this.#last = w
+    if (changed || Date.now() - this.#lastSent > 15_000) this.#send(w)
+  }
+
+  #send(w: Watch | null) {
+    this.#lastSent = Date.now()
+    this.#ws?.send(w ? { type: 'watching', ...w } : { type: 'idle' })
+  }
+}
+
+function deviceName() {
+  const ua = navigator.userAgent
+  // iPadOS reports itself as a Mac; touch gives it away.
+  if (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return 'iPad'
+  if (/iPhone/.test(ua)) return 'iPhone'
+  if (/Android/.test(ua)) return /Mobile/.test(ua) ? 'Android phone' : 'Android tablet'
+  return 'Computer'
+}
+
+export const device = new Device()
+
+// --- the parent's console ----------------------------------------------------
+
+class Family {
+  // null: not checked yet; false: signed in but not a parent here.
+  allowed = $state<boolean | null>(null)
+  conn = $state<ConnState>('disconnected')
+  children = $state<ChildState[]>([])
+  devices = $state<DeviceInfo[]>([])
+  loaded = $state(false)
+  offset = 0 // server clock minus ours
+  code = $state<{ child: string; code: string; exp: number; shown: number } | null>(null)
+  #ws: WsClient<ServerMsg, ClientMsg> | null = null
+
+  async start() {
+    if (this.#ws || !login.token) return
+    const res = await fetch('/api/me', { headers: { Authorization: `Bearer ${login.token}` } }).catch(() => null)
+    if (!res) return
+    if (!res.ok) {
+      this.allowed = false
+      return
+    }
+    this.allowed = true
+    const { family } = (await res.json()) as { family: string }
+    this.#ws = new WsClient<ServerMsg, ClientMsg>({
+      url: wsUrl(family),
+      authMessage: () => ({ type: 'auth', token: login.token ?? '' }),
+      isAuthOk: (m) => m.type === 'auth:ok',
+      isAuthFail: (m) => m.type === 'auth:fail',
+      isPong: (m) => m.type === 'pong',
+      ping: () => ({ type: 'ping' }),
+      onState: (s) => (this.conn = s),
+      onMessage: (m) => {
+        if (m.type === 'family') {
+          this.offset = m.now - Date.now()
+          this.children = m.children
+          this.devices = m.devices
+          this.loaded = true
+          // A device just paired with the code on screen: it's used up.
+          const code = this.code
+          if (code && m.devices.some((d) => d.child === code.child && d.created - this.offset >= code.shown - 1000)) this.code = null
+        } else if (m.type === 'code') {
+          this.code = { child: m.child, code: m.code, exp: m.exp - this.offset, shown: Date.now() }
+        } else if (m.type === 'auth:fail') {
+          this.allowed = false
+        }
+      },
+    })
+    this.#ws.connect()
+  }
+
+  stop() {
+    this.#ws?.disconnect()
+    this.#ws = null
+    this.allowed = null
+    this.loaded = false
+  }
+
+  send(msg: ClientMsg) {
+    return this.#ws?.send(msg) ?? false
+  }
+
+  // On our own clock.
+  until(c: ChildState) {
+    return c.until ? c.until - this.offset : null
+  }
+  remaining(c: ChildState) {
+    const u = this.until(c)
+    return u ? Math.max(0, u - clock.now) : 0
+  }
+  // Milliseconds left in the episode she's watching, if any.
+  episodeLeft(c: ChildState) {
+    return c.watching ? episodeLeft(c.watching, clock.now + this.offset) * 1000 : 0
+  }
+}
+
+export const family = new Family()

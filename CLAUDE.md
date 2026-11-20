@@ -10,7 +10,8 @@ Nov 2026 so it runs on any device, mainly Yara's iPad.
 
 Live at https://youlearn.finereli.com. Svelte 5 + Vite from the pwa skill's
 kit (`shared/` holds the kit files, with `pwa-kit` headers), deployed as a
-static Cloudflare Worker.
+Cloudflare Worker: static assets plus `/api` and `/ws` for the parent's
+remote control (`worker/`).
 
 ## How the player keeps YouTube out
 
@@ -28,6 +29,34 @@ A web page can't restyle youtube.com, so the player uses YouTube's IFrame API
 Details in the comment at the top of `src/components/Player.svelte`.
 Fullscreen is element fullscreen with the WebKit prefix (`src/lib/fullscreen.ts`);
 iPhone has none for this, so the button hides there.
+
+## Watch time and the parent's console
+
+The child's device never signs in to anything. On the parent's phone,
+`#/parent` signs in with finereli login (`PARENT_EMAILS` secret lists who may),
+and "Add a device" shows a six-digit code that works once for ten minutes.
+The device trades it for its own random token (`POST /api/pair`), which only
+means "this device belongs to this child". Removing the device in the console
+sends it back to the pairing screen.
+
+The timer is a deadline on the server's clock. One Durable Object per family
+(`worker/family.ts`) holds each child's `until` and what she's watching; the
+console and every device hold a hibernating WebSocket to it
+(`src/lib/remote.svelte.ts`). It fails closed: locked by default, and offline
+the device counts down from the last deadline it heard (saved in
+localStorage). At zero the player pauses and the locked screen covers
+everything; the app stays open. Her countdown shows for the last five
+minutes, which is also what "wrap up in 2/3/5 min" uses. "Let her finish this
+episode" extends to the end of the episode plus 20s. Pairing codes live in a
+singleton Durable Object (`worker/codes.ts`) that pauses pairing after 30 wrong
+guesses in ten minutes.
+
+Tests run against `wrangler dev` with a stand-in login service:
+`node test/fake-login.mjs` (port 8790), `.dev.vars` with
+`LOGIN_ISSUER="http://localhost:8790"` and `PARENT_EMAILS="parent@example.com"`,
+then `npm run test:e2e` (two browsers; set PLAYWRIGHT to the global
+playwright path) and `npm run test:timer` (socket level). Start wrangler with
+a fresh `--persist-to` directory: the e2e test expects no children yet.
 
 ## The library
 
@@ -60,6 +89,7 @@ minisodes and compilations; the full episodes on YouTube are pirated uploads.
 ```sh
 npm run build                                   # svelte-check + vite build
 secret-env cloudflare -- npx wrangler deploy    # to youlearn.finereli.com
+# once: secret-env cloudflare -- npx wrangler secret put PARENT_EMAILS
 ```
 
 Eli deploys straight to main. Icons: `scripts/make-icons.sh` renders
