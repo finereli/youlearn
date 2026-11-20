@@ -1,61 +1,114 @@
 <script lang="ts">
   // The parent's console, in the kit shell: top bar, drawer (a sidebar on a
-  // wide screen), one scrolling body. It shows on any device that isn't a
-  // child's and has a parent signed in, at the same address as everything
-  // else. Three pages:
-  //   #/          the child's remote: time left, add time, wrap up, lock
-  //   #/devices   devices paired to the child, and a code to add one
-  //   #/library   the shows and videos the child can watch
-  //   #/devices   (above)
-  //   #/agents    AI assistants that manage the library over MCP
-  //   #/parents   who else can run the remote; the owner invites and removes
+  // wide screen), one scrolling body. The drawer has an entry per child, then
+  // Settings as an entry of its own (the kit's footer gear was too easy to
+  // miss here, where settings hold real setup: devices, parents, agents).
+  //   #/child/<id>            the child: their remote, and their shelf below it
+  //   #/child/<id>/shows      changing the shelf: shows and single videos
+  //   #/add-child             who's watching? (also the first screen)
+  //   #/settings              index: children and devices, parents, agents, account
+  //   #/settings/<section>
+  // Every page about a child has the child in its address, so nothing is
+  // "currently selected". #/ opens the first child.
   import TopBar from '$shared/ui/TopBar.svelte'
   import Drawer from '$shared/ui/Drawer.svelte'
   import AccountMenu from '$shared/ui/AccountMenu.svelte'
   import ResetButton from '$shared/ui/ResetButton.svelte'
   import SettingsPage from '$shared/ui/SettingsPage.svelte'
   import Remote from './parent/Remote.svelte'
-  import Devices from './parent/Devices.svelte'
-  import Parents from './parent/Parents.svelte'
   import Library from './parent/Library.svelte'
+  import AddChild from './parent/AddChild.svelte'
+  import Settings from './parent/Settings.svelte'
+  import Children from './parent/Children.svelte'
+  import Parents from './parent/Parents.svelte'
   import Agents from './parent/Agents.svelte'
-  import ChildPicker from './parent/ChildPicker.svelte'
+  import Account from './parent/Account.svelte'
   import { account, login } from '../lib/account.svelte'
   import { family } from '../lib/remote.svelte'
+  import type { ChildState } from '../../worker/protocol'
 
-  type View = 'remote' | 'library' | 'devices' | 'agents' | 'parents'
-  const VIEWS: View[] = ['library', 'devices', 'agents', 'parents']
-  const parse = (): View => VIEWS.find((v) => location.hash === `#/${v}`) ?? 'remote'
-  const TITLES: Record<View, string> = { remote: '', library: 'Library', devices: 'Devices', agents: 'Agents', parents: 'Parents' }
-  let view = $state<View>(parse())
+  type Section = 'children' | 'parents' | 'agents' | 'account'
+  type Route =
+    | { view: 'child' | 'shows'; child: ChildState }
+    | { view: 'add' }
+    | { view: 'settings' }
+    | { view: 'section'; section: Section }
+
+  const SECTIONS: Record<Section, string> = { children: 'Children and devices', parents: 'Parents', agents: 'Agents', account: 'Account' }
+
+  function parse(hash: string, children: ChildState[]): Route {
+    const m = hash.match(/^#\/child\/([\w-]+)(\/shows)?$/)
+    const c = m && children.find((k) => k.id === m[1])
+    if (c) return { view: m![2] ? 'shows' : 'child', child: c }
+    const s = hash.match(/^#\/settings\/(\w+)$/)?.[1] as Section | undefined
+    if (s && s in SECTIONS) return { view: 'section', section: s }
+    if (hash.startsWith('#/settings')) return { view: 'settings' }
+    if (hash === '#/add-child' || !children.length) return { view: 'add' }
+    return { view: 'child', child: children[0] }
+  }
+
+  let hash = $state(location.hash)
   let menuOpen = $state(false)
-
+  const route = $derived(parse(hash, family.children))
   $effect(() => {
     const on = () => {
-      view = parse()
+      hash = location.hash
       menuOpen = false
     }
     window.addEventListener('hashchange', on)
     return () => window.removeEventListener('hashchange', on)
   })
 
+  // Sub-pages (a child's shelf, a settings section, the settings index) have
+  // a back arrow. Going down pushes an entry marked as ours; back pops it,
+  // or on a deep link replaces it with the parent page.
+  function go(to: string) {
+    if (to === location.hash) return
+    history.pushState({ pushed: true }, '', to)
+    hash = location.hash
+    menuOpen = false
+  }
+  function up() {
+    if (history.state?.pushed) history.back()
+    else {
+      history.replaceState(null, '', parent)
+      hash = location.hash
+    }
+  }
+  function onclick(e: MouseEvent) {
+    const a = (e.target as Element).closest?.('a[href^="#/"]')
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return
+    e.preventDefault()
+    go(a.getAttribute('href')!)
+  }
+
+  const parent = $derived(route.view === 'shows' ? `#/child/${route.child.id}` : route.view === 'section' ? '#/settings' : '#/')
+  const section = $derived(route.view === 'section' ? route.section : null)
+  const top = $derived(route.view === 'child' || route.view === 'add' || route.view === 'settings')
+  const title = $derived(
+    route.view === 'child' ? route.child.name
+    : route.view === 'shows' ? `${route.child.name}'s shows`
+    : route.view === 'add' ? 'Add a child'
+    : route.view === 'settings' ? 'Settings'
+    : SECTIONS[section ?? 'account'],
+  )
+
   $effect(() => {
     family.start()
     return () => family.stop()
   })
 
-  const child = $derived(family.children.find((c) => c.id === family.selected) ?? family.children[0] ?? null)
-  // Pages about one child get the picker on top, once there's a child to pick.
-  const perChild = $derived(['remote', 'library', 'devices'].includes(view) && family.children.length > 0)
-  const entries = $derived([
-    { label: 'Watch time', hash: '/', current: view === 'remote' },
-    { label: 'Library', hash: '/library', current: view === 'library' },
-    { label: 'Devices', hash: '/devices', current: view === 'devices' },
-    { label: 'Agents', hash: '/agents', current: view === 'agents' },
-    { label: 'Parents', hash: '/parents', current: view === 'parents' },
-  ])
-  const title = $derived(TITLES[view] || (child?.name ?? 'YouLearn'))
   const ready = $derived(family.allowed === true && family.loaded)
+  const current = (id: string) => (route.view === 'child' || route.view === 'shows') && route.child.id === id
+  const groups = $derived([
+    {
+      entries: [
+        ...family.children.map((c) => ({ label: c.name, hash: `/child/${c.id}`, current: current(c.id) })),
+        { label: '+ Add a child', hash: '/add-child', current: route.view === 'add' },
+      ],
+    },
+    { entries: [{ label: 'Settings', hash: '/settings', current: route.view === 'settings' || route.view === 'section' }] },
+  ])
 
   function signOut() {
     family.stop()
@@ -63,8 +116,9 @@
   }
 </script>
 
-<div class="shell">
-  <TopBar leading="menu" {title} onleading={() => (menuOpen = true)} />
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+<div class="shell" {onclick}>
+  <TopBar leading={top || !ready ? 'menu' : 'back'} title={ready ? title : 'YouLearn'} onleading={() => (top || !ready ? (menuOpen = true) : up())} />
 
   <div class="body">
     {#if family.allowed === false}
@@ -93,25 +147,30 @@
     {:else if !ready}
       <div class="loading"><div class="spinner"></div></div>
     {:else}
-      {#if perChild}
-        <ChildPicker selected={child?.id ?? null} onselect={(id) => family.select(id)} />
-      {/if}
-      {#if view === 'library'}
-      <Library {child} />
-    {:else if view === 'agents'}
-      <Agents />
-    {:else if view === 'devices'}
-      <Devices {child} />
-    {:else if view === 'parents'}
-      <Parents />
-      {:else}
-        <Remote {child} />
-      {/if}
+      {#key hash}
+        {#if route.view === 'child'}
+          <Remote child={route.child} />
+        {:else if route.view === 'shows'}
+          <Library child={route.child} />
+        {:else if route.view === 'add'}
+          <AddChild />
+        {:else if route.view === 'settings'}
+          <Settings />
+        {:else if section === 'children'}
+          <Children />
+        {:else if section === 'parents'}
+          <Parents />
+        {:else if section === 'agents'}
+          <Agents />
+        {:else}
+          <Account onsignout={signOut} />
+        {/if}
+      {/key}
     {/if}
   </div>
 </div>
 
-<Drawer open={menuOpen} onclose={() => (menuOpen = false)} {entries}>
+<Drawer open={menuOpen} onclose={() => (menuOpen = false)} {groups}>
   {#snippet brand()}
     <span class="brand"><img src="/icons/icon-192.png" alt="" />YouLearn</span>
   {/snippet}

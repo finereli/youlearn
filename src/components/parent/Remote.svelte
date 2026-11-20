@@ -11,15 +11,14 @@
   import { findIn, thumb } from '../../lib/library.svelte'
   import type { ChildState } from '../../../worker/protocol'
 
-  let { child }: { child: ChildState | null } = $props()
+  let { child }: { child: ChildState } = $props()
 
   const ADD = [15, 30, 60]
   const WIND = [2, 3, 5]
-  let newName = $state('')
 
   const left = $derived(child ? family.remaining(child) : 0)
   const unlocked = $derived(left > 0)
-  const hit = $derived(child?.watching ? findIn(family.libraries[child.id], child.watching.video) : null)
+  const hit = $derived(child.watching ? findIn(family.libraries[child.id], child.watching.video) : null)
   // How much longer than her current time "let her finish" gives.
   const gain = $derived.by(() => {
     if (!child?.watching) return 0
@@ -36,25 +35,13 @@
   }
   const label = (m: number) => (m >= 60 ? `${m / 60} hour` : `${m} min`)
 
-  function addChild(e: SubmitEvent) {
-    e.preventDefault()
-    if (!newName.trim()) return
-    family.send({ type: 'child:add', name: newName.trim() })
-    newName = ''
-  }
+  // The child's shelf, under the remote: what's on their home page.
+  const lib = $derived(family.libraries[child.id])
+  const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`
 </script>
 
-<SettingsPage title={child?.name ?? 'Watch time'}>
-  {#if !child}
-    <section>
-      <h3>Who's watching?</h3>
-      <p class="hint">Your child's name, as their device will greet them.</p>
-      <form class="inline" onsubmit={addChild}>
-        <input class="field" bind:value={newName} placeholder="Name" maxlength="30" />
-        <button class="apply-btn" disabled={!newName.trim()}>Add</button>
-      </form>
-    </section>
-  {:else}
+<SettingsPage title={child.name}>
+  {#if child}
     <FirstRun {child} />
     <section class="status" class:unlocked>
       <Icon name={unlocked ? 'lock_open' : 'lock'} size={26} />
@@ -116,6 +103,23 @@
         </Btn>
       </section>
     {/if}
+
+    {#if lib}
+      <section class="shelf">
+        <a class="shelf-head" href={`#/child/${child.id}/shows`}>
+          <span><h3>{child.name}'s shows</h3><span class="hint">{plural(lib.shows.length, 'show')}{lib.extras.length ? `, ${plural(lib.extras.length, 'single video')}` : ''}</span></span>
+          <span class="change">Change <Icon name="chevron_right" size={18} /></span>
+        </a>
+        <a class="strip" href={`#/child/${child.id}/shows`} aria-label={`Change ${child.name}'s shows`}>
+          {#each lib.shows as s (s.id)}
+            <img src={s.art} alt={s.title} title={s.title} loading="lazy" />
+          {/each}
+          {#if lib.extras.length}
+            <span class="extras">+{lib.extras.length}<small>videos</small></span>
+          {/if}
+        </a>
+      </section>
+    {/if}
   {/if}
 </SettingsPage>
 
@@ -132,5 +136,12 @@
   .label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-text); }
   .title { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
-  .inline { display: flex; gap: 8px; }
+  .shelf { padding-top: 20px; border-top: 1px solid var(--border); }
+  .shelf-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; color: inherit; text-decoration: none; margin-bottom: 10px; }
+  .shelf-head .hint { margin: 0; }
+  .change { display: inline-flex; align-items: center; font-size: 0.85rem; color: var(--accent-text); white-space: nowrap; }
+  .strip { display: flex; gap: 8px; overflow-x: auto; margin: 0 -24px; padding: 0 24px 4px; scrollbar-width: none; }
+  .strip img { width: 132px; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 8px; flex: none; background: var(--bg-hover); }
+  .extras { width: 72px; flex: none; border-radius: 8px; background: var(--bg-raised); display: grid; place-content: center; text-align: center; color: var(--text-primary); font-size: 1.1rem; }
+  .extras small { font-size: 0.7rem; color: var(--text-secondary); }
 </style>

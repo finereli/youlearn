@@ -13,8 +13,8 @@
 - **Agents manage the library.** A parent connects Claude, ChatGPT or any MCP
   agent. Agents that can run code build whole shows (full episodes, by
   season); we build no search or channel import of our own.
-- **Several children.** Each with their own watch time, devices and library;
-  the console picks whose.
+- **Several children.** Each with their own watch time, devices and library,
+  and their own entry in the console's menu; setup lives in Settings.
 - **Open sign-ups, capped.** Anyone can start a family, up to 100 new ones,
   with a welcome that says what YouLearn is and a getting-started checklist.
 

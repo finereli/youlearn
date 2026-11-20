@@ -28,9 +28,9 @@
   const paired = $derived(family.devices.some((d) => d.child === child.id))
   const steps = $derived([
     { done: true, label: `Add ${child.name}` },
-    { done: paired, label: `Pair ${child.name}'s device`, href: '#/devices', hint: 'A six-digit code, typed on their tablet.' },
-    { done: child.until !== null || !!child.watching, label: 'Give them some time', hint: 'Unlock for below. Their shows appear at once.' },
-    ...(fam?.isOwner ? [{ done: (fam?.parents.length ?? 1) > 1, label: 'Invite the other parents', href: '#/parents', hint: 'Optional. Each signs in with their own Google account.' }] : []),
+    { done: paired, label: `Pair ${child.name}'s device`, href: '#/settings/children', hint: 'A six-digit code, typed on their tablet.' },
+    { done: child.until !== null || !!child.watching, label: 'Give them some time' },
+    ...(fam?.isOwner ? [{ done: (fam?.parents.length ?? 1) > 1, label: 'Invite the other parents', href: '#/settings/parents', hint: 'Optional. Each signs in with their own Google account.' }] : []),
   ])
   const allDone = $derived(steps.every((s) => s.done))
 </script>

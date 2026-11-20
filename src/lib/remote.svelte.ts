@@ -196,14 +196,15 @@ class Family {
   children = $state<ChildState[]>([])
   devices = $state<DeviceInfo[]>([])
   libraries = $state<Record<string, Library>>({})
-  // The child the console is about, remembered on this phone; a child just
-  // added by name gets picked as soon as the server has made them.
-  selected = $state<string | null>(localStorage.getItem('yl:child'))
-  pendingSelect: string | null = null
   loaded = $state(false)
   offset = 0 // server clock minus ours
   code = $state<{ child: string; code: string; exp: number; shown: number } | null>(null)
   #ws: WsClient<ServerMsg, ClientMsg> | null = null
+
+  addChild(name: string) {
+    const n = name.trim()
+    if (n) this.send({ type: 'child:add', name: n })
+  }
 
   async start() {
     if (this.#ws || !login.token) return
@@ -288,11 +289,6 @@ class Family {
         if (m.type === 'family') {
           this.offset = m.now - Date.now()
           this.children = m.children
-          const fresh = this.pendingSelect && m.children.find((c) => c.name === this.pendingSelect)
-          if (fresh) {
-            this.pendingSelect = null
-            this.select(fresh.id)
-          }
           this.devices = m.devices
           this.loaded = true
           // A device just paired with the code on screen: it's used up.
@@ -308,11 +304,6 @@ class Family {
       },
     })
     this.#ws.connect()
-  }
-
-  select(id: string) {
-    this.selected = id
-    localStorage.setItem('yl:child', id)
   }
 
   stop() {

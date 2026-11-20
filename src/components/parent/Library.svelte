@@ -38,7 +38,7 @@
 <SettingsPage title="Library">
   {#if lib}
     <section>
-      <h3>{name}'s shows</h3>
+      <h3>On {name}'s home page</h3>
       {#if lib.shows.length}
         <ul class="list">
           {#each lib.shows as s (s.id)}
@@ -99,7 +99,7 @@
 
     <section>
       <h3>Build a new show</h3>
-      <p class="hint">Ask an AI agent that can run code, like Claude Code or Codex: it lists the show's official YouTube channel and picks out the full episodes. Connect it on the <a href="#/agents">Agents</a> page, then ask something like "add Bluey to {name}'s YouLearn, full episodes only, by season". Assistants in a browser can add catalog shows and single videos.</p>
+      <p class="hint">Ask an AI agent that can run code, like Claude Code or Codex: it lists the show's official YouTube channel and picks out the full episodes. Connect it on the <a href="#/settings/agents">Agents</a> page, in Settings,, then ask something like "add Bluey to {name}'s YouLearn, full episodes only, by season". Assistants in a browser can add catalog shows and single videos.</p>
     </section>
   {:else}
     <div class="loading"><div class="spinner"></div></div>
