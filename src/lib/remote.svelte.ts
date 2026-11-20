@@ -170,9 +170,17 @@ export const device = new Device()
 
 // --- the parent's console ----------------------------------------------------
 
+export interface Me {
+  email: string
+  canStart: boolean
+  family: { id: string; owner: string; parents: string[]; isOwner: boolean } | null
+}
+
 class Family {
-  // null: not checked yet; false: signed in but not a parent here.
+  // null: not checked yet; false: signed in but in no family (or removed).
   allowed = $state<boolean | null>(null)
+  me = $state<Me | null>(null)
+  error = $state('')
   conn = $state<ConnState>('disconnected')
   children = $state<ChildState[]>([])
   devices = $state<DeviceInfo[]>([])
@@ -183,14 +191,49 @@ class Family {
 
   async start() {
     if (this.#ws || !login.token) return
-    const res = await fetch('/api/me', { headers: { Authorization: `Bearer ${login.token}` } }).catch(() => null)
-    if (!res) return
-    if (!res.ok) {
-      this.allowed = false
-      return
+    const me = await this.#api('GET', '/api/me')
+    if (me) this.#connect(me)
+  }
+
+  async #api(method: string, path: string, body?: unknown): Promise<Me | null> {
+    const res = await fetch(path, {
+      method,
+      headers: { Authorization: `Bearer ${login.token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+      body: body ? JSON.stringify(body) : undefined,
+    }).catch(() => null)
+    if (!res) {
+      this.error = "Couldn't reach YouLearn."
+      return null
     }
-    this.allowed = true
-    const { family } = (await res.json()) as { family: string }
+    if (res.status === 401) {
+      login.handleUnauthorized()
+      return null
+    }
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) {
+      this.error = (data as { error?: string }).error ?? 'That didn’t work.'
+      return null
+    }
+    this.error = ''
+    this.me = data as Me
+    this.allowed = !!this.me.family
+    return this.me
+  }
+
+  async startFamily() {
+    const me = await this.#api('POST', '/api/family')
+    if (me) this.#connect(me)
+  }
+  addParent(email: string) {
+    return this.#api('POST', '/api/parents', { email })
+  }
+  removeParent(email: string) {
+    return this.#api('DELETE', '/api/parents', { email })
+  }
+
+  #connect(me: Me) {
+    if (!me.family || this.#ws) return
+    const family = me.family.id
     this.#ws = new WsClient<ServerMsg, ClientMsg>({
       url: wsUrl(family),
       authMessage: () => ({ type: 'auth', token: login.token ?? '' }),
@@ -222,6 +265,7 @@ class Family {
     this.#ws?.disconnect()
     this.#ws = null
     this.allowed = null
+    this.me = null
     this.loaded = false
   }
 

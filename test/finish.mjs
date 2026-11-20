@@ -4,8 +4,11 @@ const BASE = 'http://localhost:8787'
 const assert = (c, m) => { if (!c) throw new Error('FAILED: ' + m); console.log('✓', m) }
 const { token } = await (await fetch(`http://localhost:8790/mint?email=parent@example.com&aud=${BASE}`)).json()
 
+const me = await (await fetch(`${BASE}/api/me`, { headers: { Authorization: `Bearer ${token}` } })).json()
+const FAMILY = me.family.id
+
 function open(tok) {
-  const ws = new WebSocket(`${BASE.replace('http', 'ws')}/ws/finer`)
+  const ws = new WebSocket(`${BASE.replace('http', 'ws')}/ws/${FAMILY}`)
   const queue = []
   let waiter = null
   let last = null

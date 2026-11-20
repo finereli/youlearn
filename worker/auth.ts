@@ -1,24 +1,29 @@
-// Who may be a parent: a verified Google account from login.finereli.com whose
-// email is in PARENT_EMAILS (a secret, so the list stays out of the repo).
+// Sign-in for parents: a verified Google account from login.finereli.com.
+// Which family (if any) that account belongs to is the Directory's business.
 import { verifyLoginToken, type LoginClaims } from './verify-login'
 
 export interface Env {
   ASSETS: Fetcher
   FAMILY: DurableObjectNamespace<import('./family').Family>
   CODES: DurableObjectNamespace<import('./codes').Codes>
-  PARENT_EMAILS: string
+  DIRECTORY: DurableObjectNamespace<import('./directory').Directory>
+  SIGNUPS?: string // "open" lets anyone signed in start a family
+  SEED_FAMILY?: string // secret: the first family, {"owner": email, "parents": [emails]}
   LOGIN_ISSUER?: string // a stand-in login service, for tests only
 }
 
-// For now every parent belongs to this one family.
-export const FAMILY_ID = 'finer'
-
 const AUDIENCE = ['https://youlearn.finereli.com', 'http://localhost:5173', 'http://localhost:8787']
 
-export async function parentOf(token: string | null | undefined, env: Env): Promise<LoginClaims | null> {
+export async function signedIn(token: string | null | undefined, env: Env): Promise<LoginClaims | null> {
   if (!token) return null
   const user = await verifyLoginToken(token, { audience: AUDIENCE, issuer: env.LOGIN_ISSUER || undefined })
-  if (!user || !user.email_verified) return null
-  const allowed = (env.PARENT_EMAILS || '').toLowerCase().split(/[\s,]+/).filter(Boolean)
-  return allowed.includes(user.email.toLowerCase()) ? user : null
+  return user && user.email_verified ? user : null
+}
+
+export function directory(env: Env) {
+  return env.DIRECTORY.get(env.DIRECTORY.idFromName('directory'))
+}
+
+export function familyStub(env: Env, id: string) {
+  return env.FAMILY.get(env.FAMILY.idFromName(id))
 }

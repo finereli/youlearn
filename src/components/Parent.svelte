@@ -13,6 +13,13 @@
   let { onback }: { onback?: () => void } = $props()
 
   let newName = $state('')
+  let newParent = $state('')
+  let confirmParent = $state<string | null>(null)
+
+  async function addParent(e: SubmitEvent) {
+    e.preventDefault()
+    if (await family.addParent(newParent)) newParent = ''
+  }
   let confirmRevoke = $state<string | null>(null)
 
   $effect(() => {
@@ -74,8 +81,14 @@
     </div>
   {:else if family.allowed === false}
     <div class="center">
-      <p>{account.user.email} isn't a parent here.</p>
+      {#if family.me?.canStart}
+        <p>Start a family to control watch time on your child's devices. You can add other parents after.</p>
+        <button class="primary" onclick={() => family.startFamily()}>Start a family</button>
+      {:else}
+        <p>{account.user.email} isn't a parent in any family. YouLearn is invite-only for now: ask a family's owner to add you.</p>
+      {/if}
       <button class="pill" onclick={() => login.signIn({ chooseAccount: true })}>Use another account</button>
+      {#if family.error}<p class="error">{family.error}</p>{/if}
     </div>
   {:else if !family.loaded}
     <div class="center"><div class="spinner"></div></div>
@@ -177,6 +190,36 @@
         <button class="primary" disabled={!newName.trim()}>Add</button>
       </form>
     {/if}
+
+    {#if family.me?.family}
+      {@const fam = family.me.family}
+      <section class="child parents">
+        <h3>Parents</h3>
+        <ul class="devices">
+          {#each fam.parents as p (p)}
+            <li>
+              <span class="dname email">{p}</span>
+              {#if p === fam.owner}<span class="tag">Owner</span>{/if}
+              {#if fam.isOwner && p !== fam.owner}
+                {#if confirmParent === p}
+                  <button class="link danger-text" onclick={() => { family.removeParent(p); confirmParent = null }}>Remove?</button>
+                  <button class="link" onclick={() => (confirmParent = null)}>Keep</button>
+                {:else}
+                  <button class="link" onclick={() => (confirmParent = p)} aria-label="Remove {p}"><Icon name="close" size={20} /></button>
+                {/if}
+              {/if}
+            </li>
+          {/each}
+        </ul>
+        {#if fam.isOwner}
+          <form class="add" onsubmit={addParent}>
+            <input type="email" bind:value={newParent} placeholder="Another parent's Google email" autocomplete="off" />
+            <button class="pill" disabled={!newParent.includes('@')}>Invite</button>
+          </form>
+        {/if}
+        {#if family.error}<p class="error">{family.error}</p>{/if}
+      </section>
+    {/if}
   {/if}
 </div>
 
@@ -233,6 +276,12 @@
   .devices .sub { flex: 1; }
   .link { padding: 8px; color: var(--text-secondary); font-weight: 600; }
   .danger-text { color: #ff9a85; }
+  .error { color: #ff9a85; font-size: 0.9rem; }
+  .parents { gap: 10px; }
+  .email { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .tag { font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); }
+  .add { display: flex; gap: 8px; }
+  .add input { flex: 1; width: auto; font-size: 1rem; padding: 10px 14px; text-align: start; }
 
   .code { text-align: center; padding: 14px; border-radius: 16px; background: var(--bg-surface); display: grid; gap: 6px; }
   .code p { font-size: 0.9rem; color: var(--text-secondary); }

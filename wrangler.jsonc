@@ -3,7 +3,8 @@
   "compatibility_date": "2025-09-01",
   "account_id": "7485eb8ab648601f411b650cd794bce3",
   // The app is static; the Worker only answers /api and /ws: the parent's
-  // remote control (worker/index.ts). PARENT_EMAILS is a secret.
+  // remote control (worker/index.ts). SEED_FAMILY is a secret: the first
+  // family, read once. Set SIGNUPS to "open" to let anyone start a family.
   "main": "worker/index.ts",
   "assets": {
     "directory": "dist",
@@ -14,9 +15,11 @@
   "durable_objects": {
     "bindings": [
       { "name": "FAMILY", "class_name": "Family" },
-      { "name": "CODES", "class_name": "Codes" }
+      { "name": "CODES", "class_name": "Codes" },
+      { "name": "DIRECTORY", "class_name": "Directory" }
     ]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Family", "Codes"] }],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Family", "Codes", "Directory"] }],
+  "vars": { "SIGNUPS": "closed" },
   "routes": [{ "pattern": "youlearn.finereli.com", "custom_domain": true }]
 }

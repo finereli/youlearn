@@ -33,8 +33,8 @@ iPhone has none for this, so the button hides there.
 ## Watch time and the parent's console
 
 The child's device never signs in to anything. On the parent's phone,
-`#/parent` signs in with finereli login (`PARENT_EMAILS` secret lists who may),
-and "Add a device" shows a six-digit code that works once for ten minutes.
+`#/parent` signs in with finereli login, and "Add a device" shows a six-digit
+code that works once for ten minutes.
 The device trades it for its own random token (`POST /api/pair`), which only
 means "this device belongs to this child". Removing the device in the console
 sends it back to the pairing screen.
@@ -51,9 +51,19 @@ episode" extends to the end of the episode plus 20s. Pairing codes live in a
 singleton Durable Object (`worker/codes.ts`) that pauses pairing after 30 wrong
 guesses in ten minutes.
 
+Families: each has an owner and other parents, kept by email in a singleton
+Durable Object (`worker/directory.ts`); an email is in at most one family.
+The owner adds and removes parents in the console, and a removed parent's
+console closes at once. New families are off while `SIGNUPS` isn't "open"
+(wrangler.jsonc). The first family came from the `SEED_FAMILY` secret
+(`{"owner": email, "parents": [emails]}`), read once when the directory was
+empty: Eli owns it, Yael and Tom are parents. One child per family in the UI
+for now, though the data holds a list.
+
 Tests run against `wrangler dev` with a stand-in login service:
 `node test/fake-login.mjs` (port 8790), `.dev.vars` with
-`LOGIN_ISSUER="http://localhost:8790"` and `PARENT_EMAILS="parent@example.com"`,
+`LOGIN_ISSUER="http://localhost:8790"` and
+`SEED_FAMILY={"owner":"parent@example.com","parents":["second@example.com"]}`,
 then `npm run test:e2e` (two browsers; set PLAYWRIGHT to the global
 playwright path) and `npm run test:timer` (socket level). Start wrangler with
 a fresh `--persist-to` directory: the e2e test expects no children yet.
@@ -89,7 +99,6 @@ minisodes and compilations; the full episodes on YouTube are pirated uploads.
 ```sh
 npm run build                                   # svelte-check + vite build
 secret-env cloudflare -- npx wrangler deploy    # to youlearn.finereli.com
-# once: secret-env cloudflare -- npx wrangler secret put PARENT_EMAILS
 ```
 
 Eli deploys straight to main. Icons: `scripts/make-icons.sh` renders

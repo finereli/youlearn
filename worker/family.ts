@@ -7,7 +7,7 @@
 // to it themselves and lock at zero even if the connection is gone. No alarm
 // is needed: nothing has to happen on the server when time runs out.
 import { DurableObject } from 'cloudflare:workers'
-import { FAMILY_ID, parentOf, type Env } from './auth'
+import { directory, signedIn, type Env } from './auth'
 import { episodeLeft, FINISH_SLACK_S, type ChildState, type ClientMsg, type DeviceInfo, type ServerMsg, type Watching } from './protocol'
 
 interface Child {
@@ -26,6 +26,7 @@ interface State {
 interface Attachment {
   family: string
   role?: 'parent' | 'device'
+  email?: string
   child?: string
   device?: string
 }
@@ -70,7 +71,7 @@ export class Family extends DurableObject<Env> {
     const att = ws.deserializeAttachment() as Attachment
     if (msg.type === 'ping') return send(ws, { type: 'pong' })
     if (msg.type === 'auth') return this.#auth(ws, att, msg.token)
-    if (att.role === 'parent') return this.#parentMsg(ws, msg)
+    if (att.role === 'parent') return this.#parentMsg(ws, att, msg)
     if (att.role === 'device') return this.#deviceMsg(att, msg)
   }
 
@@ -110,19 +111,20 @@ export class Family extends DurableObject<Env> {
       this.#toParents()
       return
     }
-    const user = await parentOf(token, this.env)
-    if (!user || att.family !== FAMILY_ID) {
+    const user = await signedIn(token, this.env)
+    const fam = user ? await directory(this.env).familyOf(user.email) : null
+    if (!user || fam?.id !== att.family) {
       send(ws, { type: 'auth:fail', reason: 'not a parent' })
       return ws.close(4001, 'not a parent')
     }
-    ws.serializeAttachment({ ...att, role: 'parent' } satisfies Attachment)
+    ws.serializeAttachment({ ...att, role: 'parent', email: user.email.toLowerCase() } satisfies Attachment)
     send(ws, { type: 'auth:ok', role: 'parent' })
     send(ws, this.#familyMsg())
   }
 
   // --- the parent's remote ---------------------------------------------------
 
-  async #parentMsg(ws: WebSocket, msg: ClientMsg) {
+  async #parentMsg(ws: WebSocket, att: Attachment, msg: ClientMsg) {
     const state = await this.#load()
     const now = Date.now()
 
@@ -178,7 +180,7 @@ export class Family extends DurableObject<Env> {
         child.until = null
         break
       case 'pair': {
-        const { code, exp } = await this.env.CODES.get(this.env.CODES.idFromName('codes')).create(FAMILY_ID, child.id)
+        const { code, exp } = await this.env.CODES.get(this.env.CODES.idFromName('codes')).create(att.family, child.id)
         return send(ws, { type: 'code', child: child.id, code, exp })
       }
       default:
@@ -213,7 +215,7 @@ export class Family extends DurableObject<Env> {
   }
 
   // Called by the Worker once a pairing code checks out.
-  async addDevice(childId: string, name: string): Promise<{ token: string; family: string; child: { id: string; name: string } } | null> {
+  async addDevice(family: string, childId: string, name: string): Promise<{ token: string; family: string; child: { id: string; name: string } } | null> {
     const state = await this.#load()
     const child = state.children.find((c) => c.id === childId)
     if (!child) return null
@@ -223,7 +225,19 @@ export class Family extends DurableObject<Env> {
     state.devices.push({ id, child: child.id, name, created: now, lastSeen: now, hash: await sha256(secret) })
     await this.#save()
     this.#toParents()
-    return { token: `d.${id}.${secret}`, family: FAMILY_ID, child: { id: child.id, name: child.name } }
+    return { token: `d.${id}.${secret}`, family, child: { id: child.id, name: child.name } }
+  }
+
+  // Called by the Worker when the owner removes a parent.
+  async kick(email: string) {
+    const e = email.trim().toLowerCase()
+    for (const s of this.#sockets()) {
+      const a = s.deserializeAttachment() as Attachment
+      if (a.role === 'parent' && a.email === e) {
+        send(s, { type: 'auth:fail', reason: 'not a parent' })
+        s.close(4001, 'not a parent')
+      }
+    }
   }
 
   // --- broadcasting ----------------------------------------------------------
