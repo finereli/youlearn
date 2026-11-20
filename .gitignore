@@ -1,9 +1,5 @@
-.env
-.build/
-.swiftpm/
-YouLearn.app/
-vendor/
-swift-yt-dlp/
-.DS_Store
-Resources/AppIcon.iconset/
-*.zip
+node_modules/
+dist/
+.venv/
+.wrangler/
+.dev.vars

@@ -1,0 +1,1548 @@
+{{Short description|none}}
+{{italic title|string=Octonauts}}
+{{unreferenced|date=September 2026}}
+{{use British English|date=September 2026}}
+{{Use dmy dates|date=March 2019}}
+This is a list of episodes of the television series ''[[Octonauts]]'', a British [[children's television series]] produced by [[Sony Pictures Television Kids|Silvergate Media]] for the [[BBC]] channel [[CBeebies]].
+
+==Series overview==
+<onlyinclude>{{Series overview
+
+| color1 = #3aaab8
+| link1 = List of Octonauts episodes#Series 1 (2010–11)
+| episodes1 =  50
+| start1 = {{Start date|df=yes|2010|10|04}}
+| end1 = {{End date|df=yes|2011|2|11}}
+
+| color2 = #081422
+| link2 = List of Octonauts episodes#Series 2 (2012–13)
+| episodes2 = 22
+| start2 = {{Start date|df=yes|2012|11|19}}
+| end2 = {{End date|df=yes|2013|9|03}}
+
+| color3 = #AE1D00
+| link3 = List of Octonauts episodes#Series 3 (2013–15)
+| episodes3 = 20
+| start3 = {{Start date|df=yes|2013|9|04}}
+| end3 = {{End date|df=yes|2015|9|22}}
+
+| color4 = #15431f
+| link4 = List of Octonauts episodes#Series 4 (2015–17)
+| episodes4 = 24
+| start4 = {{Start date|df=yes|2015|9|23}}
+| end4 = {{End date|df=yes|2017|10|27}}
+
+| color4S = #00FFFF
+| link4S = List of Octonauts episodes#Specials
+| linkT4S = Specials 
+| episodes4S = 12
+| start4S = {{Start date|df=yes|2010|12|13}}
+| end4S = {{End date|df=yes|2021|3|30}}
+
+| color5 = #555555
+| link5 = List of Octonauts episodes#Series 5 (2023)
+| episodes5 = 27
+| start5 = {{Start date|df=yes|2023|3|27}}
+| end5 = 30 September 2026
+
+
+}}</onlyinclude>
+
+==Episodes==
+
+=== Series 1 (2010–11) ===
+Written by: Stephanie Simpson, [[Billy Aronson]], [[Glen Berger]], [[Ian Carney]], Cydne Clark, [[Cusi Cram]], [[Sarah Durkee]], Steve Granat, [[Carin Greenberg]], Jonathan Greenberg, Peter K. Hirsch, Adam Idelson, Dave Ingham, Catherine Lieuwen, Myles McLeod, [[Allan Neuwirth]], [[Sascha Paladino]], and Gabe Pulliam.
+{{Episode table|background=3aaab8|overall=|series=|title=|aux2=|aux2T=Octo-Alert sounded by|airdate=|altdate=|altdateT=Creature Report air date|episodes={{Episode list
+| EpisodeNumber   = 1
+| EpisodeNumber2  = 1
+| Title           = The Octonauts and the Whale Shark
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2010|10|4|df=y}}
+| AltDate         = 9 January 2011
+| ShortSummary    = When Dashi is swallowed by a [[whale shark]], mistaken for a cave, the Octonauts venture inside of him to come and rescue her.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 2
+| EpisodeNumber2  = 2
+| Title           = The Octonauts and the Undersea Storm
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2010|10|5|df=y}}
+| AltDate         = 15 January 2011
+| ShortSummary    = An undersea storm is approaching so Kwazii helps some creatures on a [[coral reef]] reach safety, but then he crashes the Gup-B while he is also trying to race back to the Octopod. When the GUP-C's tow-rope snaps while rescuing him, some [[reef lobster]]s Kwazii helped earlier lend a hand by holding the broken rope ends together with their strong claws.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 3
+| EpisodeNumber2  = 3
+| Title           = The Octonauts and the Crab and Urchin
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|6|df=y}}
+| AltDate         = 6 February 2011
+| ShortSummary    = Barnacles and Kwazii investigate a disruption on a nearby reef; A [[Homolidae|carrier crab]] and the [[Sea urchin|urchin]] he keeps on top of his shell as a defence against predators has a falling out and just can't seem to get along.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 4
+| EpisodeNumber2  = 4
+| Title           = Octonauts and the Walrus Chief
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|7|df=y}}
+| AltDate         = 1 February 2013
+| ShortSummary    = A [[walrus]] mistakes Peso's medical bag for a clam and takes it home. Walruses don't like other animals near their colonies, so Captain Barnacles, Kwazii, and Peso disguise themselves as a fellow walrus to sneak into the dangerous colony and retrieve the medical bag.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 5
+| EpisodeNumber2  = 5
+| Title           = Octonauts and the Flying Fish
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|8|df=y}}
+| AltDate         = 14 May 2011
+| ShortSummary    = A school of [[flying fish]] accidentally make off with Professor Inkling's rare book and the Octonauts rig up the GUP-B to get it back.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 6
+| EpisodeNumber2  = 6
+| Title           = Octonauts and the Giant Squid
+| Aux2            = Inkling
+| OriginalAirDate = {{start date|2010|10|11|df=y}}
+| AltDate         = 23 January 2011
+| ShortSummary    = The Octonauts set out to find and photograph Inkling's long-lost cousin, the [[giant squid]].
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 7
+| EpisodeNumber2  = 7
+| Title           = Octonauts and the Orca
+| Aux2            = Kwazii<br/>Barnacles (briefly)
+| OriginalAirDate = {{start date|2010|10|12|df=y}}
+| AltDate         = 5 February 2011
+| ShortSummary    = An enormous [[killer whale]] is stranded on a beach, and with some help from some fiddler crabs, the Octonauts manage to rescue him.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 8
+| EpisodeNumber2  = 8
+| Title           = Octonauts and the Great Algae Escape
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2010|10|13|df=y}}
+| AltDate         = 17 April 2011
+| ShortSummary    = The crew must catch a runaway Octopod after it is hijacked by a group of crustaceans who are trying to flee an area of [[Algal bloom|seabed]] being polluted with [[algae]] by a broken pipeline.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 9
+| EpisodeNumber2  = 9
+| Title           = Octonauts and the Remipedes
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2010|10|14|df=y}}
+| AltDate         = 12 February 2011
+| ShortSummary    = Shellington goes to search for a group of [[Remipedia|remipede]]s in a cave but he hasn't driven the GUP-D before and ends up crashing it and breaking it. The other Octonauts try to save him but they get lost too. Luckily, a group of blind remipedes help them find their way out of the cave.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 10
+| EpisodeNumber2  = 10
+| Title           = Octonauts and the Speedy Sailfish
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2010|10|15|df=y}}
+| AltDate         = 21 May 2011
+| ShortSummary    = Tweak's remote control system for the Gups' malfunctions, so Barnacles and Kwazii are forced to chase after them with the pedal-driven GUP-F. Luckily some speedy [[sailfish]], the fastest fish in the sea, are persuaded to show their off prowess by rounding up the speeding Gups.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 11
+| EpisodeNumber2  = 11
+| Title           = Octonauts and the Blobfish Brothers
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2010|10|18|df=y}}
+| AltDate         = 7 May 2011
+| ShortSummary    = The Octonauts must evacuate some slow-moving, gelatinous [[Psychrolutidae|blobfish]] before an undersea volcano erupts.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 12
+| EpisodeNumber2  = 12
+| Title           = Octonauts and the Monster Map
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|19|df=y}}
+| AltDate         = 16 January 2011
+| ShortSummary    = Kwazii has a pirate map showing the location of a sunken treasure ship that allegedly harbours a [[Kraken]]-like a sea monster, but it turns out to be an [[octopus]] that can change colour to camouflage himself.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 13
+| EpisodeNumber2  = 13
+| Title           = Octonauts and the Lost Sea Star
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|20|df=y}}
+| AltDate         = 28 May 2011
+| ShortSummary    = A [[sea star]] named Twinkle has got lost on the beach, but the Octonauts have to search the sea from top to bottom to find her home, as there are nearly 2,000 species of sea star living at all levels of the ocean. On a [[Coral reef|reef]] in the [[Photic zone|Sunlight Zone]], they encounter a [[sunflower sea star]] and a predatory [[long-spine porcupinefish]]. In the [[Mesopelagic zone|Twilight Zone]] they encounter [[brittle star]]s and get chased into a cave by a [[wolf eel]], where they notice Twinkle [[Bioluminescence|glows in the dark]], which means she is from the [[Bathypelagic zone|Midnight Zone]]. They end up crashing the Gup at the bottom of an [[oceanic trench]], but luminous sea stars light the way out for them.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 14
+| EpisodeNumber2  = 14
+| Title           = Octonauts and the Albino Humpback Whale
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|21|df=y}}
+| AltDate         = 22 January 2011
+| ShortSummary    = The Octonauts think they've seen a ghost but it turns out to be an albino [[humpback whale]] who is moaning from the pain of a nasty [[sunburn]].
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 15
+| EpisodeNumber2  = 15
+| Title           = Octonauts and the Giant Kelp Forest
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2010|10|22|df=y}}
+| AltDate         = 10 April 2011
+| ShortSummary    = Kwazii's favorite sub, the GUP-B, goes missing in a huge [[Macrocystis|kelp]] forest due to Kwazii pressing the eject button while the engine was active (Something Tweak advised him not to do) and Kwazii, Captain Barnacles, and Shellington must retrieve it, meeting strange and interesting creatures along the way.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 16
+| EpisodeNumber2  = 16
+| Title           = Octonauts and the Enemy Anemones
+| Aux2            = [[Pudding]] (Accidentally)
+| OriginalAirDate = {{start date|2010|10|25|df=y}}
+| AltDate         = 22 May 2011
+| ShortSummary    = The Octonauts land on an island for a picnic, but first, must help some crabs trapped between two warring groups of [[Aggregating anemone|aggregate anemones]]. Meanwhile, back on the Octopod, a horde of out-of-control puddings come to attack.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 17
+| EpisodeNumber2  = 17
+| Title           = Octonauts and the Narwhal
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2010|10|26|df=y}}
+| AltDate         = 23 April 2011
+| ShortSummary    = When the Octopod cruises underwater to Captain Barnacles' homeland, the [[North Pole]], it gets trapped in the [[Arctic ice pack|Arctic sea ice]], but one of Barnacles' old friends, Boris the [[narwhal]], helps them break through the ice with his long tusk.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 18
+| EpisodeNumber2  = 18
+| Title           = Octonauts and the Midnight Zone
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2010|10|27|df=y}}
+| AltDate         = 15 May 2011
+| ShortSummary    = The Octonauts explore the [[Bathypelagic zone|deepest part of the ocean]] where no daylight ever reaches and find some [[hydrothermal vent]]s where [[Thermarces cerberus|pink vent fish]], [[limpet]]s and [[Riftia|giant tube worm]]s live, and they also discover a new species of worm to be put in Shellington's book.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 19
+| EpisodeNumber2  = 19
+| Title           = Octonauts and the Snapping Shrimp
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2010|10|28|df=y}}
+| AltDate         = 24 April 2011
+| ShortSummary    = A little [[Alpheidae|shrimp]] with a big claw makes such a loud noise that it stuns the Octonauts. A video of it made by Dashi reveals that the sound and accompanying shock wave are caused by the shrimp while she was making a [[Cavitation|cavitation bubble]] with her claw.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 20
+| EpisodeNumber2  = 20
+| Title           = Octonauts and the Snot Sea Cucumber
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|10|29|df=y}}
+| AltDate         = 30 January 2011
+| ShortSummary    = After an underwater tremor, an injured [[Leptosynapta dolabrifera|sea cucumber]] named Slippy gets loose on the Octopod, so to let her breathe, they flood the ship!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 21
+| EpisodeNumber2  = 21
+| Title           = Octonauts and the Giant Whirlpool
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2010|11|1|df=y}}
+| AltDate         = 8 May 2011
+| ShortSummary    = The Octonauts race against time to rescue Tweak's friend, a [[leatherback sea turtle]] named Sandy when she is swept away in a current (leading to a [[whirlpool]]) from the Australian coast where she was preparing to lay her eggs.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 22
+| EpisodeNumber2  = 22
+| Title           = Octonauts and the Hermit Crabs
+| Aux2            = Peso 
+| OriginalAirDate = {{start date|2010|11|2|df=y}}
+| AltDate         = 16 April 2011
+| ShortSummary    = With half the crew stranded in a rock pool due to a low tide, Peso and Tweak help to remove a stuck [[hermit crab]] from the shell he has outgrown.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 23
+| EpisodeNumber2  = 23
+| Title           = Octonauts and the Mixed Up Whales
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2010|11|3|df=y}}
+| AltDate         = 9 April 2011
+| ShortSummary    = The Octonauts clean and repair the Octopod, but the loud noises they are creating confuse the [[Animal echolocation|sonar]] of two [[blue whale]]s who are looking for each other so much that they almost crash into the ship.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 24
+| EpisodeNumber2  = 24
+| Title           = Octonauts and the Kelp Forest Rescue
+| Aux2            = (Not shown on screen) 
+| OriginalAirDate = {{start date|2010|11|4|df=y}}
+| AltDate         = 5 December 2012
+| ShortSummary    = Peso's little brother Pinto visits the Octonauts and gets an [[eyepatch]] from Kwazii. He becomes more interested in being a pirate than a medic (stating that he wanted to be a 'real' Octonaut like Kwazii). But when he helps Barnacles, Kwazii, and Peso in a mission to help Dashi and Shellington escape, he begins to like being a medic. This is the only episode where the Octo-Alert was sounded by itself, where no one was filmed pressing any of its buttons until a later episode in the fourth season.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 25
+| EpisodeNumber2  = 25
+| Title           = Octonauts and the Decorator Crab
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|11|5|df=y}}
+| AltDate         = 8 January 2011
+| ShortSummary    = The Octonauts stake out a thief, who turns out to be a [[decorator crab]], stealing their things to decorate his shell.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 26
+| EpisodeNumber2  = 26
+| Title           = Octonauts and the Beluga Whales
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|12|6|df=y}}
+| AltDate         = 29 May 2011
+| ShortSummary    = The Octonauts lead a pod of [[beluga whales]] stuck under the pack ice to safety by getting them to follow Peso while he's playing the same tune as the beluga's song on his xylophone.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 27
+| EpisodeNumber2  = 27
+| Title           = Octonauts and the Hungry Pilot Fish
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2010|12|7|df=y}}
+| AltDate         = 4 June 2011
+| ShortSummary    = The Octonauts are chased by a [[Oceanic whitetip shark|whitetip shark]] only to discover all he needed was a [[pilot fish]] to clean his teeth, and he just so happens that they have just met a lonely pilot fish that is hungry for action.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 28
+| EpisodeNumber2  = 28
+| Title           = Octonauts and the Vampire Squid
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|12|8|df=y}}
+| AltDate         = 5 June 2011
+| ShortSummary    = When Peso goes on a solo training dive to the Midnight Zone, he encounters a hurt [[vampire squid]]. When he's scared by the sudden arrival of Kwazii and Captain Barnacles, he sprays them with sticky bioluminescent mucus and flees, but in the end, Peso can help him out.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 29
+| EpisodeNumber2  = 29
+| Title           = Octonauts and the Seahorse Tale
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2010|12|9|df=y}}
+| AltDate         = 13 April 2013
+| ShortSummary    = After a storm, the Octonauts help a female [[seahorse]] search for her missing mate. She tells them to Kwazii's surprise that the missing male seahorse is about to give birth to baby seahorses!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 30
+| EpisodeNumber2  = 30
+| Title           = Octonauts and the Giant Jelly
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2010|12|10|df=y}}
+| AltDate         = 5 January 2013
+| ShortSummary    = The Octonauts must rescue Peso when he gets trapped inside a giant [[Ctenophora|ctenophore]].
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 31
+| EpisodeNumber2  = 31
+| Title           = Octonauts and the Cookiecutter Sharks
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2010|12|13|df=y}}
+| AltDate         = 11 June 2011
+| ShortSummary    = Some mysterious holes that keep appearing in the Octonauts' equipment turn out to be the work of [[cookiecutter shark]]s whose [[Counter-illumination|bioluminescence]] initially made them invisible against the light coming down from the sea surface.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 32
+| EpisodeNumber2  = 32
+| Title           = Octonauts and the Oarfish
+| Aux2            = Pinto
+| OriginalAirDate = {{start date|2010|12|14|df=y}}
+| AltDate         = 12 June 2011
+| ShortSummary    = Dashi catches a glimpse of an elusive creature that appears to be a giant sea serpent and manages to photograph his tail. The truth is stranger than fiction when he appears to be an awesomely long [[oarfish]].
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 33
+| EpisodeNumber2  = 33
+| Title           = Octonauts and the Combtooth Blenny
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2010|12|15|df=y}}
+| AltDate         = 18 June 2011
+| ShortSummary    = Kwazii crashes the GUP-E, leaving him and Peso marooned on a desert island inhabited by a fish who can walk on land. Their SOS message to the Octonauts is relayed in increasingly garbled form via the [[combtooth blenny]], a blue fish, a squid, and an [[anglerfish]].
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 34
+| EpisodeNumber2  = 34
+| Title           = Octonauts and the Jellyfish Bloom
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|12|16|df=y}}
+| AltDate         = 19 June 2011
+| ShortSummary    = Shellington gets trapped by [[sea nettle]] jellyfish whilst observing [[garden eel]]s in the GUP-E. Barnacles, Kwazii, and Peso attempt to save him but Barnacles gets stung by a jellyfish. Luckily, Peso heals it using [[vinegar]] and then goes to save Shellington along with Kwazii.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 35
+| EpisodeNumber2  = 35
+| Title           = Octonauts and the Baby Dolphin
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2010|12|17|df=y}}
+| AltDate         = 25 June 2011
+| ShortSummary    = A young [[Bottlenose dolphin|dolphin]] follows Kwazii home while he's babysitting him and the Octonauts must search for his mummy.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 36
+| EpisodeNumber2  = 36
+| Title           = Octonauts and the Scary Spookfish
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2011|1|24|df=y}}
+| AltDate         = 26 June 2011
+| ShortSummary    = Peso gets jammed in an [[oceanic trench]] when the GUP-E's battery dies and is surprised by a strange deep sea fish with a transparent head: a [[Barreleye|spookfish]] called Boo, whose ability to see vertically comes in handy as GUP-C winches GUP-E back up the narrow trench.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 37
+| EpisodeNumber2  = 37
+| Title           = Octonauts and the Arctic Orcas
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2011|1|25|df=y}}
+| AltDate         = 3 April 2011
+| ShortSummary    = Captain Barnacles and Peso get lost in the icy Arctic sea when the GUP-E gets stuck in an iceberg and the Gup finder is damaged. Fortunately, a pod of [[orca]]s help Kwazii find them.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 38
+| EpisodeNumber2  = 38
+| Title           = Octonauts and the Slime Eels
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2011|1|26|df=y}}
+| AltDate         = 2 April 2011
+| ShortSummary    = In the [[Atlantic Ocean|North Atlantic]], Kwazii searches the sunken shipwreck of his pirate grandfather, Calico Jack, for his gold [[Refracting telescope|spyglass]]. It's guarded by blind [[hagfish]] (slime eels), but their slime unexpectedly helps him when he gets stuck. Kwazii ends up leaving the spyglass because it's now the home of sea creatures.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 39
+| EpisodeNumber2  = 39
+| Title           = Octonauts and the Enormous Elephant Seal
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2011|1|27|df=y}}
+| AltDate         = 27 March 2011
+| ShortSummary    = An enormous [[elephant seal]] is brought into the Octopod to moult as moulting underwater is dangerous. But then he overstays his welcome in the Octopod.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 40
+| EpisodeNumber2  = 40
+| Title           = Octonauts and the Sardine School
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2011|1|28|df=y}}
+| AltDate         = 26 March 2011
+| ShortSummary    = The Octonauts must work together as a team to help a lost [[sardine]] find her school.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 41
+| EpisodeNumber2  = 41
+| Title           = Octonauts and the Dolphin Reef Rescue
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2011|1|31|df=y}}
+| AltDate         = 20 March 2011
+| ShortSummary    = Peso and the gang try to repair a reef by replacing [[Coral bleaching|bleached]] corals, but a pod of playful [[Bottlenose dolphin|dolphin]]s make mischief for them until they discover that helping can be fun too.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 42
+| EpisodeNumber2  = 42
+| Title           = Octonauts and the Eel Ordeal
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2011|2|1|df=y}}
+| AltDate         = 19 March 2011
+| ShortSummary    = In a rare journey into fresh waters (a river), the Octonauts follow some [[Eel life history|migrating eel]]s and help an injured eel on his difficult journey when he gets stranded from the others.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 43
+| EpisodeNumber2  = 43
+| Title           = Octonauts and the Marine Iguanas
+| Aux2            = Dashi<br/>Kwazii
+| OriginalAirDate = {{start date|2011|2|2|df=y}}
+| AltDate         = 13 March 2011
+| ShortSummary    = The team are preparing for a feast of [[Red algae|red seaweed]] on the [[Galápagos Islands]] but a trio of salt-sneezing [[marine iguana]]s raid the Octopod and eat it all!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 44
+| EpisodeNumber2  = 44
+| Title           = Octonauts and the Dwarf Lanternshark
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2011|2|3|df=y}}
+| AltDate         = 12 March 2011
+| ShortSummary    = Down in the darkness of the ocean deep, Peso and the Octonauts must help a tiny, injured [[dwarf lanternshark]]. But they have to find him first since he's so small!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 45
+| EpisodeNumber2  = 45
+| Title           = Octonauts and the Pirate Parrotfish
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2011|2|4|df=y}}
+| AltDate         = <small>TBA</small>
+| ShortSummary    = Kwazii discovers Calico Jack's Parrot Island treasure map behind an old photo. While looking for the island they meet a [[parrotfish]], who helps them clear away dense [[algae]] and hide from vicious [[moray eel]]s.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 46
+| EpisodeNumber2  = 46
+| Title           = Octonauts and the Electric Torpedo Ray
+| Aux2            = Tweak (failed)<br/>Vegimals (chirped)
+| OriginalAirDate = {{start date|2011|2|7|df=y}}
+| AltDate         = 5 March 2011
+| ShortSummary    = Some [[Torpedo (genus)|electric torpedo rays]] give the Octopod a jump-start when its batteries go flat during a trip to see Tweak's pal, Sandy the leatherback sea turtle.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 47
+| EpisodeNumber2  = 47
+| Title           = Octonauts and the Crafty Cuttlefish
+| Aux2            = Barnacles (Demonstration)<br/>Tunip
+| OriginalAirDate = {{start date|2011|2|8|df=y}}
+| AltDate         = 27 February 2011
+| ShortSummary    = Captain Barnacles allows Tunip to use his Octo-compass. But when Tunip loses it, a [[cuttlefish]] takes it.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 48
+| EpisodeNumber2  = 48
+| Title           = Octonauts and the Lost Lemon Shark
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2011|2|9|df=y}}
+| AltDate         = 26 February 2011
+| ShortSummary    = The Octonauts look after a young [[lemon shark]] named Lemmy who has hurt his nose and can't find his way home.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 49
+| EpisodeNumber2  = 49
+| Title           = Octonauts and the Humuhumunukunukuapua'a
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2011|2|10|df=y}}
+| AltDate         = 20 February 2011
+| ShortSummary    = The Octopod's waterworks become clogged with frightened [[reef triggerfish]]. The Octonauts must find a way to flush them out.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 50
+| EpisodeNumber2  = 50
+| Title           = Octonauts and the Giant Spider Crab
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2011|2|11|df=y}}
+| AltDate         = 19 February 2011
+| ShortSummary    = The Octonauts help a 100-year-old [[Japanese spider crab|spider crab]] that has got his leg trapped in a [[giant clam]] whilst en route to his 100th birthday party. It turns out that Kwazii's afraid of spiders, but he still helps, even though he thought the spider crab was a real spider at first.
+| LineColor       = 3aaab8
+}}}}
+
+=== Series 2 (2012–13) ===
+A second series of 22 episodes started on 19 November 2012 on the UK's CBeebies channel, but was halted with no explanation after 10 episodes, leading to criticism from viewers. Broadcasts resumed in March 2013, but stopped a week later (with the last 7 episodes still unaired). 5 of the remaining episodes were released in May 2013 and then the last 2 episodes were released in September 2013, just before the broadcast of series 3.
+
+Written by: [[Ken Pontac]], [[Rich Fogel]], [[Jimmy Hibbert]], Dean Stefan, [[Adam Peltzman]], Billy Aronson, [[Danny Stack]], Cydne Clark, Carin Greenberg, Allan Neuwirth, Nicky Phelan, [[Martha Speaks (TV series)|Raye Lankford]], Gabe Pulliam, Adam Idelson, Sam Dransfield, Davey Moore, and Steve Clark
+{{Episode table |background=081422 |overall= |series= |title= |aux2= |aux2T= Octo-Alert sounded by |airdate= |altdate= |altdateT= Creature Report air date |episodes=
+{{Episode list
+| EpisodeNumber   = 51
+| EpisodeNumber2  = 1
+| Title           = Octonauts and the Colossal Squid
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2012|11|19|df=y}}
+| AltDate         = 30 September 2015
+| ShortSummary    = The Octopod is attacked by a [[colossal squid]], which drags the ship down an abyssal trench, forcing Barnacles and Kwazii to make a perilous swim outside to confront the gigantic beast.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 52
+| EpisodeNumber2  = 2
+| Title           = Octonauts and the Adélie Penguins
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2012|11|20|df=y}}
+| AltDate         = 22 September 2015
+| ShortSummary    = While Kwazii and Peso have their hands full babysitting a bunch of [[Adélie penguin]] chicks, Captain Barnacles must rescue the chicks' parents from a perilous sea storm!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 53
+| EpisodeNumber2  = 3
+| Title           = Octonauts and the Coconut Crabs
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2012|11|21|df=y}}
+| AltDate         = 29 September 2015
+| ShortSummary    = Kwazii finds a mysterious, unbreakable coconut, so the Octonauts seek out the help of some large, island-dwelling [[coconut crab]]s to open it.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 54
+| EpisodeNumber2  = 4
+| Title           = Octonauts and the Great White Shark
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2012|11|22|df=y}}
+| AltDate         = 28 September 2015
+| ShortSummary    = Peso must perform an emergency fin bandage on a hungry [[great white shark]], but first they need to subdue the giant predator using a trick called 'tonic immobility'.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 55
+| EpisodeNumber2  = 5
+| Title           = Octonauts and the Sea Snakes
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2012|11|23|df=y}}
+| AltDate         = 24 September 2015
+| ShortSummary    = It's sea snakes on the Octopod when a venomous [[sea krait]] lays her eggs in the garden pod, just as Captain Barnacles has to navigate the ship past a treacherous whirlpool.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 56
+| EpisodeNumber2  = 6
+| Title           = Octonauts and the Bowhead Whales
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2012|11|26|df=y}}
+| AltDate         = 1 October 2015
+| ShortSummary    = Captain Barnacles' [[narwhal]] friends ''(see [[List of Octonauts episodes#Series 1|Series 1]], episode 17)'' are trapped under the Arctic ice. After failing to rescue them with the GUP-C's icebreaker and the GUP-D's drill, they enlist the help of some [[bowhead whale]]s whose massive heads can break through thick ice.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 57
+| EpisodeNumber2  = 7
+| Title           = Octonauts and the Jawfish
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2012|11|27|df=y}}
+| AltDate         = 16 November 2015
+| ShortSummary    = A [[Yellowhead jawfish|jawfish]] father has lost the eggs he was brooding and the Octonauts must bring them safely back to him!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 58
+| EpisodeNumber2  = 8
+| Title           = Octonauts and the Porcupine Puffer
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2012|11|28|df=y}}
+| AltDate         = 17 November 2015
+| ShortSummary    = The Octonauts venture inside a [[whale shark]] again ''(see [[List of Octonauts episodes#Series 1|Series 1]], episode 1)'', this time they need to rescue a [[Long-spine porcupinefish|porcupine puffer]] fish named Puffy before it's too late!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 59
+| EpisodeNumber2  = 9
+| Title           = Octonauts and the Damselfish
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2012|11|29|df=y}}
+| AltDate         = 2 October 2015
+| ShortSummary    = Some algae-eating fish need help dealing with [[damselfish]] that chase them off the algae they are farming.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 60
+| EpisodeNumber2  = 10
+| Title           = Octonauts and the Scared Sperm Whale
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2012|11|30|df=y}}
+| AltDate         = 18 November 2015
+| ShortSummary    = Peso tries to help a young timid [[sperm whale]] named Simon to overcome his fear of deep diving, an ability Captain Barnacles and Kwazii must use their brains later to rescue Peso when he gets caught by a [[giant clam]] on the seabed.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 61
+| EpisodeNumber2  = 11
+| Title           = Octonauts and the Long-armed Squid
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2013|3|11|df=y}}
+| AltDate         = 11 March 2013
+| ShortSummary    = Peso and Kwazii search a creepy shipwreck in the [[Bathypelagic zone|midnight zone]], looking for an injured creature that their friend the [[vampire squid]] ''(see [[List of Octonauts episodes#Series 1|Series 1]], episode 28)'' has heard moaning in the dark. Peso soon finds an injured [[anglerfish]] but the real source of the moaning turns out to be a [[Bigfin squid|long-armed squid]], a strange ghostly white creature with elbows in his extraordinarily long tentacles, one of which has become trapped in the timbers of the wreck.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 62
+| EpisodeNumber2  = 12
+| Title           = Octonauts and the Fiddler Crabs
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2013|3|12|df=y}}
+| AltDate         = 12 March 2013
+| ShortSummary    = The Octopod's [[periscope]] breaks off during a storm and lands up on a beach, lost amongst other [[marine debris]]. The Octonauts clean up the beach whilst searching for the periscope, but a resident colony of [[fiddler crab]]s mistake the GUP-D and its claw gestures for a hostile giant crab and attack. The GUP-D goes haywire with a fiddler crab at the controls and burrows under the beach causing a [[sinkhole]] to appear which almost swallows them all up. In the end, the crabs fill the hole with the sand balls they regurgitate whilst feeding.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 63
+| EpisodeNumber2  = 13
+| Title           = Octonauts and the Manta Rays
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2013|3|13|df=y}}
+| AltDate         = 13 March 2013
+| ShortSummary    = A young [[manta ray]] named Mirelle needs help finding the secret manta ray feeding grounds. But when she and the Octonauts finally locate it, they find themselves caught in the middle of a feeding frenzy!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 64
+| EpisodeNumber2  = 14
+| RTitle          = "Octonauts and the Swashbuckling Swordfish"<br/>"Octonauts and the Flying Swords" ''(US title)''
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2013|3|14|df=y}}
+| AltDate         = 14 March 2013
+| ShortSummary    = When Kwazii sees what seem to be three flying swords under the Pirate's Moon, he embarks on a quest to find the Sword of the Pirate King, which legend says is on a wreck guarded by magical flying swords. The three "flying swords" turn out to have been three [[swordfish]], which love jumping out of the water, but the pirate sword proves to be real. Meanwhile, the others are led on a wild goose chase into a [[kelp forest]] following the pirate wreck's drifting [[Figurehead (object)|figurehead]], a carving of a pirate cat, which they mistake for Kwazii.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 65
+| EpisodeNumber2  = 15
+| Title           = Octonauts and the Triggerfish
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2013|3|15|df=y}}
+| AltDate         = 15 March 2013
+| ShortSummary    = The Octonauts' [[Weather buoy|floating temperature sensor]]s alert them to a risk of [[waterspout]]s due to a rise in [[sea surface temperature]] so they decide to retrieve the devices for safe keeping. But Kwazii gets into an argument with a possessive [[triggerfish]] named Trixie which has adopted one of the devices as its home, and they both get carried away by a waterspout. Kwazii ends up having to defend the fish from a [[seabird]] and a [[swordfish]] who want to eat her. Luckily the characteristic grunting sounds that triggerfish make when distressed enables the other Octonauts to locate them.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 66
+| EpisodeNumber2  = 16
+| Title           = Octonauts and the Mimic Octopus
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2013|5|13|df=y}}
+| AltDate         = 13 May 2013
+| ShortSummary    = Peso is gathering [[red algae]] to cure the sick vegimals but needs the shapeshifting skills of a [[mimic octopus]] named Mortamor to scare off a [[moray eel]] by using its striped tentacles to pretend to be a group of venomous sea snakes!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 67
+| EpisodeNumber2  = 17
+| Title           = Octonauts and the Lionfish
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2013|5|14|df=y}}
+| AltDate         = 14 May 2013
+| ShortSummary    = Invasive [[lionfish]] are damaging [[coral reef]]s in the [[Atlantic Ocean]] and need taking back to their native [[Pacific Ocean]] so the Octonauts must use the Octopod to transport them to their native habitat.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 68
+| EpisodeNumber2  = 18
+| Title           = Octonauts and the Leafy Sea Dragons
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2013|5|15|df=y}}
+| AltDate         = 15 May 2013
+| ShortSummary    = When some [[Leafy seadragon|leafy sea dragons]] accidentally get into the Octopod, the Octonauts must find them before they end up in Kwazii's stew!
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 69
+| EpisodeNumber2  = 19
+| Title           = Octonauts and the Manatees
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2013|5|16|df=y}}
+| AltDate         = 16 May 2013
+| ShortSummary    = After his Gup is struck by lightning, Captain Barnacles gets trapped by a giant clam but doesn't call for help as he wants the others to go help some [[manatee]]s at risk from a thunderstorm.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 70
+| EpisodeNumber2  = 20
+| Title           = Octonauts and the Saltwater Crocodile
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2013|5|17|df=y}}
+| AltDate         = 17 May 2013
+| ShortSummary    = An enormous Australian [[saltwater crocodile]] is lost in the [[Southern Ocean|Antarctic Ocean]] and the Octonauts must bring him home without anyone getting hurt.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 71
+| EpisodeNumber2  = 21
+| Title           = Octonauts and the Humphead Parrotfish
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2013|9|2|df=y}}
+| AltDate         = 2 September 2013
+| ShortSummary    = The Octonauts use magnets and a rock-chomping [[Green humphead parrotfish|humphead parrotfish]] named Hatty to try to stop a large meteor that's heading towards the Octopod.
+| LineColor       = 3aaab8
+}}
+{{Episode list
+| EpisodeNumber   = 72
+| EpisodeNumber2  = 22
+| Title           = Octonauts and the Gulper Eels
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2013|9|3|df=y}}
+| AltDate         = 3 September 2013
+| ShortSummary    = Hungry [[Pelican eel|gulper eel]] brothers as well as undersea tremors threaten Inkling and Kwazii and get trapped by boulders. So, Dashi uses Tweak's newly built "Octo Mach-Suit" to rescue them.
+| LineColor       = 3aaab8
+}}
+}}
+
+=== Series 3 (2013–15) ===
+A third series of 20 episodes started being broadcast by CBeebies on 4 September 2013.
+
+Written by: Gabe Pulliam, Carin Greenberg, Adam Idelson, Adam Peltzman, Allan Neuwirth, Billy Aronson, Danny Stack, Davey Moore, Dean Stefan, Jimmy Hibbert, Ken Pontac, Nicky Phelan, Raye Lankford, Rich Fogel, Samuel Dransfield, Steve Clark, and Cydne Clark
+{{Episode table |background=AE1D00 |overall= |series= |title= |aux2= |aux2T= Octo-Alert sounded by |airdate= |episodes=
+{{Episode list
+| EpisodeNumber   = 73
+| EpisodeNumber2  = 1
+| Title           = Octonauts and the Siphonophore
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2013|9|4|df=y}}
+| ShortSummary    = Kwazii and Dashi become entangled in a strange deep-sea creature - a [[Praya dubia|siphonophore]] - and when a [[geyser]] blasts it toward the surface, the Octonauts must stop its ascent before it fatally bursts.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 74
+| EpisodeNumber2  = 2
+| Title           = Octonauts and the Water Bear
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2013|9|5 |df=y}}
+| ShortSummary    = The Octonauts venture into a dangerous red-hot [[lava tube]] to rescue a teeny tiny [[Tardigrade|water bear]], who doesn't mind the heat at all.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 75
+| EpisodeNumber2  = 3
+| Title           = Octonauts and the Cone Snail
+| Aux2            = Shellington
+| OriginalAirDate = {{start date|2013|9|6|df=y}}
+| ShortSummary    = Only Peso can save the day when a [[cone snail]] invades the Octopod and tranquilizes the crew one by one with his dangerous venom-filled harpoons, turning them into googly-eyed Octonauts except Peso.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 76
+| EpisodeNumber2  = 4
+| Title           = Octonauts and the Artificial Reef
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2013|9|9|df=y}}
+| ShortSummary    = When an underwater hurricane destroys a small [[reef]], which a [[frogfish]] and other creatures depend on, Tweak and her crew must convert the recently destroyed Gup-F into an artificial reef before the second stage of the hurricane strikes!
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 77
+| EpisodeNumber2  = 5
+| Title           = Octonauts and the Humpback Whales
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2013|9|10|df=y}}
+| ShortSummary    = When a [[sardine]] swallows the key to a treasure chest, a [[humpback whale]] helps Kwazii track her down.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 78
+| EpisodeNumber2  = 6
+| Title           = Octonauts and the Pelicans
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2013|9|11|df=y}}
+| ShortSummary    = When a floating [[garbage patch]] endangers a flock of [[pelican]]s and other sea creatures, the Octonauts and the birds work together to clean it up.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 79
+| EpisodeNumber2  = 7
+| Title           = Octonauts and the Sea Pigs
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2013|9|12|df=y}}
+| ShortSummary    = The Octonauts must stop a huge herd of [[Scotoplanes globosa|sea pigs]] before they march blindly into the [[Mariana Trench]] - where there will be no access to food. But things get chaotic eventually when Tunip goes missing!
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 80
+| EpisodeNumber2  = 8
+| Title           = Octonauts and the Yeti Crab
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2013|9|13|df=y}}
+| ShortSummary    = As Tweak tests the Gup-X deep down in the [[Bathypelagic zone|Midnight Zone]], a [[Kiwa (crustacean)|yeti crab]] cuts a vital electrical wire in the ship and cuts off all power, endangering himself and the Octonauts.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 81
+| EpisodeNumber2  = 9
+| Title           = Octonauts and the Barracudas
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2014|3|10|df=y}}
+| ShortSummary    = Shellington and the Vegimals are on a mission to replant a mangrove forest that is put in peril by a school of toothy barracudas.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 82
+| EpisodeNumber2  = 10
+| Title           = Octonauts and the Duck-Billed Platypus
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2014|3|11|df=y}}
+| ShortSummary    = While rescuing river creatures after a storm, the Octonauts find a strange egg and come under attack by [[platypus]]es.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 83
+| EpisodeNumber2  = 11
+| Title           = Octonauts and the Sea Skaters
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2014|3|12|df=y}}
+| ShortSummary    = When Kwazii gets lost at sea aboard the tiny octo-ski, he meets a flotilla of even tinier [[Halobates|sea skaters]], the only insects of the ocean. But when the Octopod gets covered in plankton by giant waves and the Octo-Hatch won't open, Barnacles and the rest must save their ship once again!
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 84
+| EpisodeNumber2  = 12
+| Title           = Octonauts and the Mudskippers
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2014|3|13|df=y}}
+| ShortSummary    = The Octonauts attempt to keep the peace amongst a trio of [[mudskipper]]s whose home has been flooded.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 85
+| EpisodeNumber2  = 13
+| Title           = Octonauts and the Harbour Seal
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2014|3|14|df=y}}
+| ShortSummary    = When Peso's patient, a [[remora]], mysteriously disappears, the Octonauts enlist a unique undersea detective - a [[harbor seal|harbour seal]].
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 86
+| EpisodeNumber2  = 14
+| Title           = Octonauts and the Lion's Mane Jellyfish
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2014|3|17|df=y}}
+| ShortSummary    = An enormous [[lion's mane jellyfish]] gets his amazingly long tentacles tangled in the Octopod's engine whilst Tweak is working on it and causes havoc.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 87
+| EpisodeNumber2  = 15
+| Title           = Octonauts and the Red Rock Crabs
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2014|3|18|df=y}}
+| ShortSummary    = Shellington and the others round up some lost crabs and [[marine iguana]]s that have got marooned on an [[Juan Fernández Islands|island]] far too cold for them and take them home to the [[Galápagos Islands]].
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 88
+| EpisodeNumber2  = 16
+| Title           = Octonauts and the Sea Sponge
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2014|3|19|df=y}}
+| ShortSummary    = Examining a sick sea sponge, Peso is surprised to discover that all sorts of creatures live inside her, treating her like a hotel, a behaviour known as [[commensalism]].
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 89
+| EpisodeNumber2  = 17
+| Title           = Octonauts and the Immortal Jellyfish
+| Aux2            = Tunip
+| OriginalAirDate = {{start date|2014|3|20|df=y}}
+| ShortSummary    = While caring for sea creatures, Peso discovers an adult [[Turritopsis dohrnii|immortal jellyfish]] named Dorian that changes into a baby when he was scared by predators. Captain Barnacles, Kwazii, and Peso guard Dorian at a distant reef, so Shellington rushes to photograph him damaging the GUP-E and booster packs in the process.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 90
+| EpisodeNumber2  = 18
+| Title           = Octonauts and the Urchin Invasion
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2014|3|21|df=y}}
+| ShortSummary    = Kelp-eating [[red sea urchin]]s attack a kelp forest. The Octonauts are helped by Shellington's sister, Pearl, another [[sea otter]] and scientist, and her newborn son, Periwinkle.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 91
+| EpisodeNumber2  = 19
+| Title           = Octonauts and the Hammerhead Sharks
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2015|9|21|df=y}}
+| ShortSummary    = When the day turns dark, the Octonauts study a group of baby hammerhead sharks as they hunt.
+| LineColor       = AE1D00
+}}
+{{Episode list
+| EpisodeNumber   = 92
+| EpisodeNumber2  = 20
+| Title           = Octonauts and the Loggerhead Sea Turtle
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2015|9|22|df=y}}
+| ShortSummary    = After an undersea tremor separates the Gup-X and its crew, Barnacles seeks guidance from a mysterious sea turtle called a [[Loggerhead sea turtle|loggerhead]].
+| LineColor       = AE1D00
+}}
+}}
+
+=== Series 4 (2015–17) ===
+A fourth series of 24 episodes started being broadcast by CBeebies on 23 September 2015 and ended 27 October 2017. The episodes were released on Netflix on 15 October 2018.
+
+Written by: Gabe Pulliam, [[Gordon Bressack]], Kevin Burke, [[Nicole Dubuc]], Rich Fogel, Kevin Hopps, Charlie Howell, [[The Amazing Adrenalini Brothers|Mark Huckerby]], Adam Idelson, Sam Morrison, Nick Ostler, Kevin Seccia, Scott Sonneborn, Dean Stefan, Len Uhley, [[Greg Weisman]], and [[Chris Wyatt (producer)|Chris Wyatt]].
+{{Episode table |background=15431f |overall= |series= |title= |aux2= |aux2T= Octo-Alert sounded by |airdate= |episodes=
+{{Episode list
+| EpisodeNumber   = 93
+| EpisodeNumber2  = 1
+| Title           = Octonauts and the Poison Dart Frogs
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|9|23|df=y}}
+| ShortSummary    = The Octonauts find out about [[poison dart frog]]s after a dangerous [[tidal bore]] sweeps up the [[Amazon River]], depositing all the fish high up in the trees! Thankfully, Tweak's new GUP, the GUP-H, was ready to help.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 94
+| EpisodeNumber2  = 2
+| Title           = Octonauts and the Hidden Lake
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|9|24|df=y}}
+| ShortSummary    = When Barnacles, Kwazii, Peso, and Shellington find a mysterious hidden lake underneath [[Antarctica]], Shellington is eager to find some new undiscovered creatures living in the red water. But why is the lake red? And are there actually any creatures living down so deep in the ice?
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 95
+| EpisodeNumber2  = 3
+| Title           = Octonauts and the Octopod Mystery
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|9|25|df=y}}
+| ShortSummary    = After the Octopod breaks down, Tweak knows that the only way to get the new part that she needs is to take a trip to the old Octopod. But they may not be alone in their abandoned ship... but they find that a [[giant Pacific octopus]] is living there!
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 96
+| EpisodeNumber2  = 4
+| Title           = Octonauts and the Baby Sea Turtles
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2015|9|28|df=y}}
+| ShortSummary    = As newborn baby sea turtles make their way to the ocean, the Octonauts must help them avoid predators when a large wave threatens the island where the precious eggs are buried - not that they'll admit it!
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 97
+| EpisodeNumber2  = 5
+| Title           = Octonauts and the Walrus Pups
+| Aux2            = Orson and Ursa
+| OriginalAirDate = {{start date|2015|9|29|df=y}}
+| ShortSummary    = Captain Barnacles' niece and nephew Ursa and Orson are going to get their Polar Scout Badges when they spot three walrus pups on a drifting floe which is on a crash-course with two icebergs. Will Captain Barnacles be able to save them and finally earn the Walrus Rescue Badge - the only one he hasn't got?
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 98
+| EpisodeNumber2  = 6
+| Title           = Octonauts and the Mantis Shrimp
+| Aux2            = Two Mantis shrimps (accidentally)
+| OriginalAirDate = {{start date|2015|9|30|df=y}}
+| ShortSummary    = The Octonauts must get two [[mantis shrimp]] to stop fighting before their powerful claw strikes destroy the Octopod.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 99
+| EpisodeNumber2  = 7
+| Title           = Octonauts and the Loneliest Whale
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2015|10|1|df=y}}
+| ShortSummary    = The Octonauts follow a strange song to a lonely [[humpback whale]] who is alone because he does not sound like the other whales! They have to help him because if nobody understands him, he won't find the way to the feeding ground.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 100
+| EpisodeNumber2  = 8
+| Title           = Octonauts and the Tree Lobsters
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|10|2|df=y}}
+| ShortSummary    = A storm washes Peso onto a mysterious, rocky island where he meets a band of lobster-like insects thought to be extinct. But he and the Octonauts must catch a baby [[Dryococelus|tree lobster]] that ended up in the Octopod and bring him back to [[Ball's Pyramid]].
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 101
+| EpisodeNumber2  = 9
+| Title           = Octonauts and the Convict Fish
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|12|14|df=y}}
+| ShortSummary    = The Octonauts evacuate the creatures living around a reef before a large archway collapses, but one stubborn [[Pholidichthys leucotaenia|convict fish]] refuses to move from her burrow!
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 102
+| EpisodeNumber2  = 10
+| Title           = Octonauts and the Emperor Penguins
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|12|16|df=y}}
+| ShortSummary    = The Octonauts journey across a dangerous expanse of ice to help a penguin mother get back to her family, but they lose contact along the way.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 103
+| EpisodeNumber2  = 11
+| Title           = Octonauts and the Baby Gator
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2017|10|26|df=y}}
+| ShortSummary    = A baby [[American alligator|alligator]] named Nipper stows away on the Gup K. Now the Octonauts must rescue him after he and Kwazii are swept out to sea.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 104
+| EpisodeNumber2  = 12
+| Title           = Octonauts and the Bomber Worms
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2017|10|23|df=y}}
+| ShortSummary    = While diving down to the Midnight Zone, the Octonauts are attacked by [[Swima bombiviridis|bomber worms]] and are enlisted to rescue an injured member of their troop.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 105
+| EpisodeNumber2  = 13
+| Title           = Octonauts and the Crawfish
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2016|12|3|df=y}}
+| ShortSummary    = When a population of [[Crayfish|crawfish]] is stricken by illness, the Octonauts race to find a cure.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 106
+| EpisodeNumber2  = 14
+| Title           = Octonauts and the Surfing Snails
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2017|9|6|df=y}}
+| ShortSummary    = When surfing [[Janthina|snails]] are swept out to sea, it's up to Dashi and the Octonauts to save them.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 107
+| EpisodeNumber2  = 15
+| Title           = Octonauts and the Flamingos
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2016|12|4|df=y}}
+| ShortSummary    = The Octonauts find a lost [[American flamingo|flamingo]] chick separated from his family and they have to return him there before hungry alligators do!
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 108
+| EpisodeNumber2  = 16
+| Title           = Octonauts and Operation Cooperation
+| Aux2            = A carrot
+| OriginalAirDate = {{start date|2017|9|27|df=y}}
+| ShortSummary    = After Shellington crashes the GUP-D, 3 times in a row, he and Kwazii team up with [[moray eel]]s and [[grouper]]s to help pick up the pieces and fix the vehicle before daylight occurs.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 109
+| EpisodeNumber2  = 17
+| Title           = Octonauts and the Kelp Monster Mystery
+| Aux2            = Barnacles (ambiguous)
+| OriginalAirDate = {{start date|2017|10|24|df=y}}
+| ShortSummary    = Dashi teams up with her little sister Koshi to help the Octonauts solve a mysterious disappearance in the kelp forest.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 110
+| EpisodeNumber2  = 18
+| Title           = Octonauts and the Yellow-Bellied Sea Snakes
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2017|9|13 |df=y}}
+| ShortSummary    = When Peso gets stranded on a beach with a mass of venomous snakes after a terrible storm, one of the [[Hydrophis platurus|yellow-bellied snakes]] has a splinter of driftwood stuck in her scales, and Peso has a broken flipper (According to the UK version, meanwhile the US Version indicates that he got stung). Now the Octonauts must somehow get them back to the ocean by cooling them off with water and building a swimming pool and save Peso!
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 111
+| EpisodeNumber2  = 19
+| Title           = Octonauts and the Coconut Crisis
+| Aux2            = Clarence the coconut crab
+| OriginalAirDate = {{start date|2017|10|25 |df=y}}
+| ShortSummary    = Kwazii takes a vacation on Coconut Island where he gets hit by some coconuts. Then he and the Octonauts must help their old friends the coconut crabs discover who's stealing all their coconuts.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 112
+| EpisodeNumber2  = 20
+| Title           = Octonauts and the Coelacanth
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2017|5|29|df=y}}
+| ShortSummary    = While exploring a dark and spooky cave, The Octonauts find a strange fossil of a powerful [[Coelacanth|prehistoric fish]]... but he may be more than just a fossil!
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 113
+| EpisodeNumber2  = 21
+| Title           = Octonauts and the Tiger Shark
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2017|5|27|df=y}}
+| ShortSummary    = When a hungry [[tiger shark]] whose name is Tom eats the camera that Tweak's leatherback sea turtle friend Sandy gets in the Octopod, she and the Octonauts must rescue her before he eats everything in his path.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 114
+| EpisodeNumber2  = 22
+| Title           = Octonauts and the Hippos
+| Aux2            = Shellington (in his sleep)
+| OriginalAirDate = {{start date|2017|9|20|df=y}}
+| ShortSummary    = Trying to return home from a mission along an African river, the Octonauts have trouble getting past a gang of large, mud-splatting, territorial hippos.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 115
+| EpisodeNumber2  = 23
+| Title           = Octonauts and the Spinner Dolphins
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2017|10|27|df=y}}
+| ShortSummary    = The Octonauts struggle to save a pod of [[spinner dolphin]]s who seem to be just swimming in their sleep.
+| LineColor       = 15431f
+}}
+{{Episode list
+| EpisodeNumber   = 116
+| EpisodeNumber2  = 24
+| Title           = Octonauts and the Sunfish
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2017|5|28|df=y}}
+| ShortSummary    = When a huge [[Ocean sunfish|sunfish]] by the name of Sonny enters the GUP-E, Peso, and Kwazii must somehow get the large fish out of the Gup. Eventually, they find out it's a sunfish by the name of Sonny; a species of fish with no fins.
+| LineColor       = 15431f
+}}
+}}
+
+=== Series 5 (2023–27) ===
+A fifth series of 27 episodes started being broadcast on CBeebies on 27 March 2023. All other episodes were released in Chinese only before debuting in September 2026 on Amazon Prime Video.
+{{Episode table|background=555555|overall=|series=|title=|aux2=|aux2T=Octo-Alert sounded by|airdate=|episodes={{Episode list
+| EpisodeNumber   = 117
+| EpisodeNumber2  = 1
+| Title           = Octonauts and the Bluefin Tuna
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2023|3|27|df=y}}
+| ShortSummary    = After encountering an [[Atlantic bluefin tuna]] straggle behind her school after getting a [[fish hook]] caught in her mouth, the Octonauts have to deploy the newly-constructed Gup-R to get her to the breeding grounds so she can lay her eggs before breeding season ends.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 118
+| EpisodeNumber2  = 2
+| Title           = Octonauts and the Blue Whale Rescue
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2023|3|28|df=y}}
+| ShortSummary    = On an early morning monster hunt, Kwazii encounters a blue whale with a severe tail injury and calls all hands on deck to help the poor ocean giant before he sinks and drowns.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 119
+| EpisodeNumber2  = 3
+| Title           = Octonauts and the [[Spade-toothed whale|Whales of Mystery]]
+| Aux2            = Shellington
+| OriginalAirDate = {{start date|2023|3|29|df=y}}
+| ShortSummary    = After a surprise collision with a mysterious creature on their way back from a late-night mission, Dashi and Shellington set off to find who they hit, with Peso and Tunip along to help treat any potential injuries.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 120
+| EpisodeNumber2  = 4
+| Title           = Octonauts and the Ghost Ship
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2023|3|30|df=y}}
+| ShortSummary    = Barnacles, Kwazii, Peso, and Shellington encounter a decrepit ship while on ocean cleanup duty, and a colony of literal [[barnacles]] who need to get somewhere warmer.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 121
+| EpisodeNumber2  = 5
+| Title           = Octonauts and the Feeding Frenzy
+| Aux2            = Peso 
+| OriginalAirDate = {{start date|2023|3|31|df=y}}
+| ShortSummary    = Dashi and Shellington accidentally start a [[feeding frenzy]] when their fish biscuits get loose and rile up the local [[reef shark]]s, and the others have to work fast before one of the hungry predators accidentally takes a big bite out of either.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 122
+| EpisodeNumber2  = 6
+| Title           = Octonauts and the Sawfish
+| Aux2            = Kwazii (accidentally)
+| OriginalAirDate = {{start date|2026|9|18|df=y}}
+| ShortSummary    = Kwazii ends up contracting a particularly bad case of the [[hiccup]]s, forcing him and Peso to follow along with an old [[sawfish]] up a river to find the cure.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 123
+| EpisodeNumber2  = 7
+| Title           = Octonauts and the Nautilus
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2026|9|19|df=y}}
+| ShortSummary    = While out on a monster hunt, Kwazii encounters an eccentric [[nautilus]] who loves a good adventure, but the two of them both get more than what they bargained for when they team up to find a particular beast.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 124
+| EpisodeNumber2  = 8
+| Title           = Octonauts and the Grey Whales
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2026|9|20|df=y}}
+| ShortSummary    = After a grey whale baby shows up earlier than expected and completely alone, the Octonauts divide and conquer to find the little fella's mother.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 125
+| EpisodeNumber2  = 9
+| Title           = Octonauts and the [[Ommastrephidae|Flying Squid]]
+| Aux2            = Shellington 
+| OriginalAirDate = {{start date|2026|9|21|df=y}}
+| ShortSummary    = While out on the hunt for treasure, Barnacles, Kwazii, and Peso encounter a flying squid in Calico Jack's boat, and the search is on to find the missing pirate.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 126
+| EpisodeNumber2  = 10
+| Title           = Octonauts and the Sea Lions
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2026|9|22|df=y}}
+| ShortSummary    = While out to set up some [[buoy]]s to warn an island of [[sea lion]]s about incoming big waves, Dashi gets stuck with one inside a cave, with the others having to wrok fast before the waves get too rough.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 127
+| EpisodeNumber2  = 11
+| Title           = Octonauts and the Hawksbill Sea Turtle
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2026|9|23|df=y}}
+| ShortSummary    = While out tending to the locals of the [[Great Barrier Reef]] during a massive heatwave, a trail of sea sponge carnage eventually leads Barnacles, Kwazii, and Peso to an overheated [[hawksbill sea turtle]].
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 128
+| EpisodeNumber2  = 12
+| Title           = Octonauts and the [[Panaque|Wood Eating Catfish]]
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2026|9|24|df=y}}
+| ShortSummary    = After coming home to find Kwazii getting his leg bandaged, Kwazii began regaling the tale of how he went through hell and back to help Calico Jack try and get his new [[peg leg]] before a determined panaque eats it for a snack.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 129
+| EpisodeNumber2  = 13
+| Title           = Octonauts and the Seven [[Ascidiacea|Sea Squirt]]s
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2026|9|25|df=y}}
+| ShortSummary    = The crew sets out to reassemble a legendary group of sea squirts to combat an increase in [[algae bloom]]s in harbor cove.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 130
+| EpisodeNumber2  = 14
+| Title           = Octonauts and the Bullfrogs
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2026|9|26|df=y}}
+| ShortSummary    = The Vegimals are desperate to ensure that they pass Captain Barnacles' annual Octopod inspection after several failures, but them accidentally bringing a colony of [[bullfrog]]s aboard the ship threatens their chances.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 131
+| EpisodeNumber2  = 15
+| Title           = Octonauts and the Giant Sea Spider
+| Aux2            = Professor Natquik
+| OriginalAirDate = {{start date|2026|10|2|df=y}}
+| ShortSummary    = Suffering from a severe bought of cabin fever while waiting out a storm after an antarctic supply run for Professor Natquik, Kwazii convinces Tweak and Shellington to explore to find something interesting... though the [[arachnophobic]] pirate cat isn't particularly happy that the creatures they decided on finding were [[sea spider]]s.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 132
+| EpisodeNumber2  = 16
+| Title           = Octonauts and the Great Octo-Bot Rescue
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2026|10|4|df=y}}
+| ShortSummary    = An accident aboard the Deep Sea Octo-Lab causes the Vegi-Bot to end up under a boiling hot [[sulfur]] lake, forcing Kwazii to dive in after it in an Octo-Max Suit... before it succumbs to the extreme environment.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 133
+| EpisodeNumber2  = 17
+| Title           = Octonauts and the Axolotl
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2026|10|5|df=y}}
+| ShortSummary    = As Barnacles and Kwazii begin checking on the jungle lakes in southern [[Mexico]], they find a pair of [[axolotl]]s in dire need of a new home, though a new problem keeps coming at them at every single turn.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 134
+| EpisodeNumber2  = 18
+| Title           = Octonauts and the Beavers
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2026|10|11|df=y}}
+| ShortSummary    = As Barnacles, Kwazii, and Shellington go to study a [[salmon run]], they find that the stream the salmon need to reach their birthplace has dried up entirely, requiring the help of the same [[North American beaver|beaver]]s that taught Tweak a good portion of her skills.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 135
+| EpisodeNumber2  = 19
+| Title           = Octonauts and the [[Osedax|Zombie Worm]]s
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2026|10|12|df=y}}
+| ShortSummary    = A series of electrical failures aboard the Deep Sea Octo-Lab has the entire crew deployed to investigate... though it very quickly turns into a race against time to prevent the culprits from causing the entire thing to flood.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 136
+| EpisodeNumber2  = 20
+| Title           = Octonauts and the Mud Volcanoes
+| Aux2            = Tweak
+| OriginalAirDate = {{start date|2026|10|18|df=y}}
+| ShortSummary    = Dashi and Shellington get caught up in a series of eruptions from the local [[mud volcano]]es as they try to find a home for a displaced [[Alvinella pompejana|Pompeii worm]].
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 137
+| EpisodeNumber2  = 21
+| Title           = Octonauts and the Tiger Fish and Blind Shrimp
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2026|10|19|df=y}}
+| ShortSummary    = After an accident involving a water filter on the Gup-W, Kwazii has the help a [[Alpheidae|pistol shrimp]] find his missing [[Cryptocentrus|watchman goby]] before he gets eaten by predators.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 138
+| EpisodeNumber2  = 22
+| Title           = Octonauts and the [[Cymothoa exigua|Fish Mouth Louse]]
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2026|11|2|df=y}}
+| ShortSummary    = A [[red snapper]] loses his tongue louse after getting swept up in a [[waterspout]], and the entire crew is deployed to find the tiny creature before he gets eaten and his snapper partner starves to death.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 139
+| EpisodeNumber2  = 23
+| Title           = Octonauts and the Deep Ocean Discovery
+| Aux2            = Peso
+| OriginalAirDate = {{start date|2026|11|4|df=y}}
+| ShortSummary    = During their first visit to the Octopod, Pearl and Periwinkle join Shellington to release an Octo-Drifter in a deep ocean current to track it. Unfortunately, they end up trapped in it as well, forcing the rest of the crew to mount a search effort.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 140
+| EpisodeNumber2  = 24
+| Title           = Octonauts and the Silver Sea
+| Aux2            = Shellington
+| OriginalAirDate = {{start date|2026|12|2|df=y}}
+| ShortSummary    = After Kwazii and Peso run afoul of the so-called "milky sea", the group discovers them to be a colony of [[Bioluminescence|bioluminescent]] microbes and have to do everything they can to ensure an incoming school of sardines don't turn into instant targets from swimming through it.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 141
+| EpisodeNumber2  = 25
+| Title           = Octonauts and the [[Plagiotremus laudandus|Bicolour Fangblenny]]
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2026|12|3|df=y}}
+| ShortSummary    = Kwazii and Tweak find that an underwater [[cleaning station]] in Australia has been plagued by a mysterious biting fish that is scaring off their clients, but the entire crew quickly finds that this fish is not to be trifled with.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 142
+| EpisodeNumber2  = 26
+| Title           = Octonauts and the [[Scaly-foot gastropod|Scaly-Foot Snail]]
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2027|2|14|df=y}}
+| ShortSummary    = Tweak is de-rusting the Octopod using a special vinegar solution that smells so horrendous the others abandon ship to the Deep Sea Octo-Lab until she's done. As they struggle to make do, however, the others find a bigger crisis on their hands that requires help from a new creature friend.
+| LineColor       = 555555
+}}
+{{Episode list
+| EpisodeNumber   = 143
+| EpisodeNumber2  = 27
+| Title           = Octonauts and the Giant Salamander
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2026|9|30|df=y}}
+| ShortSummary    = The entire crew is sent up the [[Yangtze]] when Professor Inkling's old friend, Min the Mapmaker, sends out an S.O.S., and quickly find themselves helping a [[Chinese giant salamander]] ensure his eggs survive long enough to hatch.
+| LineColor       = 555555
+}}}}
+
+== Specials ==
+The specials are double-length episodes that are first broadcast during the [[Christmas]], [[New Year]], or [[Memorial Day]] periods before being repeated alongside regular episodes.
+{{Episode table |background=00FFFF |overall= |title= |aux2= |aux2T= Octo-Alert sounded by |airdate= |episodes=
+{{Episode list
+| EpisodeNumber   = 1
+| Title           = Octonauts and the Great Penguin Race
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2010|12|13|df=y}}
+| ShortSummary    = Peso is going home to [[Antarctica]] to watch an annual penguin [[triathlon]], the Iron Clam Competition, but learns to his dismay that his little brother Pinto has entered him in it. With the Octonauts cheering him on, Peso will have to [[Sliding (motion)|slide]], [[Diving (sport)|dive]] and [[Swimming|swim]] his way to victory, against the annual athletic winner, Hugo.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 2
+| Title           = Octonauts and the Great Christmas Rescue
+| Aux2            = Inkling
+| OriginalAirDate = {{start date|2011|12|1|df=y}}
+| ShortSummary    = The Octonauts travel for Christmas to Professor Inkling's childhood home, a [[seamount]], but soon get involved in a rescue mission when a [[rockslide]] endangers a rare 500-year-old [[Hawaiian gold coral|golden coral]] and traps Professor Inkling's [[Niece and nephew|nephew]] Squirt. They also learn about [[Spirobranchus giganteus|Christmas tree worm]]s which live in holes in rocks. Crucial to completing the mission is the new heavy-duty vehicle GUP-X which Tweak has built as an early [[Gift|present]] for Captain Barnacles.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 3
+| Title           = Octonauts and the Amazon Adventure
+| Aux2            = Kwazii
+| OriginalAirDate = {{start date|2013|1|1|df=y}}
+| ShortSummary    = Kwazii enters a shipwreck to get Calico Jack's map to an underwater [[El Dorado|city of gold]]. This leads the Octonauts up the [[Amazon River]], past parrots, [[Potamotrygonidae|freshwater stingray]]s, [[black caiman|caiman]] and [[Amazonian manatee|manatee]]s. But a falling tree traps the GUP-A, and a [[tidal bore]] comes up the river, scattering the Octonauts. Captain Barnacles looks for the others with the aid of a [[Amazon river dolphin|river dolphin]] and her [[Animal echolocation|echolocation]] abilities. The Octonauts help an [[electric eel]], a stranded [[arapaima]], and get chased by [[piranha]]s. But a [[panaque]] frees the trapped GUP-A. Meanwhile, Kwazii has been saved by Calico Jack who turns out to be alive but lost his ship after an attack by [[fire ant]]s and an [[anaconda]]. His incomplete map had led him in circles, but Kwazii's piece completes it so they can finish the quest. After being blocked by hostile [[capybara]]s, they are reunited with the others in time to fight off more anacondas. Finally, the "city of gold" turns out to be a colony of golden [[Spongillida|freshwater sponge]]s in the bottom of a pool.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 4
+| Title           = Octonauts and the Mariana Trench Adventure
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2013|5|27|df=y}}
+| ShortSummary    = The Octonauts assemble Tweak's new Deep Sea Octolab and lower it to the deepest part of the ocean, the [[Mariana Trench]], where Shellington and Dashi intend to study the sea life. Whilst the Octonauts are setting up the base it is invaded by some [[giant isopod]]s and other creatures which are looking for a new [[hydrothermal vent]] to live around (and accidentally knocking out the power source in the process). They also observe some [[sea cucumber]]s and luminous [[sea star]]s, and whilst chasing the Octobots and the Vegebot after a power surge causes them to go out of control, Kwazii has to avoid undersea [[mud volcano]]es which have created a lake of hot mud on the seafloor and lava.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 5
+| Title           = Octonauts and a Very Vegimal Christmas
+| Aux2            = Tunip (thrice; only Vegimals attend)
+| OriginalAirDate = {{start date|2013|12|17|df=y}}
+| ShortSummary    = When nearly all of the Octonauts are trapped in a dangerous sentient blob of [[marine mucilage]], the only Octonauts not trapped in the blob, Tunip, the solo Octonaut and the Vegimals, must step up and build a new GUP called the GUP-V to rescue the crew in time for their Christmas meal.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 6
+| Title           = Octonauts and the Over, Under Adventure
+| Aux2            = Shellington
+| OriginalAirDate = {{start date|2014|3|14|df=y}}
+| ShortSummary    = The Octonauts' mission to explore [[Antarctica]] during which they marvel at [[sea tulip]]s and [[hourglass dolphin]]s becomes a desperate rescue as a group of [[sea star]]s and [[Sea urchin|urchin]]s are threatened by a [[brinicle]] - a rare underwater icicle that can freeze creatures on the sea bed. So the crew use the recently built GUP-S to save the day, with the help of a [[Weddell seal]].
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 7
+| Title           = Octonauts and the Great Arctic Adventure
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2014|12|17|df=y}}
+| ShortSummary    = While the Octopod is at the base for repairs, the Octonauts (except for Inkling, Tweak, and Tunip) take vacations for themselves. Captain Barnacles and Peso visit his sister Bianca at her den and helps her two cubs Orson and Ursa to find the sea ice during the springtime migration and call on the rest of the Octonauts to rescue fellow [[polar bear]]s from [[Norway]], [[Canada]], [[Greenland]], [[Alaska]], and [[Russia]] as their ice floe was melting.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 8
+| Title           = Octonauts and Operation Deep Freeze
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2015|12|15|df=y}}
+| ShortSummary    = Captain Barnacles runs into an old friend - an [[Arctic fox]] named Professor Natquik - in [[Antarctica]]. They must work together with the other Octonauts to prevent a group of penguins from falling into an [[Crevasse|ice chasm]].
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 9
+| Title           = Octonauts and the Great Swamp Search
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2016|12|3|df=y}}
+| ShortSummary    = Tweak and the Octonauts go to the [[Everglades]] to visit her dad, Ranger Marsh, and help him rescue some non-native creatures before a storm hits. The team's recently built GUP-K is also there to save the day when a fire spreads.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 10
+| Title           = Octonauts and the Caves of Sac Actun
+| Aux2            = Dashi
+| OriginalAirDate = {{start date|2020|8|14|df=y}}
+| ShortSummary    = The Octonauts embark on an underwater adventure navigating a set of challenging underwater [[Sistema Sac Actun|caves]], with help from a new friend, to help a small octopus return home to the [[Caribbean Sea]].
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 11
+| Title           = Octonauts and the Great Barrier Reef
+| Aux2            = Barnacles
+| OriginalAirDate = {{start date|2020|10|13|df=y}}
+| ShortSummary    = In this [[Musical film|musical]] special the Octonauts must find a way to hold back hungry swarms of [[crown-of-thorns starfish]] to save a new friend's fragile reef home.
+| LineColor       = 00FFFF
+}}
+{{Episode list
+| EpisodeNumber   = 12
+| Title           = Octonauts and the [[Ring of Fire]]
+| Aux2            = Tweak and Kwazii
+| OriginalAirDate = {{start date|2021|3|30|df=y}}
+| ShortSummary    = When red-hot volcanoes start a chain reaction of disasters across the ocean, the Octonauts must work together to face their biggest challenge yet. They use the recently created Z-GUPs, (the Z1, Z2, Z3, Z4 and Z5), to save many creatures, including an [[Omura's whale]], some [[chinstrap penguin]]s, and many more creatures from various volcanoes and one giant volcano.
+| LineColor       = 00FFFF
+}}
+}}
+
+== References ==
+{{Reflist}}
+
+==External links==
+* {{IMDb episodes|1710177|Octonauts}}
+
+{{DEFAULTSORT:Octonauts episodes, List of The}}
+[[Category:Lists of British children's television series episodes]]
+[[Category:Lists of British animated television series episodes]]

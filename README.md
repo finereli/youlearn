@@ -1,50 +1,30 @@
 # YouLearn
 
-A small native macOS app for watching YouTube playlists as study material — with per-video resume, a chrome-free embedded player, and a password gate to keep the dock icon honest.
-
 <p align="center">
-  <img src="logos/export/logo-512.png" width="180" alt="YouLearn icon">
+  <img src="logos/export/logo-512.png" width="160" alt="YouLearn icon">
 </p>
 
-## Features
+A web app for kids to watch the shows their parents picked from YouTube, and
+nothing else. No recommendations, no autoplaying next video, no way out to
+the rest of YouTube.
 
-- Sidebar of playlists and standalone videos, fetched via the YouTube Data API
-- Embedded YouTube player (`WKWebView`) with masthead, comments, recommendations, and end-screens hidden
-- Per-video resume + auto-advance to the next video in a playlist
-- Password gate on launch and on entering Settings
+It wraps YouTube's own embedded player with its controls hidden, covers it
+with kid-sized controls of its own, and stops each episode just before
+YouTube's end screen can appear. Episodes are grouped by show and season,
+full episodes only.
 
-## Download
+Install it from https://youlearn.finereli.com: on an iPad, open it in Safari
+and choose Share → Add to Home Screen. Guided Access (Settings →
+Accessibility) can lock the iPad into it.
 
-Grab the latest `.app` from the [Releases page](https://github.com/finereli/youlearn/releases/latest). Releases are Developer ID–signed and notarized — drag to `/Applications` and open.
+The original native macOS app lives in git history (tag `v0.3.1`).
 
-## Requirements
-
-**To run:** macOS 11+ (universal binary, runs on Intel and Apple Silicon).
-
-**To build:**
-
-- Swift toolchain (`swift --version`)
-- A `YOUTUBE_API_KEY` in `.env` (Data API v3 key from Google Cloud)
-- `librsvg` (only for regenerating the app icon — `brew install librsvg`)
-
-## Build & run
+## Develop
 
 ```sh
-./build.sh                # unsigned ad-hoc build (fast, runs on your own machine)
-SIGN=1 ./build.sh         # signed with your Developer ID (for distribution)
-NOTARIZE=1 ./build.sh     # signed + notarized + stapled (no Gatekeeper warning)
-open YouLearn.app
-```
-
-`build.sh` builds with SwiftPM as a universal binary, copies the API key from `.env` into the bundle, and ad-hoc-codesigns. The whole app is the binary plus a few resource files (no bundled Python, ffmpeg, or yt-dlp). `SIGN=1` and `NOTARIZE=1` use the Developer ID configured at the top of the script and the `YOULEARN_NOTARY` keychain profile (set up via `xcrun notarytool store-credentials`).
-
-## Project layout
-
-```
-Sources/YouLearn/   Swift sources (AppKit, no storyboards)
-Resources/          Info.plist, AppIcon.icns, entitlements
-logos/              Logo SVGs and exported PNGs
-build.sh            Build + bundle script
+npm install
+npm run dev
+npm run library     # rebuild src/lib/library.json from content/
 ```
 
 ## License

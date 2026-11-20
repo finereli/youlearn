@@ -1,71 +1,68 @@
-# YouLearn — notes for Claude
+# YouLearn: notes for Claude
 
 ## What this app is
 
-A small macOS app that plays YouTube videos in a kid-friendly, chrome-free
-shell. Sidebar of playlists/videos on the left, an embedded YouTube player on
-the right. The "player" is a `WKWebView` pointed at `https://www.youtube.com/watch?v=…`
-with CSS that hides everything except the player itself, plus a tiny JS bridge
-for resume tracking and playlist advance. See `BrowserPlayerViewController.swift`.
+A PWA that lets a kid watch chosen YouTube shows without the rest of
+YouTube: no recommendations, no next-video pull, no way out to youtube.com.
+It started as a native Mac app (WKWebView with CSS hiding youtube.com's
+chrome, tag v0.3.1 in git history) and was replaced by this PWA in
+Nov 2026 so it runs on any device, mainly Yara's iPad.
 
-Library metadata (titles, durations, thumbnails) comes from the official
-YouTube Data API v3 — see `YouTubeAPI.swift`. Requires `YOUTUBE_API_KEY` in
-`.env`, which `build.sh` copies into `Resources/youtube-api-key.txt`.
+Live at https://youlearn.finereli.com. Svelte 5 + Vite from the pwa skill's
+kit (`shared/` holds the kit files, with `pwa-kit` headers), deployed as a
+static Cloudflare Worker.
 
-There is **no** local download, no yt-dlp, no Python, no ffmpeg. Earlier
-versions had all of that; v0.3.0 stripped it after we discovered the embedded
-browser just works.
+## How the player keeps YouTube out
 
-## Versioning & releases
+A web page can't restyle youtube.com, so the player uses YouTube's IFrame API
+(youtube-nocookie, `controls=0`) and covers it:
 
-The app version lives in **`Resources/Info.plist`** (`CFBundleShortVersionString`). When cutting a new release, bump it and tag to match.
+- a transparent shield over the frame takes every tap; our own controls sit on it
+- an opaque poster hides the frame whenever it isn't playing (YouTube's pause overlay)
+- playback stops 1.5s before the end, so YouTube's end screen never appears;
+  our end card offers the next episode of the same show
+- if a tap doesn't start playback within 2.5s (Safari can insist on a tap
+  inside the frame), the shield opens a hole in the middle and asks for one
+  tap on the video. On Eli's iPad our own play button worked.
 
-When the user asks to publish a build / cut a release:
+Details in the comment at the top of `src/components/Player.svelte`.
+Fullscreen is element fullscreen with the WebKit prefix (`src/lib/fullscreen.ts`);
+iPhone has none for this, so the button hides there.
 
-1. Bump `CFBundleShortVersionString` in `Resources/Info.plist` (and `CFBundleVersion` if it's a meaningful build). Use semver: patch for fixes, minor for features, major for breaking changes.
-2. Commit the bump: `chore: bump version to vX.Y.Z`.
-3. Build: `./build.sh`.
-4. Zip the bundle: `ditto -c -k --keepParent YouLearn.app YouLearn-vX.Y.Z.zip`.
-5. Tag and push: `git tag vX.Y.Z && git push origin main --tags`.
-6. Create the GitHub release with the zip attached:
-   ```sh
-   gh release create vX.Y.Z YouLearn-vX.Y.Z.zip --title "vX.Y.Z" --notes "..."
-   ```
+## The library
 
-The README links to `releases/latest`, so it does not need editing on each release.
+Baked into the bundle for now (`src/lib/library.json`), built by
+`npm run library` (`scripts/build-shows.py`) from files in `content/`:
 
-## Build
+- `raw/<channel>.jsonl`: every upload of a channel, from
+  `scripts/fetch-channel.py <@handle>` (scrapes the public page and follows
+  its continuation, no API key)
+- `wiki/<show>.wiki`: the show's Wikipedia episode list (wikitext), which
+  gives each episode its season and order
+- `season-*.json`: Wild Kratts, whose channel keeps season playlists
+  (`scripts/fetch-playlist.py`)
 
-`./build.sh` — builds the Swift app, copies the API key from `.env`, ad-hoc-codesigns. Output is ~1.5MB. No bundled dependencies; the entire runtime is the app binary plus a few Resources files.
+Only single full episodes go in. A video counts when its length fits one
+episode and its title matches a Wikipedia episode; compilations, "best of",
+shorts and promos are filtered out, and each episode appears once. Each show
+has its own rules in `build-shows.py` (Zoboomafoo uses the episode number in
+its titles; Nature Cat comes from Scholastic's half-episodes plus PBS KIDS).
+Check new episodes are embeddable with YouTube's oEmbed (401 means blocked).
 
-## CSS-hiding YouTube chrome
+Show art lives in `public/shows/<id>.jpg`, 1200x600, cropped from the
+official channels' banners (Nature Cat from a PBS KIDS clip thumbnail).
 
-`BrowserPlayerViewController.swift` injects a stylesheet at `documentStart` that hides the masthead, right rail, comments, end-screens, autoplay overlay, and the entire below-player section (`#below`, `ytd-watch-metadata`, etc.). When YouTube renames a class these go stale; refresh from DevTools.
+Dino Dana isn't in: its official channel (Dino Kids) posts only promos,
+minisodes and compilations; the full episodes on YouTube are pirated uploads.
 
-The JS bridge listens for the `<video>` element to actually have frame data before posting `playing` to native — that's what dismisses the dark loading overlay. Resume position is persisted on a 5-second tick; `ended` triggers playlist advance.
+## Build and deploy
 
-## Hardened runtime / signed builds
+```sh
+npm run build                                   # svelte-check + vite build
+secret-env cloudflare -- npx wrangler deploy    # to youlearn.finereli.com
+```
 
-When `SIGN=1`, the YouLearn binary gets `--options runtime`. The app loads no external dylibs of its own, so the entitlements file does not need `disable-library-validation`.
+Eli deploys straight to main. Icons: `scripts/make-icons.sh` renders
+`logos/export/logo.svg` into `public/icons/`.
 
-## Logo / icon
-
-Source SVG: `logos/export/logo.svg`. To regenerate `Resources/AppIcon.icns`, render the iconset PNGs with `rsvg-convert` at the standard sizes (16, 32, 64, 128, 256, 512, 1024 — including @2x variants), then `iconutil -c icns Resources/AppIcon.iconset -o Resources/AppIcon.icns`. `librsvg` via `brew install librsvg`.
-
-## The PWA (`pwa/`)
-
-A web rebuild for other devices, mainly Yara's iPad: youlearn.finereli.com.
-Svelte 5 + Vite from the pwa skill's kit (`shared/` holds the kit files),
-deployed as a static Cloudflare Worker (`npm run deploy`, with
-`secret-env cloudflare --`).
-
-A web page can't restyle youtube.com, so the PWA uses YouTube's IFrame API
-with `controls=0` and covers it: a transparent shield takes every tap, an
-opaque poster hides the frame whenever it isn't playing (YouTube's pause
-overlay), and playback stops 1.5s before the end so YouTube's end screen
-never shows. See the comment at the top of `src/components/Player.svelte`,
-including the iPad fallback when our tap can't start playback.
-
-The episode list is baked in for now: `scripts/fetch-playlist.py <playlistId>
-<title> > content/<name>.json`, then `npm run library`. A parent console that
-keeps the list on the server comes next.
+See ROADMAP.md for what's next.

@@ -1,0 +1,1328 @@
+{{Short description|none}}
+{{DISPLAYTITLE:List of ''Nature Cat'' episodes}}
+{{Use mdy dates|date=February 2025}}
+
+The following is a list of episodes from the television series ''[[Nature Cat]]''. {{Aired episodes|2015|11|25|2025|04|03|us|name=Nature Cat|title=Nature Cat|released=y|finished=all|seasons=5}}
+
+==Series overview==
+<onlyinclude>{{Series overview
+| auxA       = Segments
+| color1     = #CCCCFF
+| link1      = <includeonly>List of Nature Cat episodes</includeonly>#Season 1 (2015–17)
+| auxA1      = 76
+| episodes1  = 38<ref name="S1-no.">{{Cite web|url=http://www.chicagotribune.com/business/ct-nature-cat-spiffy-pictures-0907-biz-20160906-story.html|title = Highland Park brothers create hit 'Nature Cat' cartoon for PBS| website=[[Chicago Tribune]] }}</ref>{{efn|Although Season 1 technically has 40 episodes, two episodes are omitted from this total count, as they are "Part 1" and "Part 2" of the one-hour "Ocean Commotion" special.}}
+| start1     = {{Start date|2015|11|25}}
+| end1       = {{End date|2017|09|15}}
+| color1S    = #CCCC99
+| link1S     = <includeonly>List of Nature Cat episodes</includeonly>#Specials (2017–25)
+| linkT1S    = Specials
+| episodes1S = 5
+| auxA1S     = {{N/A}}
+| start1S    = {{Start date|2017|06|19}}
+| end1S      = {{End date|2025|04|03}}
+| color2     = #2E5090
+| link2      = <includeonly>List of Nature Cat episodes</includeonly>#Season 2 (2018–19)
+| episodes2  = 20
+| auxA2      = 40
+| start2     = {{Start date|2018|1|1}}
+| end2       = {{End date|2019|04|17}}
+| color3     = #63B76C
+| link3      = <includeonly>List of Nature Cat episodes</includeonly>#Season 3 (2019–21)
+| episodes3  = 15
+| auxA3      = 30
+| start3     = {{Start date|2019|04|18}}
+| end3       = {{End date|2021|06|04}}
+| color4     = #FF40E0
+| link4      = <includeonly>List of Nature Cat episodes</includeonly>#Season 4 (2022)
+| episodes4  = 10
+| auxA4      = 20
+| start4     = {{Start date|2022|05|09}}
+| end4       = {{End date|2022|9|23}}
+| color5     = #8A4500
+| link5      = <includeonly>List of Nature Cat episodes</includeonly>#Season 5 (2023–24)
+| episodes5  = 10
+| auxA5      = 20
+| start5     = {{Start date|2023|4|17}}
+| end5       = {{End date|2024|01|02}}
+}}</onlyinclude>
+
+==Episodes==
+===Season 1 (2015–17) ===
+{{Episode table |background= |overall= |season= |title= |titleR=<ref name="S1" /> |airdate= |airdateR=<ref name="S1">{{cite web |url=https://tvlistings.zap2it.com/overview.html?programSeriesId=SH02268771&tmsId=SH022687710000&from=sl&aid=gapzap |title=Nature Cat – Episode Guide – Season 2".  |publisher=Zap2it |access-date=}}{{dead link|date=April 2025|bot=medic}}{{cbignore|bot=medic}}</ref> |prodcode= |prodcodeR=<ref name=Copy>[https://cocatalog.loc.gov/cgi-bin/Pwebrecon.cgi?Search_Arg=Nature+cat&Search_Code=TALL&PID=_YirDlpk0k6ZLADxwxOnumkpznd4&SEQ=20221226133321&CNT=25&HIST=1 Nature Cat - Copyright Catalog]</ref><ref name=HH>[https://nhpbs.org/schedule/series.aspx?progName=Nature+Cat Nature Cat - Episode Guide | New Hampshire PBS]</ref> |episodes=
+
+{{Episode list
+|NumParts= 2
+|Title_1=Heartthrob Hamster
+|Title_2=Astronuts
+|EpisodeNumber=1
+|EpisodeNumber2=1
+|OriginalAirDate={{start date|2015|11|25}}
+|ProdCode=NCAT-000101
+|ShortSummary= 
+"Heartthrob Hamster"{{efn|name=premiere|This episode was part of a special "Nature Cat Premiere" event, which included "Heartthrob Hamster", "Astronuts", and "Muck Amok", on November 25, 2015.}} – Nature Cat and the rest are tasked to pet-sit their neighbor's hamster, [[Sir Galahad]]. Playing on Squeeks' infatuation with him, Galahad insists on briefly coming out of the cage. Galahad escapes after the cage lid is removed by Hal as Daisy insists he won't. Nature Cat leads in tracing the hamster, observing signs animals leave behind.
+"Astronuts"{{efn|name=premiere}} – Nature Cat wishes to be the first cat to walk on the moon, piquing the interest of the rest. After Nature Cat, Hal and Squeeks unsuccessfully try to catapult themselves into the sky, Daisy designs a rocket ship. They follow her plan, learning the complications and requirements involved in space travel.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Muck Amok
+|Title_2=Follow Those Footprints
+|EpisodeNumber=2
+|EpisodeNumber2=2
+|OriginalAirDate={{start date|2015|11|27}}
+|ProdCode=NCAT-000102
+|ShortSummary=
+"Muck Amok"{{efn|name=premiere}} – Squeeks' cousin Marvin and other residents located in the marsh are at risk of or are suffering flooding to their homes. Nature Cat and the rest investigate and eventually resolve the situation by learning how the dynamics of water contribute to the marsh, and how the presence of rubbish obstructs it. After they clean it up, other mice who live there arrive: Buster, Harold, Mary and Zazu. Then Nature Cat and his friends' number one fan, Doggone the poodle, plays a marsh-themed concert with her 3 band-mates.
+
+"Follow Those Footprints" – On Nature Art Day, Nature Cat unveils a sculpture of himself constructed from acorns, finding that the head is gone. Footprints are found on the ground surrounding the sculpture. They first distinguish the footprints from their own, by size and shape, and follow the trail to find the culprit.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Breezy Rider 
+|Title_2=Swamp Thing
+|EpisodeNumber=3
+|EpisodeNumber2=3
+|OriginalAirDate={{start date|2015|11|30}}
+|ProdCode=NCAT-000103
+|ShortSummary=
+"Breezy Rider" – Nature Cat and the rest are flying kites in the park. A strong gust pulls Squeeks and her kite into a tree on a nearby island. To reach her, Daisy designs a sail raft which she and the others build. They learn to navigate water, while Squeeks becomes increasingly in danger. Will this be the end of Squeeks?
+"Swamp Thing" – Daisy learns of the legend of 'The Swamp Thing', a monstrous creature which exists in the swamp who is responsible for its sounds, smell and appearance. They venture into the swamp, in spite of Nature Cat's trepidation which he contains throughout, finding natural phenomena are causing 'The Swamp Thing'.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Treasure of Bad Dog Bart 
+|Title_2=Pet Sounds
+|EpisodeNumber=4
+|EpisodeNumber2=4
+|OriginalAirDate={{start date|2015|12|7}}
+|ProdCode=NCAT-000104
+|ShortSummary=
+"The Treasure of Bad Dog Bart" – Hal uncovers a treasure map, understood to be attributed to the legend of "Bad Dog Bart", who stole the neighbourhood dogs' toys and buried them elsewhere. They read and follow the map, learning to reference objects of geography, cardinal directions and size of relative distances against symbols on the map.
+"Pet Sounds" – Nature Cat and his friends are preparing to perform in the band competition "Battle of the Pet Bands", but their instruments become waterlogged by falling into the ocean. They still insist in competing in determination to rival 'DJ Ronald', constructing instruments from items in the environment.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Cave Conundrum 
+|Title_2=Daisy's Colossal Fossil
+|EpisodeNumber=5
+|EpisodeNumber2=5
+|OriginalAirDate={{start date|2015|12|14}}
+|ProdCode=NCAT-000105
+|ShortSummary=
+"Cave Conundrum" – Hal loses his flying disc, of considerable sentimental value, named 'Harold'. It is seen to follow the path of a stream which leads into a cave. Nature Cat and the rest explore the cave, learning of the safety, the geological history, rock formations, and creatures which live in the cave.
+"Daisy's Colossal Fossil" – While adding to her flower patch, Daisy unearths a mysterious item. With the help of the rest, they fully dig it out and learn it is a fossilised bone. Daisy fantasizes about the bone's origin, exploring prehistoric life. She and the rest create a salad for a mammoth named Leo she meets.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=There's Gold in Them Thar Hills
+|Title_2=Nature Cat and Mr. Hide
+|EpisodeNumber=6
+|EpisodeNumber2=6
+|OriginalAirDate={{start date|2015|12|28}}
+|ProdCode=NCAT-000106
+|ShortSummary=
+"There's Gold in Them Thar Hills" – Squeeks finds a small piece of gold in the stream, but inadvertently loses it. To cheer her up, Nature Cat and his friends adventure back to the stream to do all they can to try to find another piece for Squeeks.
+"Nature Cat and Mr. Hide" – Nature Cat is hoping to beat Ronald at the Neighborhood Hide and Seek Championship: Cat Edition. He learns what animals in the wild use to conceal themselves: [[camouflage]]. 
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Where Have All the Butterflies Gone?! 
+|Title_2=For The Birdies!
+|EpisodeNumber=7
+|EpisodeNumber2=7
+|OriginalAirDate={{start date|2016|1|11}}
+|ProdCode=NCAT-000107
+|ShortSummary=
+"Where Have All the Butterflies Gone?" – Daisy starts a playdate with her butterfly friends, but there is a risk because there are no flowers around for the butterflies to feed on. Nature Cat and his pals decide to build a new butterfly garden so that the butterflies don't fly off.
+"For The Birdies" – Nature Cat's admiration for birds inspires him to help them. He learns that the upcoming winter season poses difficulty for birds to feed. Nature Cat and his friends set out to build bird feeders to give the birds a much needed food boost for the incoming season.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Stream and Shout 
+|Title_2=Hal's Day Off
+|EpisodeNumber=8
+|EpisodeNumber2=8
+|OriginalAirDate={{start date|2016|1|18}}<ref name=one_hr_special>{{cite web|title=NATURE CAT One-Hour Special|url=https://www.youtube.com/watch?v=2CMYk15_w64|website=YouTube|access-date=1 February 2016}}</ref>
+|ProdCode=NCAT-000109
+|ShortSummary=
+"Stream and Shout" – Nature Cat investigates where streams begin and end.
+
+"Hal's Day Off" – After unintentionally boarding a truck which drove off, Nature Cat, Squeeks and Daisy goes to find Hal, who's becomes lost in the 150,000-acre city of Chicago, Illinois. During the search they come across street animals and learn of their feeding behaviour and how the cohabit the urban human environment before finding Hal. Would this be the end of Hal?
+"Note:" Beginning with this episode, the XQ Super School Project commercial replaced the 23andMe commercial.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Tally Ho! A Rainbow 
+|Title_2=Travelin' Seeds
+|EpisodeNumber=9
+|EpisodeNumber2=9
+|OriginalAirDate={{start date|2016|1|18}}<ref name=one_hr_special />
+|ProdCode=NCAT-000110
+|ShortSummary=
+"Tally Ho! A Rainbow!" – Nature Cat and the rest searched for a rainbow for picture with  the rainbow for Granny Bunny, in efforts to do, Nature Cat sets out to prove the brief glimpses of a rainbow he saw to the rest, realising and learning of the conditions that cause a rainbow.
+
+"Travelin' Seeds" – Daisy questions the origin of a flower in her garden, having not planted a seed for it. The rest observe that seeds can travel from remote locations through natural processes, seeking the origin of flower's seeds. Along the way they further observe the processes of how seeds travel from other flora. 
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Ant's Revolution 
+|Title_2=Tide Pool Tough
+|EpisodeNumber=10
+|EpisodeNumber2=10
+|OriginalAirDate={{start date|2016|1|19}}
+|ProdCode=NCAT-000108
+|ShortSummary=
+"Ant's Revolution" – Squeeks has a picnic suddenly goes awry when ants steal Squeeks' cheesecake. Nature Cat and his friends try to get the dessert back, but they're out of luck as they watch the ants bring the cheesecake down into their anthole.
+"Tide Pool Tough" – Nature Cat wants to join his friends surfing in the ocean, but he is scared of the water. After getting some help from the tide pool creatures in training to face water by learning about the tide pool creatures, he becomes 'tide pool tough' and joins his friends surfing.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Hooray, It's Arbor Day 
+|Title_2=Goodnight, Gracie
+|EpisodeNumber2=11
+|OriginalAirDate={{start date|2016|1|20}}
+|ProdCode=NCAT-000111
+|EpisodeNumber=11
+|ShortSummary=
+"Hooray, It's Arbor Day" – Nature Cat and Squeeks help a family of Opossums find a new home after their tree falls during a windstorm.
+"Good Night Gracie" – Nature Cat and company helps Gracie the Toad find a perfect place to hibernate for the winter.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Love You, Michael Bluejáy 
+|Title_2=Ze Worm Whisperer
+|EpisodeNumber=12
+|EpisodeNumber2=12
+|OriginalAirDate={{start date|2016|1|21}}
+|ProdCode=NCAT-000112
+|ShortSummary=
+"Love You, Michael Bluejáy" – Nature Cat and the rest hear that the singer 'Michael Bluejáy' is to appear at a concert. In the excitement of them all, they organise themselves to trail down a hiking path in order to reach the concert, becoming lost and learning how to handle such situations when hiking.
+"Ze Worm Whisper" – Daisy is working on her garden patch. She attributes the poor quality soil to the absence of worms. Hal transforms into 'Ze Worm Whisperer', and introduces worms to the garden. Nature Cat is initially averse to handling worms, but by learning of their importance he eventually befriends them.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Happy Halentine's Day! 
+|Title_2=The Groundhog Way
+|EpisodeNumber=13
+|EpisodeNumber2=13
+|OriginalAirDate={{start date|2016|2|2}}
+|ProdCode=NCAT-000114
+|ShortSummary=
+"Happy Halentines Day" – Hal intends to buy gifts for his friends and mother, but is despaired to find he forgot to buy anything and that Valentine's Day involves waste harmful to nature. Before Hal gives up, Nature Cat and the rest suggest that instead he makes handmade gifts made from elements of nature.
+"The Groundhog Way" – Hal anticipates snow for his birthday. It is Groundhog Day where the neighborhood animals consult the groundhog whether spring is to come early, but the groundhog's reclusive and uncertain. Nature Cat, challenged against Ronald, attempts predicting weather by discerning certain myths from truths in what can predict the future climate.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Star Gazers 
+|Title_2=A Jump to Remember
+|EpisodeNumber=14
+|EpisodeNumber2=14
+|OriginalAirDate={{start date|2016|2|18}}
+|ProdCode=NCAT-000113
+|ShortSummary=
+"Star Gazers" – Nature Cat and the rest go stargazing in anticipation of viewing a meteor shower, learning how to determine astronomical objects in the sky. Nature Cat falls asleep and has a dream, in which he meets a lost alien named Shirley. Nature Cat suggests using stellar navigation, venturing space and learning the constellations of the sky.
+"A Jump to Remember" – Nature Cat attempts to break a ski jump world record. Ronald intrudes, gloating that he holds the current record and there needs to be snow for the attempt to be valid. Nature Cat insists on bringing about snow, learning the conditions needed and how to artificially produce it by spraying moisture in cold air.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Earth Day Today 
+|Title_2=Earth Day Every Day
+|RTitle=<ref>{{cite web|title=Nature Cat Playground Palooza/Small But Big|url=http://schedule.wttw.com/episodes/362351/Nature-Cat/Earth-Day-Today/Earth-Day-Every-Day/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427161334/http://schedule.wttw.com/episodes/362351/Nature-Cat/Earth-Day-Today/Earth-Day-Every-Day/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=15
+|EpisodeNumber2=15
+|OriginalAirDate={{start date|2016|4|25}}
+|ProdCode=NCAT-000117
+|ShortSummary= 
+"Earth Day Today" – When Nature Cat and his friends decide to go on a nature hike over to Butterfly Hills, they keep running into plastic bags blowing in the wind. When they see those bags come from local stores, they attempt alerting the store, learning and propose an alternative solution to carry groceries.
+"Earth Day Every Day" – Continuing from 'Earth Day Today' with an alternative in place for the plastic bag, they find a plastic bottle floating in a stream. Nature Cat and his friends try to properly dispose the bottle, discovering more [[plastic pollution|plastic waste]] elsewhere and in the ocean, eventually learning 'Earth Day is every day'.
+}}
+{{ Episode list
+|Title=Kingdom of Rotting Log <hr />Can You Dig It?
+|RTitle=<ref>{{cite web|title=Nature Cat Kingdom of Rotting Log/Can You Dig It?|url=http://schedule.wttw.com/episodes/362349/Nature-Cat/Kingdom-of-Rotting-Log/Can-You-Dig-It/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427162140/http://schedule.wttw.com/episodes/362349/Nature-Cat/Kingdom-of-Rotting-Log/Can-You-Dig-It/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=16
+|EpisodeNumber2=16
+|OriginalAirDate={{start date|2016|4|26}}
+|ProdCode=NCAT-000115
+|ShortSummary= "Kingdom of Rotting Log" – Nature Cat and his friends want to build their royal castle in the woods, but there is a rotting log obstructing. While attempting removing the log, they're persistently interrupted. Squeeks goes into the log and finds a habitat of creatures, learning the importance of rotting logs to a forests' ecosystem.
+"Can You Dig It?" – Nature Cat and his friends are looking to answer 'number 73' on 'Nature Cat's Curiosity List', 'if you keep digging a hole deeper and deeper, where will they end up?' They enter a machine Daisy designed which supposedly drills through the Earth, learning about the various layers of the Earth.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Mud Love 
+|Title_2=Call It a Night
+|RTitle=<ref>{{cite web|title=Mud Love/Call It a Night|url=http://schedule.wttw.com/episodes/362350/Nature-Cat/Mud-Love/Call-It-A-Night/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427154425/http://schedule.wttw.com/episodes/362350/Nature-Cat/Mud-Love/Call-It-A-Night/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=17
+|EpisodeNumber2=17
+|OriginalAirDate={{start date|2016|4|27}}
+|ProdCode=NCAT-000116
+|ShortSummary= "Mud Love" – Hal is having a party for 'mud appreciation day', while finding and learning of various kinds of mud and their properties, to each kind Nature Cat remains obstinate that he "...doesn't like mud at all!", which he emphatically recites as a rhyme. This episode is similar to ''[[Green Eggs and Ham]]''.
+ "Call it a Night" – Nature Cat loses his hat and explores the wonders of night.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Woodpecker Picks a Place 
+|Title_2=Here Comes the Sun
+|RTitle=<ref>{{cite web|title=Woodpecker Picks A Place/Here Comes the Sun|url=http://schedule.wttw.com/episodes/362352/Nature-Cat/Woodpecker-Picks-A-Place/Here-Comes-The-Sun/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427162004/http://schedule.wttw.com/episodes/362352/Nature-Cat/Woodpecker-Picks-A-Place/Here-Comes-The-Sun/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=18
+|EpisodeNumber2=18
+|OriginalAirDate={{start date|2016|4|28}}
+|ProdCode=NCAT-000118
+|ShortSummary= "Woodpecker Picks a Place" – When Nature Cat's band practice keeps getting interrupted by woodpeckers pecking on the roof of Hal's doghouse, the four friends find out more about woodpeckers and what exactly one is looking for.
+"Here Comes the Sun" – Nature Cat leads his friends to go see the Golden Sunstone. However, when Nature Cat accidentally breaks the compass, his friends find other ways to determine which direction to go.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Great Grasshopper Race 
+|Title_2=Fall for Hal
+|RTitle=<ref>{{cite web|title=The Great Grasshopper Race/Fall for Hal|url=http://schedule.wttw.com/episodes/362353/Nature-Cat/The-Great-Grasshopper-Race/Fall-for-Hal/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427162009/http://schedule.wttw.com/episodes/362353/Nature-Cat/The-Great-Grasshopper-Race/Fall-for-Hal/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=19
+|EpisodeNumber2=19
+|OriginalAirDate={{start date|2016|5|23}}
+|ProdCode=NCAT-000119
+|ShortSummary= "The Great Grasshopper Race" – Hal's grasshopper friend Dustin Hopman is competing in the Great Grasshopper Race. But before the race starts, Dustin suddenly hops off into the woods. Nature Cat and his friends try to look for him before that race starts.
+"Fall for Hal" – The first day of fall is Hal's favorite day of the year. However, the problem is that Hal is sick and can't get out of bed. However, Nature Cat comes up with a great idea to bring fall and all the items on his scavenger list to Hal.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Playground-Palooza 
+|Title_2=Small But Big
+|RTitle=<ref>{{cite web|title=Playground-Palooza/Small But Big|url=http://schedule.wttw.com/episodes/362354/Nature-Cat/PlaygroundPalooza/Small-But-Big/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427162145/http://schedule.wttw.com/episodes/362354/Nature-Cat/PlaygroundPalooza/Small-But-Big/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=20
+|EpisodeNumber2=20
+|OriginalAirDate={{start date|2016|5|24}}
+|ProdCode=NCAT-000120
+|ShortSummary= "Playground-Palooza" – Sadie, a dog who lives in the city, reminisces about playing in the woods with Nature Cat and the rest. Nature Cat realizes this, and thus sets out to surprise her by 'bringing the woods to her'. Nature Cat and friends creatively recreates the woods in Sadie's local playground. 
+"Small But Big" – Squeeks enters the 'small but big art fair', celebrating the 'tiny things of nature'. She leaves Nature Cat and the rest to go to the art show, providing them directions. They use their orientation and co-ordination skills to navigate to the art show, observing the microscopic life of nature along the way. 
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Slime Time 
+|Title_2=Rock Stars
+|RTitle=<ref>{{cite web|title=Slime Time/Rock Stars|url=http://schedule.wttw.com/episodes/362355/Nature-Cat/Slime-Time/Rock-Stars/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427154430/http://schedule.wttw.com/episodes/362355/Nature-Cat/Slime-Time/Rock-Stars/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=21
+|EpisodeNumber2=21
+|OriginalAirDate={{start date|2016|7|11}}
+|ProdCode=NCAT-000121
+|ShortSummary= "Slime Time" – While the rest observe snails in fascination, Nature Cat is more concerned of his suspicion that Ronald stole his yarn ball. To retrieve the yarn, Nature Cat and the rest go into his yard while Ronald is absent, incidentally finding slugs. Nature Cat becomes interested in slime, scheming a prank against Ronald.
+"Rock Stars" – Squeeks loses a rock of sentimental value, which she also intended to contend as 'rock start of the month' at a rock collection club. Squeeks and rest goes searching for the rock, along the way the group learns about, finds and collect various other rocks. 
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Gimme Shelter 
+|Title_2=Goin' Batty
+|RTitle=<ref>{{cite web|title=Gimme Shelter/Goin' Batty|url=http://schedule.wttw.com/episodes/362356/Nature-Cat/Gimme-Shelter/Goin--Batty/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427162014/http://schedule.wttw.com/episodes/362356/Nature-Cat/Gimme-Shelter/Goin--Batty/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=22
+|EpisodeNumber2=22
+|OriginalAirDate={{start date|2016|7|12}}
+|ProdCode=NCAT-000122
+|ShortSummary="Gimme Shelter" – During a hike, Squeeks realises an oncoming change of weather, anticipating rain. This causes Nature Cat to panic, as they are too far to return home. In search of a canopied area, Squeeks and the rest suggests building shelter, learning the requirements and techniques of building a watertight shelter.
+"Goin' Batty” – Nature Cat and friends are going on a hiking trip to 'Cocono Cave'. Nature Cat's impatience makes him negligent to Daisy's advice on keeping safe and well prepared for long term ventures into Nature. Nature Cat faces various dangers, like being bitten by mosquitoes, sprayed by a skunk and infected by poison ivy. When Nature Cat is stung by a bee, Nature Cat resigns from the adventure feeling his feline instincts were unpremeditated. After leaving his friends behind and intending to be Fred the Yellow Cat to show that it's the end of Nature Cat, he soon learns the importance of risk awareness and safe planning in nature.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Legend of Gold Gardens 
+|Title_2=Winter Dance Party
+|RTitle=<ref>{{cite web|title=The Legend of Gold Gardens/Winter Dance Party|url=http://schedule.wttw.com/episodes/362357/Nature-Cat/The-Legend-of-Gold-Gardens/Winter-Dance-Party/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170427154435/http://schedule.wttw.com/episodes/362357/Nature-Cat/The-Legend-of-Gold-Gardens/Winter-Dance-Party/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=23
+|EpisodeNumber2=23
+|OriginalAirDate={{start date|2016|7|13}}
+|ProdCode=NCAT-000123
+|ShortSummary="The Legend of Gold Gardens" – The group discovers a map with directions to the fabled Gold Gardens. Ronald joins them, but unbeknownst to them, he intends on taking all the 'gold' for himself; in spite of this, he proves to be too physically unfit to reach the Gold Gardens, which the group attempts to remedy by getting him to exercise. This demonstrated the importance of physical well being when in Nature.
+"Winter Dance Party" – Every year on the day of the winter solstice, Daisy's Granny Bunny celebrates with a winter dance party. Daisy has been caught unprepared for the occasion, however, and must hurry to get everything set up before she arrives with the help of her friends. 
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Ice is Nice 
+|Title_2=Bird's Eye View
+|RTitle=<ref>{{cite web|title=Ice is Nice/Bird's Eye View|url=http://schedule.wttw.com/episodes/362358/Nature-Cat/Ice-Is-Nice/Birds-Eye-View/|website=WTTW Chicago|access-date=12 March 2016|archive-url=https://web.archive.org/web/20170428082205/http://schedule.wttw.com/episodes/362358/Nature-Cat/Ice-Is-Nice/Birds-Eye-View/|archive-date=28 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=24
+|EpisodeNumber2=24
+|OriginalAirDate={{start date|2016|7|14}}
+|ProdCode=NCAT-000124
+|ShortSummary="Ice is Nice" – During a day of skating at the frozen lake, Nature Cat meets Ronald intruding their skating routine. Nature Cat and Ronald carried hot cocoa in their favorite mugs. Both find it's too hot for them to sip, they put them aside to cool. Nature Cat is horrified to find his favorite hot cocoa mug 'Bug Mug' broke to pieces, and accuses Ronald of breaking it. However, Ronald's also turns out to have broke in a similar manner. The gang sets off to find out who broke the mugs.
+"Bird's Eye View" – When Hal dreams about flying as a bird does, he becomes curious as what it must be like to live in the sky. This inspires him and his friends to build a tree house and discover what goes on way up high.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Runaway Pumpkin 
+|Title_2=Lady Bug Tough
+|RTitle=<ref>{{cite web|title=Runaway Pumpkin/Lady Bug Tough|url=http://schedule.wttw.com/episodes/362362/Nature-Cat/Runaway-Pumpkin/Lady-Bug-Tough/|website=WTTW Chicago|access-date=13 September 2016|archive-url=https://web.archive.org/web/20170428082045/http://schedule.wttw.com/episodes/362362/Nature-Cat/Runaway-Pumpkin/Lady-Bug-Tough/|archive-date=28 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=25
+|EpisodeNumber2=25
+|OriginalAirDate={{start date|2016|10|10}}
+|ProdCode=NCAT-000128
+|ShortSummary="Runaway Pumpkin" – On the day of the big [[Halloween]] [[party]], Daisy accidentally lets loose her entry for the biggest [[pumpkin]] contest. The gang sets out to save it before it gets lost for good.
+"Lady Bug Tough" – Daisy is horrified to find her roses to be infested with holes on the leaves. When the gang finds out they are suffering from aphids, they soon learn ladybugs are the solution to their problem, and subsequently discover their methods for survival.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Stop That Squirrel 
+|Title_2=Onward and Pondward
+|RTitle=<ref>{{cite web|title=Stop That Squirrel/Onward and Pondward|url=http://schedule.wttw.com/episodes/362359/Nature-Cat/Stop-That-Squirrel/Onward-and-Pondward/|website=WTTW Chicago|access-date=7 January 2017|archive-url=https://web.archive.org/web/20170427162019/http://schedule.wttw.com/episodes/362359/Nature-Cat/Stop-That-Squirrel/Onward-and-Pondward/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=26
+|EpisodeNumber2=26
+|OriginalAirDate={{start date|2017|01|02}}
+|ProdCode=NCAT-000125
+|ShortSummary="Stop That Squirrel" – Nature Cat and the rest are organising a backyard bird watching activity. The squirrel, 'Cruiser', threatens to steal the [[bird food]] they've placed out, and successfully does so. Nature Cat places the food around various obstacles to deter the squirrel from stealing, but the squirrel repeatedly succeeds.
+"Onward and Pondward" – Nature Cat and the rest visit the pond. They catch a duckling leaving the pond, the duckling justifies this decision by admitting a fear of water. Nature Cat and the rest promises to help the duckling overcome the fear, initially co-exploring the ponds surface life from a raft.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Appily Ever After 
+|Title_2=Sound Off
+|RTitle=<ref>{{cite web|title=Appily Ever After/Sound Off|url=http://schedule.wttw.com/episodes/362360/Nature-Cat/Appily-Ever-After/Sound-Off/|website=WTTW Chicago|access-date=7 January 2017|archive-url=https://web.archive.org/web/20170427160547/http://schedule.wttw.com/episodes/362360/Nature-Cat/Appily-Ever-After/Sound-Off/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=27
+|EpisodeNumber2=27
+|OriginalAirDate={{start date|2017|01|03}}
+|ProdCode=NCAT-000126
+|ShortSummary="Appily Ever After" – Nature Cat and the rest enact the history of an apple orchard, tell the version of [[Johnny Appleseed]], exploring the life cycle of pollination and growth of apply trees. 
+"Sound-Off" – Daisy reports hearing an unusual sound while Nature Cat and the rest are building a sandcastles. While not audible to them or the viewer, they aid Daisy in tracing the origin of the sound. They discover that in the lake fishes report hearing such a sound, disrupting their ecology. 
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Shell Game 
+|Title_2=Heron Food Blues
+|RTitle=<ref>{{cite web|title=The Shell Game/Heron Food Blues|url=http://schedule.wttw.com/episodes/362363/Nature-Cat/The-Shell-Game/Heron-Food-Blues/|website=WTTW Chicago|access-date=7 January 2017|archive-url=https://web.archive.org/web/20170427154459/http://schedule.wttw.com/episodes/362363/Nature-Cat/The-Shell-Game/Heron-Food-Blues/|archive-date=27 April 2017|url-status=dead}}</ref>
+|EpisodeNumber=28
+|EpisodeNumber2=28
+|OriginalAirDate={{start date|2017|01|04}}
+|ProdCode=NCAT-000129
+|ShortSummary="The Shell Game" — Herbert the Hermit Crab needs to find a shell so he can play in the volleyball championship. 
+"Heron Food Blues" — Nature Cat and pals try to find fish for Flo the Heron.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Spring Hunter 3000 
+|Title_2=The Case of the Missing Moon
+|RTitle=
+|EpisodeNumber=29
+|EpisodeNumber2=29
+|OriginalAirDate={{start date|2017|04|10}}
+|ProdCode=NCAT-000127
+|ShortSummary="Spring Hunter 3000" – Now that Spring is here, it's time for Daisy's favorite online game: Spring Hunter 3000. The goal of the game is to try and find as many signs of spring as possible, like birds, flowers, or fox kits. The more you find, the more points you get. But in her quest to become the "Queen of Spring," Daisy's obsession with the game threatens to impede her enjoyment of Spring's wonders.
+"The Case of the Missing Moon" – Hal is depressed. When he went to howl at the Moon, like he does every night, the Moon was gone. Can Nature Cat and his pals find the missing Moon, or will Hal's nightly howls come to an end for good?
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Mighty Mountain Climbers 
+|Title_2=Bug Eating Plants!
+|RTitle=
+|EpisodeNumber=30
+|EpisodeNumber2=30
+|OriginalAirDate={{start date|2017|04|11}}
+|ProdCode=NCAT-000130
+|ShortSummary="Mighty Mountain Climbers" – Nature Cat loses a kite, he climbs a tree to retrieve it. Ronald insists that Nature Cat's climbing skills are no match to his own, prompting him to claim that he has climbed the 'Mighty Mountain Peak'. Rebuffed, Nature Cat embarks the mountain with his friends, learning the additional hiking, training and nature skills required.
+"Bug Eating Plants" – Squeeks tells the story of 'the bug eating plants', enrapturing her friends into her fantasy world where they are miniature characters navigating through a swamp, persistently wary of plants that eat 'bug sized critters', but Hal is absent minded to these dangers and is continuously warned whenever he endangers himself, learning of different carnivorous plants along the way.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Flight of the Firefly 
+|Title_2=Thunderstruck
+|RTitle=
+|EpisodeNumber=31
+|EpisodeNumber2=31
+|OriginalAirDate={{start date|2017|04|12}}
+|ProdCode=NCAT-000134
+|ShortSummary="Flight of the Firefly" – Hal is attempting to capture fireflies, eventually capturing one firefly who he names 'George'. Daisy and the rest insist that Hal releases George, Hal complies. They learn that George is looking for a mating festival, and along the way they learn about how fireflies communicate and their ecosystem.
+
+"Thunderstruck" – Nature Cat and the rest are outdoors collecting items of nature for a nature scrapbook. However, clouds roll in and Daisy anticipates a thunderstorm. They retreat into Hal's newly carpeted dog house for safety, consequently learning how the physics of thunderstorms is analogous to the static electricity gathered from Hal's carpets, and other facts about thunder.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Plants Got the Moves 
+|Title_2=Magnet Mania
+|RTitle=
+|EpisodeNumber=32
+|EpisodeNumber2=32
+|OriginalAirDate={{start date|2017|04|13}}
+|ProdCode=NCAT-000135
+|ShortSummary="Plants Got the Moves" – Daisy prepares germinating bean seeds to compete in the 'animal science fair', but loses it by a gust of wind.  After Daisy leans on a plant whose leaves contracts on contact, they hypothesise if other plants do this, learning other plants can track the sun and grow away from gravity.
+
+"Magnet Mania" – Squeeks assorts various activities for Magnet Mania Day. Nature Cat finds a magnetic rock of iron, and subsequently comes across an individual who claims there's a large magnetic rock 'Old Lucky' far North. They head North, eventually learning how magnets can be used as a compass.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Return to Mighty Mountain 
+|Title_2=Welcome to the Vernal Pond
+|RTitle=
+|EpisodeNumber=33
+|EpisodeNumber2=33
+|OriginalAirDate={{start date|2017|04|14}}
+|ProdCode=NCAT-000138
+|ShortSummary="Return to Mighty Mountain" – Nature Cat and the rest returns to the 'Mighty Mountain' along with Ronald, under the guide of Daisy's grandmother Granny Bunny. Nature Cat is trepidatious about camping, but Ronald insists he is not. They learn about the safety and co-ordination required to enjoy mountainous nature and camping.
+
+"Welcome to the Vernal Pond" – Nature Cat and the rest come across a Salamander, learning she intends to lay eggs in a pond in the forest. Nature Cat is skeptical of the existence of this pond, and so is led by the Salamander to it. They learn that the pond seasonally appears in Spring, and the cycle of vernal creatures over a number of months.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Queen of the Night 
+|Title_2=Space Rocks
+|RTitle=
+|EpisodeNumber=34
+|EpisodeNumber2=34
+|OriginalAirDate={{start date|2017|09|11}}
+|ProdCode=NCAT-000131
+|ShortSummary= "The Queen of the Night" - Tonight is the one night a year that the Queen of the Night cactus blooms but the flower only lasts for a few hours. Daisy has always wanted to go to the desert to see it. But to find the flower in the great big desert - and in time - Nature Cat and the gang are sure going to need some help from new friends. 
+
+"Space Rocks" - Nature Cat and his pals are on a top-secret, extremely important mission to find a real space rock for Squeeks' rock collection. Finding a real space rock isn't the easiest thing in the world to do, in fact it's very hard, but that doesn't deter Nature Cat and the gang from looking all over the four corners of their neighborhood.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Croak and Swagger 
+|Title_2=Puddle Pool Party
+|RTitle=
+|EpisodeNumber=35
+|EpisodeNumber2=35
+|OriginalAirDate={{start date|2017|09|12}}
+|ProdCode=NCAT-000132
+|ShortSummary= "Croak and Swagger" - Nature Cat leads his friends to the pond for a day of listening to one of the most amazing spring sounds: the bullfrog croak. At the pond, amid the bullfrog croaks, the gang hears another sound: someone crying. Nature Cat finds the cries coming from Warren the Bullfrog, who is very sad because he doesn't know how to croak. It's up to Nature Cat and his pals to help Warren get his croak back.
+
+"Puddle Pool Party" - Squeeks is so excited because today she has invited her pals to a puddle in the woods for a Puddle Pool Party. Arriving in the woods with their bathing suits on and pool toys at the ready, the gang finds a big problem, the puddle is gone! Everyone including, Squeeks, are disappointed. How can they cheer up?
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Glow Games 
+|Title_2=Have a Grape Day
+|RTitle=
+|EpisodeNumber=36
+|EpisodeNumber2=36
+|OriginalAirDate={{start date|2017|09|13}}
+|ProdCode=NCAT-000133
+|ShortSummary= "The Glow Games" - Ronald challenges Nature Cat and his friends to compete in the Glow Games. The first team to find three bioluminescent creatures wins the game as well as the Golden Glow Trophy.
+
+"Have a Grape Day" - Led by Squeeks, the gang is on their way to the grape patch because today the grapes will finally be ripe and ready to eat. Squeeks can't wait for grape tacos, grape fricassee, grape suzette, grape flambe. But all their excitement comes screeching to a halt when the gang sees the sight before them: the whole grape patch has been overtaken by weeds everywhere. That's when they discover that Ronald is replacing the grape patch with terrible-tasting berries. Will Nature Cat find a solution to restore the grapes?
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=Flamingo-a-Go-Go 
+|Title_2=What a Tangled Web
+|RTitle=
+|EpisodeNumber=37
+|EpisodeNumber2=37
+|OriginalAirDate={{start date|2017|09|14}}
+|ProdCode=NCAT-000136
+|ShortSummary= "Flamingo-a-Go-Go" - While playing a game of nature I-spy, Squeeks spies something... pink? Upon a closer look, the gang finds the source of the pink color, Lola, a flamingo who lost her flock while they were on their way to a new home. Lola doesn't remember where their new home was going to be. It's up to Nature Cat and his pals to find Lola's new home, while learning a little bit about flamingos along the way. 
+
+"What a Tangled Web" - Nature Cat is really sad, it seems that someone has been taking all his cat toys, most recently Mr. Silly Sock. How can they find out who the cat toy thief is? Daisy gets an idea to catch the thief, inspired by Wanda the spider who has a web in Daisy's garden.
+}}
+{{Episode list
+|NumParts= 2
+|Title_1=The Shellersons 
+|Title_2=Only the Shadow Knows
+|RTitle=
+|EpisodeNumber=38
+|EpisodeNumber2=38
+|OriginalAirDate={{start date|2017|09|15}}
+|ProdCode=NCAT-000137
+|ShortSummary= "The Shellersons" - On a trip to Barrel Cactus National Park to enjoy nature in all its glorious splendor, Nature Cat and his pals encounter Shelby, a very sad desert tortoise. Today is Shelby's Shellerson Family Reunion party, but none of the other Shellerson members have shown up. Nature Cat vows to help Shelby and find his family members, "The Shellerson Family Reunion will go on." 
+
+"Only the Shadow Knows" - As Daisy, Hal and Squeeks are having a blast making shadow puppets, Nature Cat is just sitting in a tree, watching and waiting, waiting and watching. For what? It seems that yesterday, Norman the Squirrel appeared in the same tree Nature Cat sits in now, took a look at the ground, and said that if Nature Cat wants to see something "unbelievably incredibly amazingly Nature Cat-y" he has to be in the same spot at the same time tomorrow. Nature Cat isn't moving until he sees something "unbelievably incredibly amazingly Nature Cat-y."
+}}
+}}
+
+===Season 2 (2018–19) ===
+{{Episode table |background=#2E5090 |overall= |season= |title= |titleR=<ref name="S2" /> |airdate= |airdateR=<ref name="S2">{{cite web |url=https://tvlistings.zap2it.com/overview.html?programSeriesId=SH02268771 |title=Nature Cat – Episode Guide – Season 2 |publisher=Zap2It |access-date=}}{{dead link|date=April 2025|bot=medic}}{{cbignore|bot=medic}}</ref> |prodcode= |prodcodeR=<ref name=Copy/><ref name=HH/>|episodes=
+
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=39
+|EpisodeNumber2=1
+|Title_1= Moth Frolic-Fest
+| Title_2= Dune Patrol
+|OriginalAirDate={{start date|2018|1|1}} 
+|ProdCode=NCAT-000201
+|ShortSummary= "Moth Frolic Fest": Hal misses the Butterfly Frolic Fest, and so decides to frolic with moths instead. 
+
+"Dune Patrol": How can Nature Cat and his gang protect the dunes when Ronald keeps bothering them?
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=40
+|EpisodeNumber2=2
+|Title_1= Stop and Hear the Cicadas
+| Title_2 = Cold-Blooded
+|OriginalAirDate={{start date|2018|1|2}}
+|ProdCode=NCAT-000202
+|ShortSummary= "Stop and Hear the Cicadas": Nature Cat learns about cicadas. 
+
+"Cold-Blooded": Who is knocking over Daisy's homemade pinecone toys?
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=41
+|EpisodeNumber2=3
+|Title_1=Lights Out for Sea Turtles
+| Title_2= Nature Art
+|OriginalAirDate={{start date|2018|1|3}}
+|ProdCode=NCAT-000203
+|ShortSummary= "Lights Out for Sea Turtles": The newborn turtles have gone to the neighborhood instead of the ocean, and Nature Cat and his friends have to bring them back to where they belong.
+
+"Nature Art": Nature Cat can't think of something for Nature Art day.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=42
+|EpisodeNumber2=4
+|Title_1=Houston's Outdoor Adventure
+| Title_2=Hotel Hal
+|OriginalAirDate={{start date|2018|1|4}}
+|ProdCode=NCAT-000204
+|ShortSummary= "Houston's Outdoor Adventure": Houston has never been on a Nature Adventure. 
+
+"Hotel Hal": Hal leads a bunch of voles into his dog house.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=43
+|EpisodeNumber2=5
+|Title_1=Let's Talk Turkey Vulture
+|Title_2=Prescription: Nature
+|OriginalAirDate={{start date|2018|4|23}}
+|ProdCode=NCAT-000205
+|ShortSummary= "Let's Talk Turkey Vulture": Nature Cat and the gang meet two turkey vultures and learn about scavenge. 
+
+"Prescription: Nature": Hal has to go outside when he gets frustrated while building his Squeak-a-Saurus Rex.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=44
+|EpisodeNumber2=6
+|Title_1=Enter the Dragonfly
+|Title_2=Water Woes
+|OriginalAirDate={{start date|2018|4|24}}
+|ProdCode=NCAT-000206
+|ShortSummary= "Enter the Dragonfly": Ronald learns about dragonflies in order to get a helmet for the Knights of Nature. 
+
+"Water Woes": With Daisy's plants all droopy because of a drought, she and the others learn to conserve water.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=45
+|EpisodeNumber2=7
+|Title_1=Garden Impossible
+| Title_2= Agents of the Great Outdoors
+|OriginalAirDate={{start date|2018|4|25}}
+|ProdCode=NCAT-000207
+|ShortSummary= "Garden Impossible": Daisy's friend Petunia needs some help making a city garden because she doesn't know how to build one.
+
+"Agents of the Great Outdoors": Nature Cat and his friends are super spies undercover to discover if animals can communicate.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=46
+|EpisodeNumber2=8
+|Title_1=Bunyan Trouble
+|Title_2=Foggy Feat
+|OriginalAirDate={{start date|2018|11|12}}
+|ProdCode=NCAT-000209
+|ShortSummary= "Bunyan Trouble": Squeeks tells a story about how Nature Cat and the gang (as the Tree Scouts) prevented Little Paulie Bunyan Jr. from cutting the redwood trees down.
+
+"Foggy Feat": Nature Cat and the others go to see a spring sunrise for Granny Bunny, but a fog blocks the path.
+NOTE: Starting with this episode onward, a new segment called Nature Prize Surprise comes after the "real animals" notice, which replaces the live action kids sponsor segment.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=47
+|EpisodeNumber2=9
+|Title_1=Rights or Wrong
+| Title_2= Amazing Animals
+|OriginalAirDate={{start date|2018|11|13}}
+|ProdCode=NCAT-000210
+|ShortSummary= "Rights or Wrong": Returning to the marsh, Nature Cat and his pals teach Ronald the importance of nature's rights.
+
+"Amazing Animals": Nature Cat and his pals venture through the wintry forest to Granny Bunny's surprise, learning about the features of winter's animals along the way. 
+Fun fact: It serves as the 100th overall episode.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=48
+|EpisodeNumber2=10
+|Title_1=Backyard Bigfoot
+| Title_2= Imperfect Produce
+|OriginalAirDate={{start date|2018|11|14}}
+|ProdCode=NCAT-000211
+|ShortSummary= "Backyard Bigfoot": Squeeks believes that a "bigfoot" might be ruining her backyard campout party.
+
+"Imperfect Produce": Everyone thinks Squeeks' bumped up carrots still tasted good on the day of the "Fall Festival and Crop Competition".
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=49
+|EpisodeNumber2=11
+|Title_1=Man-Oh-Mangrove
+| Title_2= Northern Lights Sights
+|OriginalAirDate={{start date|2018|11|15}}
+|ProdCode=NCAT-000212
+|ShortSummary= "Man-Oh-Mangrove": Nature Cat and the gang explore a mangrove forest to help a lost spiny lobster find its home, but can't seem to find the right one.
+
+"Northern Lights Sights": Nature Cat and his pals struggle to find the Aurora Borealis as part of his Nature Curiosity List.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=50
+|EpisodeNumber2=12
+|Title_1=A Prickly Problem
+| Title_2= A Shedtime Story
+|OriginalAirDate={{start date|2018|11|16}}
+|ProdCode=NCAT-000213
+|ShortSummary= "A Prickly Problem": Nature Cat and the gang meet a porcupine.
+
+"A Shedtime Story": Nature Cat fears his friends and other animals have the furry flu, but he learns that fur keeps animals warm.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=51
+|EpisodeNumber2=13
+|Title_1=The Big Bath Brouhaha
+| Title_2= Fossil Hunt
+|OriginalAirDate={{start date|2019|02|18}}
+|ProdCode=NCAT-000208
+|ShortSummary= "The Big Bath Brouhaha": When Hal gets dirty before a picture for Granny Bunny's birthday, the rest taught him about how some animals can bathe themselves.
+
+"Fossil Hunt": Nature Cat and his pals must find a fossil for Squeeks' "Mousey Scouts" fossil badge.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=52
+|EpisodeNumber2=14
+|Title_1=Daisy's Wildflower Round-Up
+| Title_2= A Party for Squeeks
+|OriginalAirDate={{start date|2019|02|19}}
+|ProdCode=NCAT-000214
+|ShortSummary= "Daisy's Wildflower Round-Up": Daisy and the others play cowboys, going on an adventure to find three wildflowers.
+
+"A Party for Squeeks": Squeeks suffers the winter blues, so Nature Cat, Daisy, and Hal proceed to hold an "end of winter party", inviting several of her friends while getting ready.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=53
+|EpisodeNumber2=15
+|Title_1=Are You My Egg?
+| Title_2=SOS (Save Our Salad)
+|OriginalAirDate={{start date|2019|02|20}}
+|ProdCode=NCAT-000215
+|ShortSummary= "Are You My Egg?": Nature Cat and his pals set out to find a nest for a lost lizard.
+
+"S.O.S (Save Our Salad)": Nature Cat and the gang try to think of solutions after his garden is taken over by Japanese beetles.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=54
+|EpisodeNumber2=16
+|Title_1=Snow Way to Keep Warm
+| Title_2=So You Think You Know Nature?
+|OriginalAirDate={{start date|2019|02|21}} 
+|ProdCode=NCAT-000216
+|ShortSummary= "Snow Way to Keep Warm": Nature Cat and the gang must save Hal's chew toy Mr. Chewinsky once again, this time under the snow.
+
+"So You Think You Know Nature?": When Nature Cat and his pals end up in a nature themed game show, he feels that he doesn't know much about mimicking in nature.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=55
+|EpisodeNumber2=17
+|Title_1=The Deal with Eels
+| Title_2= Skip It
+|OriginalAirDate={{start date|2019|02|22}}
+|ProdCode=NCAT-000217
+|ShortSummary=  "The Deal with Eels": Nature Cat leads his pals to follow an eel on its long journey to [[Sargasso Sea]].
+
+"Skip It": Through some persistence and courage, Nature Cat learns how to skip rocks while competing against Ronald for the "Rock Skipping Championship".
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=56
+|EpisodeNumber2=18
+|Title_1=Wild Batts!
+| Title_2= No Bird Left Behind!
+|OriginalAirDate={{start date|2019|04|15}}
+|ProdCode=NCAT-000218
+|ShortSummary= "Wild Batts": [[Chris Kratt|Chris]] and [[Martin Kratt]] show up as Chris and Martin Batt as two wild bat brothers whose tree home is destroyed, forcing them to find a new shelter. Nature Cat and his pals who come to the rescue, helping Chris and Martin Batt by building them their brand new home (with help of Granny Bunny).
+
+"Note": This episode is a parody of ''[[Wild Kratts]]''.
+
+"No Bird Left Behind": Nature Cat and the gang endure on a high-flying airplane journey to get a Baltimore oriole to Honduras when he injured his wing.
+|LineColor= 2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=57
+|EpisodeNumber2=19
+|Title_1= Soil Turmoil
+| Title_2= Wisteria Hysteria
+|OriginalAirDate={{start date|2019|04|16}}
+|ProdCode=NCAT-000219
+|ShortSummary= "Soil Turmoil": The gang's vole friend Steve is upset because Ronald stole his burrow.
+
+"Wisteria Hysteria": On her way to deliver some jumbo carrot muffins to Granny Bunny, Daisy and the others have to discover (along with a sad wolf) who is throwing seeds at them!
+|LineColor=2E5090
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=58
+|EpisodeNumber2=20
+|Title_1=Nature Cat's Nature Stories
+| Title_2= Pattern Problema
+|OriginalAirDate={{start date|2019|04|17}}
+|ProdCode=NCAT-000220
+|ShortSummary= "Nature Cat's Nature Stories": Daisy has trouble trying to make up a silly nature story.
+
+"Pattern Problema": Hal needs some help to finish decorating his doghouse for his mom.
+|LineColor=2E5090
+}}
+}}
+
+===Season 3 (2019–21) ===
+This is the last season that was animated by [[9 Story Media Group|9 Story]].
+{{Episode table |background=#63B76C |overall= |season= |title= |titleR=<ref name="S3" /> |airdate= |airdateR=<ref name="S3">{{cite web |url=https://tvlistings.zap2it.com/overview.html?programSeriesId=SH02268771 |title=Nature Cat – Episode Guide – Season 3 |publisher=Zap2It |access-date=}}{{dead link|date=April 2025|bot=medic}}{{cbignore|bot=medic}}</ref> |prodcode= |prodcodeR=<ref name=Copy/><ref name=HH/>|episodes=
+
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=59
+|EpisodeNumber2=1
+|Title_1=Animal Rescue Crew
+|Title_2= Nature of Dreams
+|OriginalAirDate={{start date|2019|04|18}}
+|ProdCode=NCAT-000301
+|ShortSummary= "Animal Rescue Crew": Nature Cat and his pals find an injured baby fox while playing Wild Animal Rescue.
+
+"Nature of Dreams": Hal has a plan to bring nature to Sadie after she hurts her paw and has to stay home.
+NOTE: In this episode, the "Not real animals" notice is not seen, and skips to the Nature Prize Surprise segment.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=60
+|EpisodeNumber2=2
+|Title_1=Freezin' in the Summer Season
+|Title_2= Total Eclipse of the Sun
+|OriginalAirDate={{start date|2019|04|19}}
+|ProdCode=NCAT-000302
+|ShortSummary= "Freezin' in the Summer Season": Dark clouds threaten Nature Cat's annual Summer Fest, which includes the Summer Fest Sprinkler Frolic, a bike ride and a kickball game.
+
+"Total Eclipse of the Sun": Hal is afraid of the total eclipse of the Sun.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=61
+|EpisodeNumber2=3
+|Title_1=Onward and Song-ward
+| Title_2= Why Did the Turtle Cross the Road?
+|OriginalAirDate={{start date|2019|07|08}}
+|ProdCode=NCAT-000303
+|ShortSummary= "Onward and Song-ward": In this musical story, the Woodstock Chella Palooza is approaching as Daisy tries to think of a song but doesn't know how it goes.
+
+"Why Did the Turtle Cross the Road?": The gang is enjoying an afternoon with Granny Bunny in the pond when they notice turtles getting blocked by speeding cars while strolling.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=62
+|EpisodeNumber2=4
+|Title_1=Secrets of the Old Prairie
+|Title_2= A Sticky Sweet Tree Treat
+|OriginalAirDate={{start date|2019|07|09}}
+|ProdCode=NCAT-000304
+|ShortSummary= "Secrets of the Old Prairie": The Agents of the Great Outdoors are on another mission to find six secrets in a national park.
+
+"A Sticky Sweet Tree Treat": It takes patience for Nature Cat and his pals to learn the process from sap to syrup.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=63
+|EpisodeNumber2=5
+|Title_1=Amber Rocks!
+| Title_2= The Big Stink
+|OriginalAirDate={{start date|2019|07|10}}
+|ProdCode=NCAT-000310
+|ShortSummary= "Amber Rocks!": Daisy finds a piece of amber on the beach.
+
+"The Big Stink": While the gang prepares for Nature Cat's family reunion picnic, a huge stench takes over the yard.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=64
+|EpisodeNumber2=6
+|Title_1=Magical Mushroom Mystery Tour
+| Title_2= A Midsummer Day's Dream
+|OriginalAirDate={{start date|2019|07|11}}
+|ProdCode=NCAT-000311
+|ShortSummary= "Magical Mushroom Mystery Tour": Squeeks and the rest learn about different types of mushrooms.
+
+"A Midsummer Day's Dream": Ronald gets bored of the Midsummer festivities and dreams about the day's celebration.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=65
+|EpisodeNumber2=7
+|Title_1=Great Salt Lake
+|Title_2= The Praying Mantis Hunters<ref name="KET 2019">{{cite web | title=Nature Cat | website=KET | date=2019-08-06 | url=https://www.ket.org/program/nature-cat | access-date=2020-04-17}}</ref>
+|OriginalAirDate={{start date|2020|05|11}}
+|ProdCode=NCAT-000305
+|ShortSummary= "Great Salt Lake": Nature Cat and the others must cross the [[Great Salt Lake]] in order to see the Colossal Cat Monument.
+
+"The Praying Mantis Hunters": Daisy is making a movie about bugs, but the most important one she and the others are searching for is a praying mantis.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=66
+|EpisodeNumber2=8
+|Title_1=Tally Ho, A Volcano
+| Title_2= No Rest for the Squeeky
+|OriginalAirDate={{start date|2020|05|12}}
+|ProdCode=NCAT-000306
+|ShortSummary= "Tally Ho, A Volcano!": Steve takes the gang on a journey to explore extinct and active [[volcano]]es.
+
+"No Rest for the Squeeky": Squeeks decides to stay up all night and tries to prove to the others that not all animals sleep.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=67
+|EpisodeNumber2=9
+|Title_1=Niagara Falls
+| Title_2= Nature Plant
+|OriginalAirDate={{start date|2020|05|13}}
+|ProdCode=NCAT-000307
+|ShortSummary= "Niagara Falls": The gang and Houston set out on a trip to [[Niagara Falls]] for Nature Cat's curiosity list.
+
+"Nature Plant": When Nature Cat gets increasingly tired while playing one day, he dozes off and has a dream about being a plant.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=68
+|EpisodeNumber2=10
+|Title_1=The Grand Mystery of the Grand Canyon
+| Title_2= Strongest Show on Earth
+|OriginalAirDate={{start date|2020|05|14}}
+|ProdCode=NCAT-000308
+|ShortSummary= "The Grand Mystery of the Grand Canyon": Nature Cat and his pals are in the [[Grand Canyon]] where they discover how it was formed.
+
+"Strongest Show on Earth": Nature Cat and the others meet with a traveling troupe who hold a contest to find the strongest animal.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=69
+|EpisodeNumber2=11
+|Title_1=Under Pressure
+| Title_2= Rainy Day
+|OriginalAirDate={{start date|2020|05|15}}
+|ProdCode=NCAT-000309
+|ShortSummary= "Under Pressure": The group, Ronald, and Grampy Donald visit [[Yellowstone National Park|Yellowstone]] to see the geysers.
+
+"Rainy Day": Nature Cat and his friends head outside to learn how some animals deal with rain.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=70
+|EpisodeNumber2=12
+|Title_1=Sweet Symbiosis
+| Title_2= Strawberry Fields Forever
+|OriginalAirDate={{start date|2021|06|04}}
+|ProdCode=NCAT-000312
+|ShortSummary= "Sweet Symbiosis": On a trip to the tide pool, Nature Cat and his pals meet a hermit crab named Bridget who is scared of an octopus.
+
+"Strawberry Fields Forever": It's up to Nature Cat and his friends to think fast to keep the fresh strawberries from getting dried out so they can deliver them to Sadie.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=71
+|EpisodeNumber2=13
+|Title_1=More Than a Monkey Wrench
+| Title_2= Trailblazers
+|OriginalAirDate={{start date|2021|06|04}}
+|ProdCode=NCAT-000313
+|ShortSummary= "More Than a Monkey Wrench": Nature Cat's Norwegian Navy Wrench isn't functioning as planned out during a hike, so his pals taught him about using tools from nature.
+
+"Trailblazers": The gang prepares to hike on a new trail that would lead to a special place.
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=72
+|EpisodeNumber2=14
+|Title_1=Hal the Duck
+|Title_2= The Crow-Lympics
+|OriginalAirDate={{start date|2021|06|04}}
+|ProdCode=NCAT-000314
+|ShortSummary= "Hal the Duck": When Hal finds a lone bird's egg, he and the others recruit Racer the Rescue Raccoon to find its nest and family.
+
+"The Crow-Lympics": In order to prove that he's smarter than birds, Ronald reluctantly decides to compete in the "Crow-Lympics".
+|LineColor=63B76C
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=73
+|EpisodeNumber2=15
+|Title_1=What a Pearl
+| Title_2= Wild Bee Motel
+|OriginalAirDate={{start date|2021|06|04}}
+|ProdCode=NCAT-000315
+|ShortSummary= "What a Pearl": Nature Cat and the others create the Happiest Hiking Trail for Pearl, a blind dog who is their newest neighbor.
+
+"Wild Bee Motel": Petunia needs some help when her green bean plants are un-pollinated due to no bees coming.
+|LineColor=63B76C
+}}
+}}
+
+===Season 4 (2022) ===
+This is the first season that was animated by [[Yowza! Animation|Yowza!]].
+{{Episode table |background=#FF40E0 |overall= |season= |title= |titleR=<ref name="S4" /> |airdate= |airdateR=<ref name="S4">{{cite web |url=https://tvlistings.zap2it.com/overview.html?programSeriesId=SH02268771 |title=Nature Cat – Episode Guide – Season 4 |publisher=Zap2It |access-date=}}{{dead link|date=April 2025|bot=medic}}{{cbignore|bot=medic}}</ref> |prodcode= |prodcodeR=<ref name=HH/> |episodes=
+
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=74
+|EpisodeNumber2=1
+|Title_1=Nature Dance Party
+| Title_2= Bad Dog Bart Jr.
+|OriginalAirDate={{start date|2022|05|09}}
+|ProdCode=NCAT-000401
+|ShortSummary= "Nature Dance Party": Everything is all set for Nature Cat's Nature Dance Party except for the music.
+
+"Bad Dog Bart Junior": The only way to get Nature Cat's new cat toy back is to follow a new treasure map devised by Bad Dog Bart's daughter, Bad Dog Bart Junior.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=75
+|EpisodeNumber2=2
+|Title_1=Rock Clues
+| Title_2= Sweet Scent
+|OriginalAirDate={{start date|2022|05|10}}
+|ProdCode=NCAT-000402
+|ShortSummary= "Rock Clues": Squeeks' magnifying glass for the Rock Stars Club goes missing.
+
+"Sweet Scent": The gang tracks down a huge sweet scent.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=76
+|EpisodeNumber2=3
+|Title_1=The Leaf Fairy
+| Title_2= Midge Over Troubled Water
+|OriginalAirDate={{start date|2022|05|11}}
+|ProdCode=NCAT-000404
+|ShortSummary= "The Leaf Fairy": Hal wants to find a Leaf Fairy to prevent autumn leaves from falling.
+
+"Midge Over Troubled Water": Nature Cat tries to prevent a cloud of midges from pestering his waterskiing stunts.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=77
+|EpisodeNumber2=4
+|Title_1= The Nature Nap Dilemma
+|Title_2= Captain Nature Cat's Wild River Adventure<ref name=HH/> 
+|RTitle_1=<br>"The Nature Nap Dilemma"
+|RTitle_2= <br>"Wild River Adventure"
+|OriginalAirDate={{start date|2022|05|12}} 
+|ProdCode=NCAT-000405
+|ShortSummary= "The Nature Nap Dilemma": The gang learns about dams while trying to find a place for a nap.
+
+"Captain Nature Cat's Wild River Adventure": The gang embark on a raft journey to return an oyster named Elroy to his estuary on the wild river.
+|LineColor=FF40E0
+}}
+
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=78
+|EpisodeNumber2=5
+|Title_1=Agents of the Great Outdoors: City and True Love Edition
+|Title_2= The Nature-tastic Four
+|OriginalAirDate={{start date|2022|06|16}}
+|ProdCode=NCAT-000403
+|ShortSummary= "Agents of the Great Outdoors: City and True Love Edition": The gang sets out to the city to deliver a letter to a possum's wife.
+
+"The Nature-tastic Four": Houston becomes a villain and the gang has to prevent him from capturing the sun.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=79
+|EpisodeNumber2=6
+|Title_1=The Petrified Wood Mystery
+|Title_2= Nature Buddy Clubhouse
+|OriginalAirDate={{start date|2022|09|19}}
+|ProdCode=NCAT-000406
+|ShortSummary= "The Petrified Wood Mystery": Daisy and her pals travel back in time to learn about petrified wood with an old woodchuck named Jeremiah.
+
+"Nature Buddy Clubhouse": The gang gathers some supplies to build their own clubhouse.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=80
+|EpisodeNumber2=7
+|Title_1=The Moss Queen<ref name=HH/>
+|Title_2= Leaf Moving Machine Mayhem 
+|RTitle_1= <br>"Moss Mouse"
+| RTitle_2= <br>"Leaf Moving Machine Mayhem"
+|OriginalAirDate={{start date|2022|09|20}}
+|ProdCode=NCAT-000407
+|ShortSummary= "Moss Mouse": Squeeks proclaims herself queen when she and the others find moss in the forest.
+
+"Leaf Moving Machine Mayhem": Nature Cat recounts the story of the past about how he as a kitten and his young friends worked together to prevent Ronald and the pollution of leaf blowers. 
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=81
+|EpisodeNumber2=8
+|Title_1=Daddy Long Legs
+|Title_2= Outerspace Detectives
+|OriginalAirDate={{start date|2022|09|21}}
+|ProdCode=NCAT-000408
+|ShortSummary= "Daddy Long Legs": Once again, the Agents of the Great Outdoors are on another mission, this time to know a daddy longlegs.
+
+"Outerspace Detectives": The gang and Ronald launch themselves into outer space when they believe that a monster has eaten half of the moon.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=82
+|EpisodeNumber2=9
+|Title_1=Saving Seeds
+|Title_2= Onward and Mossward
+|OriginalAirDate={{start date|2022|09|22}}
+|ProdCode=NCAT-000409
+|ShortSummary= "Saving Seeds": The group tries to find ways to enjoy their favorite sunflower when the growing season ends.
+
+"Onward and Mossward": Nature Cat and his pals learn about where moss can grow when they get lost and an eagle steals their map.
+|LineColor=FF40E0
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=83
+|EpisodeNumber2=10
+|Title_1=Outdoor Nature Warrior
+|Title_2= Hide and Go Screech
+|OriginalAirDate={{start date|2022|09|23}}
+|ProdCode=NCAT-000410
+|ShortSummary= "Outdoor Nature Warrior": The gang keeps themselves cool to pass the Outdoor Nature Warrior challenge.
+
+"Hide and Go Screech": A new friend, a screech owl named Screechy, joins the gang for a great game of hide and seek.
+
+|LineColor=FF40E0
+}} 
+}}
+
+===Season 5 (2023–24) ===
+{{Episode table |background=#8A4500 |overall= |season= |title= |titleR=<ref name=rotten>{{cite web|url=https://www.rottentomatoes.com/tv/nature_cat/s05|title=Nature Cat, Season 5|publisher=[[Rotten Tomatoes]]|access-date=February 14, 2023|archive-date=February 14, 2023|archive-url=https://archive.today/20230214135954/https://www.rottentomatoes.com/tv/nature_cat/s05|url-status=live}}</ref> |airdate= |airdateR=<ref name=rotten/> |prodcode= |prodcodeR=<ref name=HH/> |episodes=
+
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=84
+|EpisodeNumber2=1
+|Title_1= The Legend of Cowboy Kitty
+|Title_2=The Corn Conundrum
+|OriginalAirDate={{start date|2023|4|17}}
+|ProdCode=NCAT-000501
+|ShortSummary= "The Legend of Cowboy Kitty": Quentin Bearantino's newest Western movie with Nature Cat in the lead role is in need of a cactus for the desert background.
+
+"The Corn Conundrum": Nature Cat and his pals visit Hugo's farm to revive a dry cornfield.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=85
+|EpisodeNumber2=2
+|Title_1= Window Worries
+|Title_2= The Pinecone Genie
+|OriginalAirDate={{start date|2023|4|18}}
+|ProdCode=NCAT-000502
+|ShortSummary= "Window Worries": The gang helps Brooks fly safe and free when he accidentally lands on Sadie's window.
+
+"The Pinecone Genie": Things get chaotic when wolves are wished out of existence by the gang in Mystic Pinecone Park.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=86
+|EpisodeNumber2=3
+|Title_1= The Parade of Pets
+|Title_2= Hal's Pals
+|OriginalAirDate={{start date|2023|4|19}}
+|ProdCode=NCAT-000503
+|ShortSummary= "Parade of Pets": While organizing a parade, Nature Cat finds a way with his pals to improvise in pulling the floats.
+
+"Hal's Pals": The gang is on the case to discover what happened to Hal's pond pals, but Nature Cat prefers to play ice hockey.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=87
+|EpisodeNumber2=4
+|Title_1= Living on the Edge
+| Title_2= Wild World of Wild Play in the Wild
+|OriginalAirDate={{start date|2023|4|20}}
+|ProdCode=NCAT-000504
+|ShortSummary= "Living on the Edge": The Lawn Bowling Championship is about to get underway when the gang notices an edge habitat that needs to get fixed.
+
+"Wild World of Wild Play in the Wild": Searching for predators, Squeeks wants to know how animals in the wild engage in play.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=88
+|EpisodeNumber2=5
+|Title_1= Know Your Snow
+|Title_2= The Nature-tastic Four and the Humongous Hurricane
+|OriginalAirDate={{start date|2023|7|3}}
+|ProdCode=NCAT-000505
+|ShortSummary= "Know Your Snow": Nature Cat gets yet another challenge from MC Ferret, this time to build the world's tallest snow critter and to win a winter quiz contest with Ronald first.
+
+"Nature-tastic Four and the Humongous Hurricane": Squeeks tells another story about how the Nature-tastic Four help protect themselves and Ronald from a hurricane.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=89
+|EpisodeNumber2=6
+|Title_1= The Bumblebee Queen
+| Title_2= Tree Love
+|OriginalAirDate={{start date|2023|7|4}}
+|ProdCode=NCAT-000506
+|ShortSummary= "The Bumblebee Queen": The gang dons bumblebee costumes and helps the Bumblebee Queen grow a garden.
+
+"Tree Love": The gang visits the Mighty Oak Tree and with help from their new friend Shell Brooks, they discover more about oak trees with a tall tale about how it was planted.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=90
+|EpisodeNumber2=7
+|Title_1= Dr. Pumpkinstein
+| Title_2= Nature Catfish
+|OriginalAirDate={{start date|2023|10|19}}
+|ProdCode=NCAT-000507
+|ShortSummary= "Dr. Pumpkinstein": White warty pumpkins have taken over Hugo's farm, hours before the Halloween party.
+
+"Nature Catfish": The gang sets out to find (and learn more) about a catfish as part of Nature Cat's Nature Curiosity List.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=91
+|EpisodeNumber2=8
+|Title_1= A Little Kelp from My Friends
+|Title_2= Mission to Mars
+|OriginalAirDate={{start date|2023|10|26}}
+|ProdCode=NCAT-000508
+|ShortSummary= "A Little Kelp From My Friends": As instructed by MC Ferret's "Fab Forest Friend Challenge", the gang goes to a kelp forest to learn its importance when they encounter kelp-eating sea urchins.
+
+"Mission to Mars": The gang imagine themselves flying to the planet [[Mars]] to prove if there are aliens living there.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=92
+|EpisodeNumber2=9
+|Title_1= ATV Adventure
+|Title_2= Nature Buddy Breakup
+|OriginalAirDate={{start date|2024|1|1}}
+|ProdCode=NCAT-000509
+|ShortSummary= "ATV Adventure": Some ATV riders disrupt the gang's hike to the top of Mighty Mountain.
+
+"Nature Buddy Breakup": The gang splits up after an argument, only to learn about the ways of animals living together.
+|LineColor=#8A4500
+}}
+{{Episode list
+| NumParts = 2
+|EpisodeNumber=93
+|EpisodeNumber2=10
+|Title_1= Bunny Baby Babysitter
+|Title_2= King of the Backyard Bouncy Castles
+|OriginalAirDate={{start date|2024|1|2}}
+|ProdCode=NCAT-000510
+|ShortSummary= "Bunny Baby Babysitter": The gang learns about various animals raising their offspring while trying to reunite a fluffle of baby bunnies with their mother.
+
+"King of the Backyard Bouncy Castles": After setting up some bouncy castles in the backyard resulting in no room for deer, Nature Cat and his friends learn about deer wildlife corridors.
+|LineColor=#8A4500
+}}
+}}
+
+==Specials (2017–25)==
+{{Episode table |background=#CCCC99 |overall= |title= |titleR= |airdate= |airdateR= |prodcode= |prodcodeR=<ref name=Copy/> |episodes=Unlike the series' typical 11-minute formatted segments, these episodes are nearly an hour long, and aren't considered part of the series' official ordering by PBS.
+
+{{Episode list
+|EpisodeNumber=1
+|Title=Ocean Commotion
+|OriginalAirDate={{start date|2017|06|19}}
+|ProdCode=
+|ShortSummary=When Hal's favorite squeaky toy Mr. Chewinsky gets lost from the dog and toy anniversary party, Nature Cat and the rest of his team find reinforcements, in Nature Dog and Houston's cousin Sputnik from Russia, to retrieve him and remove trash from the ocean along the way to save it and its inhabitants.<br>
+Note: PBS first aired this special as two separate episodes, "Ocean Commotion, Part 1" (NCAT-000139),<ref>{{cite web |title=Ocean Commotion - Part 1 - Nature Cat |url=https://nhpbs.org/schedule/summary.aspx?progId=NatureCat139 |website=NHPBS |access-date=20 January 2024 |language=en}}</ref> and "Ocean Commotion, Part 2" (NCAT-000140);<ref>{{cite web |title=Ocean Commotion - Part 2 - Nature Cat |url=https://nhpbs.org/schedule/summary.aspx?progId=NatureCat140 |website=NHPBS |access-date=20 January 2024 |language=en}}</ref> however, they are now taken out of the normal rotation of episodes.
+
+|LineColor= #CCCC99
+}}
+{{Episode list
+|EpisodeNumber=2
+|Title=The Return of Bad Dog Bart!
+|RTitle=<ref name=Copy/>
+|OriginalAirDate={{start date|2018|7|16}}<ref name=Copy/>
+|ProdCode=
+|ShortSummary= Nature Cat, having realized his and other cats' favorite toys have gone missing, goes on a mission to retrieve them from Bad Dog Bart. Along the way, they meet a tough pirate named One Eared Winnie, who is also trying to find the treasure. Fortunately, One Eared Winnie later turns out to be Nature Cat's long-lost sister, Gwendolyn, who he reunites with.
+|LineColor= #CCCC99
+}}
+{{Episode list
+|EpisodeNumber=3
+|Title=A Nature Carol
+|OriginalAirDate={{start date|2019|11|29}} 
+|ProdCode=NCAT-000333
+|ShortSummary=In the tradition of the [[A Christmas Carol|Dickens holiday classic]], Nature Cat is bursting with what he thinks is "Christmas spirit", wanting to celebrate with many presents for himself and decorating the woods with bright lights and loud festive music. His pals get upset because his hype and big plans are causing problems with their friendship and the other animals. It's not until Nature Cat is visited by the spirits of Nature Past (Daisy), Present (Squeeks) and Future (Hal) on Christmas Eve that he can find the true meaning of Christmastime. 
+|LineColor = #CCCC99
+}}
+{{Episode list
+|EpisodeNumber=4
+|Title=Nature Cat's Nature Movie Special Extraordinaire
+|OriginalAirDate={{start date|2024|4|22}} 
+|ProdCode=
+|ShortSummary=Nature Cat and his pals realize they've come to the end of their Nature Curiosity List. Meanwhile, Sir Galahad gives himself the title of king, moves into a barren castle and steals pieces of nature to make his castle look more beautiful.
+|LineColor = #CCCC99
+}}
+{{Episode list
+|EpisodeNumber=5
+|Title=The Nature-Tastic Four Movie
+|OriginalAirDate={{start date|2025|4|3}} 
+|ProdCode=
+|ShortSummary=Nature Cat doubts himself of not having powers as his friends do while the Nature-Tastic Four all feel ready for a well-earned afternoon of fun and relaxation after defeating the Soil, Water and Plant Stealers. But when Water Mouse (Squeeks), Plant Bunny (Daisy), and Rock Dog (Hal) get their powers lost and stolen by an outer space creature named Sandos and nature needs defending, it's up to Nature Cat to get over his confused and self-doubting issues and gain the courage to discover what it takes to be a real hero in nature.
+|LineColor = #CCCC99
+}}
+}}
+
+==Notes==
+{{Notelist}}
+
+==References==
+{{Reflist}}
+
+==External links==
+*{{IMDb episodes|id=4947580|title=Nature Cat}}
+{{DEFAULTSORT:Nature Cat, List of Episodes}}
+[[Category:Lists of American children's animated television series episodes]]
+[[Category:Lists of Canadian children's animated television series episodes]]
