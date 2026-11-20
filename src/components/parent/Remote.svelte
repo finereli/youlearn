@@ -6,6 +6,7 @@
   import SettingsPage from '$shared/ui/SettingsPage.svelte'
   import Btn from '$shared/ui/Btn.svelte'
   import Icon from '../Icon.svelte'
+  import FirstRun from './FirstRun.svelte'
   import { clock, family, mmss } from '../../lib/remote.svelte'
   import { findIn, thumb } from '../../lib/library.svelte'
   import type { ChildState } from '../../../worker/protocol'
@@ -54,6 +55,7 @@
       </form>
     </section>
   {:else}
+    <FirstRun {child} />
     <section class="status" class:unlocked>
       <Icon name={unlocked ? 'lock_open' : 'lock'} size={26} />
       <div>

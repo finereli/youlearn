@@ -71,12 +71,17 @@
       <SettingsPage title="YouLearn">
         <section>
           {#if family.me?.canStart}
-            <h3>Start a family</h3>
-            <p class="hint">Then add your child, pair their device and invite the other parents.</p>
-            <button class="apply-btn" onclick={() => family.startFamily()}>Start a family</button>
+            <h3>Welcome to YouLearn</h3>
+            <p class="hint">Your child watches the shows you choose, in a player with no recommendations, no comments and no next video pulling them on. You decide when and how long: their device stays locked until you give it time from your phone.</p>
+            <p class="hint">Setting up takes two minutes: start a family, add your child, and pair their tablet with a code. You can invite the other parents after.</p>
+            <button class="apply-btn big" onclick={() => family.startFamily()}>Start a family</button>
           {:else}
-            <h3>Not in a family yet</h3>
-            <p class="hint">{account.user?.email} isn't a parent in any family. YouLearn is invite-only for now: ask a family's owner to add this email.</p>
+            <h3>{family.me?.signups === 'full' ? 'YouLearn is full for now' : 'Not in a family yet'}</h3>
+            {#if family.me?.signups === 'full'}
+              <p class="hint">We've reached the number of new families we can take at the moment. If someone already uses YouLearn, ask them to add {account.user?.email} as a parent.</p>
+            {:else}
+              <p class="hint">{account.user?.email} isn't a parent in any family. YouLearn is invite-only for now: ask a family's owner to add this email.</p>
+            {/if}
             <div class="confirm-row">
               <button class="quiet-btn neutral" onclick={() => login.signIn({ chooseAccount: true })}>Use another account</button>
               <button class="quiet-btn" onclick={signOut}>Sign out</button>
@@ -136,6 +141,7 @@
   @media (min-width: 768px) {
     .shell { margin-inline-start: min(78vw, 300px); }
   }
+  .body :global(.apply-btn.big) { padding: 12px 24px; font-size: 1rem; margin-top: 8px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 1.05rem; }
   .brand img { width: 30px; height: 30px; border-radius: 8px; }
   .footer-row { display: flex; align-items: center; gap: 4px; }

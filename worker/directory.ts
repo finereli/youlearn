@@ -7,9 +7,11 @@
 // email before they ever sign in, so we key on the verified Google email, not
 // the account id.
 //
-// While SIGNUPS isn't "open", nobody can start a new family. The first family
-// comes from the SEED_FAMILY secret ({"owner": email, "parents": [emails]}),
-// read once when the directory is empty.
+// While SIGNUPS isn't "open", nobody can start a new family; when it is,
+// SIGNUP_LIMIT families can (counted from when sign-ups opened, not counting
+// the seed). The first family comes from the SEED_FAMILY secret
+// ({"owner": email, "parents": [emails]}), read once when the directory is
+// empty.
 import { DurableObject } from 'cloudflare:workers'
 import type { Env } from './auth'
 
@@ -46,10 +48,21 @@ export class Directory extends DurableObject<Env> {
     return !!(await this.ctx.storage.get(`family:${id}`))
   }
 
+  // 'open', 'full' (the limit is reached) or 'closed'.
+  async signups(): Promise<'open' | 'full' | 'closed'> {
+    if (this.env.SIGNUPS !== 'open') return 'closed'
+    const used = (await this.ctx.storage.get<number>('signups')) ?? 0
+    return used < (Number(this.env.SIGNUP_LIMIT) || 0) ? 'open' : 'full'
+  }
+
   async start(email: string): Promise<FamilyInfo | { error: string }> {
     await this.#seeded()
-    if (this.env.SIGNUPS !== 'open') return { error: 'YouLearn is invite-only for now.' }
-    return this.#create(email)
+    const state = await this.signups()
+    if (state === 'closed') return { error: 'YouLearn is invite-only for now.' }
+    if (state === 'full') return { error: 'YouLearn is full for now.' }
+    const f = await this.#create(email)
+    if ('id' in f) await this.ctx.storage.put('signups', ((await this.ctx.storage.get<number>('signups')) ?? 0) + 1)
+    return f
   }
 
   async addParent(byEmail: string, email: string): Promise<FamilyInfo | { error: string }> {

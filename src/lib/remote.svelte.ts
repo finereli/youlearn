@@ -176,6 +176,7 @@ export const device = new Device()
 export interface Me {
   email: string
   canStart: boolean
+  signups: 'open' | 'full' | 'closed'
   family: { id: string; owner: string; parents: string[]; isOwner: boolean } | null
 }
 

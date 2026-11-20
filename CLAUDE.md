@@ -58,8 +58,12 @@ guesses in ten minutes.
 Families: each has an owner and other parents, kept by email in a singleton
 Durable Object (`worker/directory.ts`); an email is in at most one family.
 The owner adds and removes parents in the console, and a removed parent's
-console closes at once. New families are off while `SIGNUPS` isn't "open"
-(wrangler.jsonc). The first family came from the `SEED_FAMILY` secret
+console closes at once. Anyone signed in can start a family while `SIGNUPS`
+is "open", up to `SIGNUP_LIMIT` new families (wrangler.jsonc, 100 since Nov
+20 2026; the Directory counts them, the seed doesn't count). Past the limit
+they see "YouLearn is full for now". A new family's remote shows a getting-
+started checklist (`FirstRun.svelte`: child, device, time, other parents) and
+an invited parent gets a one-time welcome saying whose family they joined. The first family came from the `SEED_FAMILY` secret
 (`{"owner": email, "parents": [emails]}`), read once when the directory was
 empty: Eli owns it, Yael and Tom are parents. A family has any number of
 children; the console's picker (`ChildPicker.svelte`, choice kept in
@@ -70,7 +74,8 @@ Tests run against `wrangler dev` with a stand-in login service:
 `node test/fake-login.mjs` (port 8790), `.dev.vars` with
 `LOGIN_ISSUER="http://localhost:8790"` and
 `SEED_FAMILY={"owner":"parent@example.com","parents":["second@example.com"]}`,
-then `npm run test:e2e` (two browsers; set PLAYWRIGHT to the global
+wrangler with `--var SIGNUPS:closed` (the e2e test checks invite-only), then
+`npm run test:e2e` (two browsers; set PLAYWRIGHT to the global
 playwright path) and `npm run test:timer` (socket level). Start wrangler with
 a fresh `--persist-to` directory (and `npx wrangler d1 migrations apply
 youlearn --local --persist-to <dir>`): the e2e test expects no children yet.

@@ -9,6 +9,7 @@ export interface Env {
   CODES: DurableObjectNamespace<import('./codes').Codes>
   DIRECTORY: DurableObjectNamespace<import('./directory').Directory>
   SIGNUPS?: string // "open" lets anyone signed in start a family
+  SIGNUP_LIMIT?: string // how many new families, once open
   SEED_FAMILY?: string // secret: the first family, {"owner": email, "parents": [emails]}
   LOGIN_ISSUER?: string // a stand-in login service, for tests only
 }

@@ -48,11 +48,13 @@ export default {
       const user = await signedIn(request.headers.get('Authorization')?.replace(/^Bearer /, ''), env)
       if (!user) return json({ error: 'Sign in again' }, 401)
       const dir = directory(env)
+      const signups = await dir.signups()
       const me = (f: FamilyInfo | null) =>
         json({
           email: user.email,
           name: user.name,
-          canStart: env.SIGNUPS === 'open',
+          canStart: signups === 'open',
+          signups,
           family: f && { id: f.id, owner: f.owner, parents: f.parents, isOwner: f.owner === user.email.toLowerCase() },
         })
 

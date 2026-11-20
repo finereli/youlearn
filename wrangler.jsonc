@@ -4,7 +4,8 @@
   "account_id": "7485eb8ab648601f411b650cd794bce3",
   // The app is static; the Worker only answers /api and /ws: the parent's
   // remote control (worker/index.ts). SEED_FAMILY is a secret: the first
-  // family, read once. Set SIGNUPS to "open" to let anyone start a family.
+  // family, read once. SIGNUPS "open" lets anyone start a family, up to
+  // SIGNUP_LIMIT new ones (counted in the Directory).
   "main": "worker/index.ts",
   "assets": {
     "directory": "dist",
@@ -22,6 +23,6 @@
   // MCP agents and their tokens (worker/mcp.ts); schema in migrations/.
   "d1_databases": [{ "binding": "DB", "database_name": "youlearn", "database_id": "e4c44707-a200-4cbd-88bf-d73106f6639b" }],
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Family", "Codes", "Directory"] }],
-  "vars": { "SIGNUPS": "closed" },
+  "vars": { "SIGNUPS": "open", "SIGNUP_LIMIT": "100" },
   "routes": [{ "pattern": "youlearn.finereli.com", "custom_domain": true }]
 }
