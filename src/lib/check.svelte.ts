@@ -80,6 +80,14 @@ class PlayerCheck {
     return this.#running
   }
 
+  constructor() {
+    // Coming back from the filter's page (or from anywhere) while blocked:
+    // test again by itself, so she doesn't have to know to tap Check again.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && this.blocked && this.state !== 'checking') this.run()
+    })
+  }
+
   // The real player timed out: same verdict, no need to test again.
   failed() {
     this.state = 'blocked'
@@ -88,8 +96,9 @@ class PlayerCheck {
   }
 
   // Open the player's address as a page of its own. A filter shows its block
-  // page there, with its way to ask a parent; the address itself is a blank
-  // 404 on YouTube's side, so approving it opens nothing else.
+  // page there, with its way to ask a parent. The address is YouTube's 404
+  // ("Something went wrong") once allowed, so approving it opens nothing else;
+  // the card tells her that's expected, and coming back re-checks.
   ask() {
     console.log('[check] asking to allow the player')
     window.open(`https://${PLAYER_HOST}/`, '_blank', 'noopener')

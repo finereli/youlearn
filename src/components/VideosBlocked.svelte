@@ -15,7 +15,7 @@
 
 <div class="blocked" class:banner role="status">
   <h2>Videos can't play on this device yet</h2>
-  <p>A filter like Family Link is blocking YouTube's player. Tap <b>Ask to allow</b>, ask a grown-up to approve it, then come back and tap <b>Check again</b>.</p>
+  <p>A filter like Family Link is blocking YouTube's player. Tap <b>Ask to allow</b> and ask a grown-up to approve it. Once it's allowed, that page says "Something went wrong": that's fine, just come back here.</p>
   <div class="row">
     <button class="primary" onclick={() => playerCheck.ask()}>Ask to allow</button>
     <button class="pill" disabled={playerCheck.state === 'checking'} onclick={again}>
@@ -26,7 +26,19 @@
 </div>
 
 <style>
-  .blocked { display: grid; gap: 12px; justify-items: center; text-align: center; max-width: 30em; }
+  /* Its own dark panel: in the player it sits over the episode's thumbnail. */
+  .blocked {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    max-width: min(30em, 92vw);
+    padding: 20px 22px;
+    border-radius: 20px;
+    text-align: center;
+    color: var(--text-primary);
+    background: rgba(10, 36, 34, 0.94);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  }
   .banner {
     position: absolute;
     z-index: 15;

@@ -47,9 +47,13 @@ if (process.env.BLOCK) {
   await popup.close()
   // The parent approves: the filter lets the frame through, and Check again passes.
   await kctx.unrouteAll()
-  await K.getByRole('button', { name: 'Check again' }).click()
+  // Coming back to the app re-checks by itself.
+  await K.evaluate(() => {
+    Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true })
+    document.dispatchEvent(new Event('visibilitychange'))
+  })
   await banner.waitFor({ state: 'detached', timeout: 25000 })
-  console.log('✓ after approval, Check again clears it')
+  console.log('✓ after approval, coming back clears it')
   await kctx.route(/youtube-nocookie\.com\/(s\/player|embed)/, (r) => r.abort())
 } else {
   await K.waitForFunction(() => localStorage.getItem('yl:player-ok') === '1', null, { timeout: 25000 })

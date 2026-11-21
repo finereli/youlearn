@@ -162,6 +162,12 @@
     if (fs.active()) fs.exit()
   })
 
+  // Allowed now (she came back from the filter's page and the check passed):
+  // start over, with a fresh player.
+  $effect(() => {
+    if (blocked && playerCheck.state === 'ok') location.reload()
+  })
+
   function report() {
     if (!player || !loadedId) return
     device.watching({
