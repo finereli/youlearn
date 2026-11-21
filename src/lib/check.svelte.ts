@@ -16,6 +16,10 @@ const TIMEOUT_MS = 15000
 // still means the frame loaded, which is all we're testing.
 const PROBE_VIDEO = 'nE-hoTqf7X0'
 export const PLAYER_HOST = 'www.youtube-nocookie.com'
+// Our "All set! Now go back to YouLearn" video (content/all-set/), unlisted.
+// "Ask to allow" opens its embed address, so once the filter allows it, the
+// page shows that instruction instead of YouTube's 404. Empty until uploaded.
+export const ALL_SET_VIDEO = ''
 
 export type CheckState = 'unknown' | 'checking' | 'ok' | 'blocked'
 
@@ -101,7 +105,8 @@ class PlayerCheck {
   // the card tells her that's expected, and coming back re-checks.
   ask() {
     console.log('[check] asking to allow the player')
-    window.open(`https://${PLAYER_HOST}/`, '_blank', 'noopener')
+    const url = ALL_SET_VIDEO ? `https://${PLAYER_HOST}/embed/${ALL_SET_VIDEO}?rel=0` : `https://${PLAYER_HOST}/`
+    window.open(url, '_blank', 'noopener')
   }
 }
 

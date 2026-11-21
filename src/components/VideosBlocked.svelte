@@ -3,7 +3,7 @@
   // check) and in the player when an episode doesn't start. "Ask to allow"
   // opens the player's address in its own tab, where Family Link (or another
   // filter) shows its page for asking a parent. "Check again" after that.
-  import { playerCheck, PLAYER_HOST } from '../lib/check.svelte'
+  import { ALL_SET_VIDEO, playerCheck, PLAYER_HOST } from '../lib/check.svelte'
 
   let { banner = false, onagain }: { banner?: boolean; onagain?: () => void } = $props()
 
@@ -15,7 +15,7 @@
 
 <div class="blocked" class:banner role="status">
   <h2>Videos can't play on this device yet</h2>
-  <p>A filter like Family Link is blocking YouTube's player. Tap <b>Ask to allow</b> and ask a grown-up to approve it. Once it's allowed, that page says "Something went wrong": that's fine, just come back here.</p>
+  <p>A filter like Family Link is blocking YouTube's player. Tap <b>Ask to allow</b> and ask a grown-up to approve it. {#if ALL_SET_VIDEO}Once it's allowed, that page says <b>All set</b>: then come back here.{:else}Once it's allowed, that page says "Something went wrong": that's fine, just come back here.{/if}</p>
   <div class="row">
     <button class="primary" onclick={() => playerCheck.ask()}>Ask to allow</button>
     <button class="pill" disabled={playerCheck.state === 'checking'} onclick={again}>
