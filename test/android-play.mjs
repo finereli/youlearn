@@ -35,6 +35,26 @@ await btn(K, 'Done').click()
 await P.goto(`${BASE}/#/`)
 await P.getByRole('button', { name: /^\+?30 min$/ }).click()
 await K.getByText('Time for a break').waitFor({ state: 'detached', timeout: 5000 })
+
+// The device checks once that YouTube's player can start.
+const banner = K.getByText("Videos can't play on this device yet")
+if (process.env.BLOCK) {
+  await banner.waitFor({ timeout: 25000 })
+  console.log('✓ blocked player: the home page asks to allow it')
+  await K.screenshot({ path: `${shots}/android-blocked.png` })
+  const [popup] = await Promise.all([K.waitForEvent('popup'), K.getByRole('button', { name: 'Ask to allow' }).click()])
+  console.log(`✓ Ask to allow opens ${popup.url()}`)
+  await popup.close()
+  // The parent approves: the filter lets the frame through, and Check again passes.
+  await kctx.unrouteAll()
+  await K.getByRole('button', { name: 'Check again' }).click()
+  await banner.waitFor({ state: 'detached', timeout: 25000 })
+  console.log('✓ after approval, Check again clears it')
+  await kctx.route(/youtube-nocookie\.com\/(s\/player|embed)/, (r) => r.abort())
+} else {
+  await K.waitForFunction(() => localStorage.getItem('yl:player-ok') === '1', null, { timeout: 25000 })
+  console.log(`✓ player check passed and is remembered; banner shown: ${await banner.isVisible()}`)
+}
 await K.locator('.show').first().click()
 await K.locator('button.card').first().click()
 for (let i = 0; i < Number(process.env.SECONDS || 10); i++) {

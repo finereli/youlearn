@@ -24,7 +24,8 @@
   import { createPlayer, State, type YTPlayer } from '../lib/youtube'
   import { find, nextAfter, progress, thumb, type Video } from '../lib/library.svelte'
   import * as fs from '../lib/fullscreen'
-  import { browserName } from '../lib/browser'
+  import { playerCheck } from '../lib/check.svelte'
+  import VideosBlocked from './VideosBlocked.svelte'
 
   let { videoId, onback, onnext }: { videoId: string; onback: () => void; onnext: (id: string) => void } = $props()
 
@@ -44,7 +45,9 @@
   let isFull = $state(false)
   let canFull = $state(false)
   let errorText = $state('')
-  let errorDetail = $state('')
+  // YouTube's player never said it was ready: most likely a filter (Family
+  // Link) blocking its frame. Shows the card for asking to allow it.
+  let blocked = $state(false)
 
   const video = $derived<Video | null>(find(videoId)?.video ?? null)
   const next = $derived(nextAfter(videoId))
@@ -78,8 +81,8 @@
       if (phase !== 'loading') return
       console.error(`[player] not ready after ${READY_GRACE_MS / 1000}s (${videoId}, iframe: ${root?.querySelector('.frame iframe') ? 'yes' : 'no'})`)
       phase = 'error'
-      errorText = "The video player didn't start."
-      errorDetail = `YouTube's player didn't load in ${browserName()}. Try again, or open YouLearn in Chrome.`
+      blocked = true
+      playerCheck.failed()
     }, READY_GRACE_MS)
     canFull = fs.supported(root)
     const off = fs.onChange(() => (isFull = fs.active()))
@@ -88,7 +91,7 @@
       onReady: () => {
         console.log('[player] ready')
         clearTimeout(readyTimer)
-        errorDetail = ''
+        blocked = false
         duration = player?.getDuration() || video?.duration || 0
         time = progress.startAt(videoId)
         // Coming from a tap on an episode card, so try to start right away.
@@ -346,11 +349,12 @@
     </div>
   {:else if phase === 'error'}
     <div class="endcard">
-      <p class="done">{errorText}</p>
-      {#if errorDetail}
-        <p class="detail">{errorDetail}</p>
-        <button class="pill" onclick={() => location.reload()}>Try again</button>
-      {:else if next}<button class="pill" onclick={goNext}>Next episode</button>{/if}
+      {#if blocked}
+        <VideosBlocked onagain={() => location.reload()} />
+      {:else}
+        <p class="done">{errorText}</p>
+        {#if next}<button class="pill" onclick={goNext}>Next episode</button>{/if}
+      {/if}
       <button class="pill" onclick={onback}>Back to episodes</button>
     </div>
   {:else if phase !== 'tap'}
@@ -550,7 +554,6 @@
     padding: 24px;
     text-align: center;
   }
-  .detail { max-width: 28em; font-size: 0.95rem; line-height: 1.45; opacity: 0.8; }
   .done { display: flex; align-items: center; gap: 10px; font-size: 1.6rem; font-weight: 700; }
   .next {
     display: grid;

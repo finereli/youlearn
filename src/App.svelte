@@ -16,6 +16,8 @@
   import ParentApp from './components/ParentApp.svelte'
   import Locked from './components/Locked.svelte'
   import Countdown from './components/Countdown.svelte'
+  import VideosBlocked from './components/VideosBlocked.svelte'
+  import { playerCheck } from './lib/check.svelte'
   import { find, findShow } from './lib/library.svelte'
   import { device } from './lib/remote.svelte'
   import { account } from './lib/account.svelte'
@@ -77,6 +79,7 @@
     <Player videoId={route.video} onback={() => up(`#/show/${route.view === 'watch' ? route.show : ''}`)} onnext={next} />
   {:else}
     <Countdown />
+    {#if playerCheck.blocked}<VideosBlocked banner />{/if}
   {/if}
 
   {#if device.locked}

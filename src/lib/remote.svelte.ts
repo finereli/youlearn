@@ -12,6 +12,7 @@ import { WsClient, type ConnState } from '$shared/lib/ws-client'
 import { episodeLeft, type ChildState, type ClientMsg, type DeviceInfo, type ServerMsg } from '../../worker/protocol'
 import { login } from './account.svelte'
 import { startClientLog } from './client-log'
+import { playerCheck } from './check.svelte'
 import { library } from './library.svelte'
 import type { Library } from '../../worker/library'
 
@@ -93,7 +94,10 @@ class Device {
   }
 
   start() {
-    if (this.pairing) startClientLog(this.pairing)
+    if (this.pairing) {
+      startClientLog(this.pairing)
+      playerCheck.maybeRun()
+    }
     if (!this.pairing || this.#ws) return
     const { token, family } = this.pairing
     this.#ws = new WsClient<ServerMsg, ClientMsg>({

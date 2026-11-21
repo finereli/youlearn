@@ -33,6 +33,17 @@ Samsung A3 spun forever, Nov 2026). `node test/android-play.mjs` pairs an
 emulated Android phone and plays an episode; `BLOCK=1 SECONDS=18` blocks the
 player's files to check that message.
 
+A parental filter is what that turned out to be: Family Link's site list
+blocks the player's frame on www.youtube-nocookie.com (it filters pages and
+frames, not the images and video inside them), even with youtube.com allowed.
+So a paired device tests once, with a hidden player, that YouTube can start
+(`src/lib/check.svelte.ts`, remembered once it passes). If not, her home page
+and the player show `VideosBlocked.svelte`: "Ask to allow" opens
+https://www.youtube-nocookie.com/ in its own tab (a blank 404 on YouTube's
+side, so approving it opens nothing else), where Family Link shows its ask-a-
+parent page; "Check again" after the parent approves. The test runs with
+`BLOCK=1` in `test/android-play.mjs`.
+
 Paired devices send their tagged console lines (`[player]`, `[ws]`,
 `[error]`, `[app]` with the browser and version) to `POST /api/client-log`
 (`src/lib/client-log.ts`, the kit's remote-log), and the Worker writes them
