@@ -1,18 +1,21 @@
 <!doctype html><meta charset="utf-8">
 <style>
+  /* One 16:9 frame that reads on a phone held upright too: YouTube crops the
+     thumbnail to the screen's shape, so upright only the middle ~27% of the
+     width shows. Everything sits in that column, clear of YouTube's title (top),
+     play button (middle) and "Watch on YouTube" bar (bottom). */
   html, body { margin: 0; width: 1920px; height: 1080px; background: #0f2e2c; overflow: hidden; }
-  body { font-family: 'Inter', 'DejaVu Sans', system-ui, sans-serif; color: #f4e9d0; position: relative; }
-  /* Bands clear of YouTube's own overlays: title on top, play button in the middle, bar at the bottom. */
-  .top { position: absolute; top: 175px; left: 0; right: 0; text-align: center; }
-  .bottom { position: absolute; top: 690px; left: 0; right: 0; text-align: center; }
-  h1 { margin: 0; font-size: 190px; font-weight: 800; color: #e5b84b; letter-spacing: -2px; }
-  .check { display: inline-block; width: 150px; height: 150px; border-radius: 50%; background: #6fcf97; color: #0f2e2c; font-size: 120px; line-height: 150px; vertical-align: -12px; margin-right: 34px; font-weight: 900; }
-  p { margin: 0; font-size: 104px; font-weight: 700; line-height: 1.15; }
-  .app { display: inline-flex; align-items: center; gap: 28px; color: #e5b84b; }
-  .app img { width: 120px; height: 120px; border-radius: 28px; }
-  /* A soft ring where YouTube puts its play button, so the middle isn't empty. */
-  .ring { position: absolute; left: 50%; top: 540px; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; background: radial-gradient(circle, rgba(229,184,75,0.16), rgba(229,184,75,0) 70%); }
+  body { font-family: 'Inter', 'DejaVu Sans', system-ui, sans-serif; color: #f4e9d0; }
+  .col { position: absolute; left: 50%; width: 500px; margin-left: -250px; text-align: center; }
+  .top { top: 150px; display: grid; justify-items: center; gap: 18px; }
+  .bottom { top: 650px; display: grid; justify-items: center; gap: 14px; }
+  .check { width: 120px; height: 120px; border-radius: 50%; background: #6fcf97; color: #0f2e2c; font-size: 92px; line-height: 120px; font-weight: 900; }
+  h1 { margin: 0; font-size: 118px; line-height: 1; font-weight: 800; color: #e5b84b; letter-spacing: -2px; white-space: nowrap; }
+  p { margin: 0; font-size: 68px; line-height: 1.05; font-weight: 700; white-space: nowrap; }
+  .app { display: flex; align-items: center; gap: 18px; color: #e5b84b; }
+  .app img { width: 86px; height: 86px; border-radius: 20px; }
+  .ring { position: absolute; left: 50%; top: 540px; width: 260px; height: 260px; margin: -130px 0 0 -130px; border-radius: 50%; background: radial-gradient(circle, rgba(229,184,75,0.16), rgba(229,184,75,0) 70%); }
 </style>
 <div class="ring"></div>
-<div class="top"><h1><span class="check">✓</span>All set!</h1></div>
-<div class="bottom"><p>Now go back to</p><p class="app"><img src="logo.png" alt="">YouLearn</p></div>
+<div class="col top"><div class="check">✓</div><h1>All set!</h1></div>
+<div class="col bottom"><p>Go back to</p><p class="app"><img src="logo.png" alt="">YouLearn</p></div>

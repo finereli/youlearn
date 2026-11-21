@@ -18,8 +18,8 @@ const PROBE_VIDEO = 'nE-hoTqf7X0'
 export const PLAYER_HOST = 'www.youtube-nocookie.com'
 // Our "All set! Now go back to YouLearn" video (content/all-set/), unlisted.
 // "Ask to allow" opens its embed address, so once the filter allows it, the
-// page shows that instruction instead of YouTube's 404. Empty until uploaded.
-export const ALL_SET_VIDEO = ''
+// page shows that instruction instead of YouTube's 404. Uploaded by Eli, unlisted.
+export const ALL_SET_VIDEO = 'StiY9UwlSFg'
 
 export type CheckState = 'unknown' | 'checking' | 'ok' | 'blocked'
 

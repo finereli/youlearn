@@ -16,3 +16,6 @@ Rebuild (from this folder, after `cp ../../public/icons/icon-512.png logo.png`):
       -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -b:a 64k -shortest youlearn-all-set.mp4
 
 Uploaded unlisted, embedding allowed; its id is ALL_SET_VIDEO in check.svelte.ts.
+The embed page needs a referrer (without one YouTube shows error 153), so the
+tab must not open with noreferrer. Upright, YouTube crops the thumbnail to the
+middle ~27% of the width: keep everything in the 500px center column.
