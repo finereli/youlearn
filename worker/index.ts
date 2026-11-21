@@ -107,6 +107,26 @@ export default {
       return json({ error: 'Not found' }, 404)
     }
 
+    // A child's device sends its tagged console lines here (shared/lib/
+    // remote-log.ts), so a bug on a phone we don't have can be read in
+    // Workers Logs (dashboard, or `wrangler tail`). Paired devices only.
+    if (url.pathname === '/api/client-log' && request.method === 'POST') {
+      const token = request.headers.get('Authorization')?.replace(/^Bearer /, '') ?? ''
+      const fam = request.headers.get('X-Family') ?? ''
+      if (!token.startsWith('d.') || !/^[\w-]+$/.test(fam) || !(await directory(env).exists(fam))) return json({ error: 'Not a device' }, 401)
+      const dev = await familyStub(env, fam).device(token)
+      if (!dev) return json({ error: 'Not a device' }, 401)
+      const body = (await request.json().catch(() => ({}))) as { logs?: { level?: string; msg?: string; ts?: number }[] }
+      const ua = (request.headers.get('User-Agent') ?? '').slice(0, 300)
+      for (const row of (body.logs ?? []).slice(0, 50)) {
+        console.log(JSON.stringify({
+          client: true, family: fam, device: dev.id, deviceName: dev.name, child: dev.child,
+          level: String(row.level ?? 'log').slice(0, 8), ts: Number(row.ts) || Date.now(), msg: String(row.msg ?? '').slice(0, 2000), ua,
+        }))
+      }
+      return new Response(null, { status: 204 })
+    }
+
     // A device trades a pairing code for its device token.
     if (url.pathname === '/api/pair' && request.method === 'POST') {
       const body = (await request.json().catch(() => ({}))) as { code?: string; name?: string }

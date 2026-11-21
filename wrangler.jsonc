@@ -23,6 +23,9 @@
   // MCP agents and their tokens (worker/mcp.ts); schema in migrations/.
   "d1_databases": [{ "binding": "DB", "database_name": "youlearn", "database_id": "e4c44707-a200-4cbd-88bf-d73106f6639b" }],
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Family", "Codes", "Directory"] }],
+  // Workers Logs: the Worker's console, including child devices' lines sent
+  // to /api/client-log. Searchable in the dashboard for 3 days.
+  "observability": { "enabled": true },
   "vars": { "SIGNUPS": "open", "SIGNUP_LIMIT": "100" },
   "routes": [{ "pattern": "youlearn.finereli.com", "custom_domain": true }]
 }

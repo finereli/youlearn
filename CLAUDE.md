@@ -27,6 +27,17 @@ A web page can't restyle youtube.com, so the player uses YouTube's IFrame API
   tap on the video. On Eli's iPad our own play button worked.
 
 Details in the comment at the top of `src/components/Player.svelte`.
+If YouTube's player hasn't said it's ready after 15s, the player says so
+with the browser's name and a "Try again" button instead of spinning (a
+Samsung A3 spun forever, Nov 2026). `node test/android-play.mjs` pairs an
+emulated Android phone and plays an episode; `BLOCK=1 SECONDS=18` blocks the
+player's files to check that message.
+
+Paired devices send their tagged console lines (`[player]`, `[ws]`,
+`[error]`, `[app]` with the browser and version) to `POST /api/client-log`
+(`src/lib/client-log.ts`, the kit's remote-log), and the Worker writes them
+to Workers Logs (`observability` in wrangler.jsonc): search the dashboard
+for `"client":true`, or `wrangler tail`. Kept 3 days.
 Fullscreen is element fullscreen with the WebKit prefix (`src/lib/fullscreen.ts`);
 iPhone has none for this, so the button hides there.
 

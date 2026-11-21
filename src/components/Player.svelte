@@ -24,6 +24,7 @@
   import { createPlayer, State, type YTPlayer } from '../lib/youtube'
   import { find, nextAfter, progress, thumb, type Video } from '../lib/library.svelte'
   import * as fs from '../lib/fullscreen'
+  import { browserName } from '../lib/browser'
 
   let { videoId, onback, onnext }: { videoId: string; onback: () => void; onnext: (id: string) => void } = $props()
 
@@ -43,6 +44,7 @@
   let isFull = $state(false)
   let canFull = $state(false)
   let errorText = $state('')
+  let errorDetail = $state('')
 
   const video = $derived<Video | null>(find(videoId)?.video ?? null)
   const next = $derived(nextAfter(videoId))
@@ -59,15 +61,34 @@
   // How long a play request gets before we decide the browser wants a tap
   // inside the frame.
   const START_GRACE_MS = 2500
+  // How long YouTube's player gets to say it's ready. A Samsung A3 sat on the
+  // spinner for good (Nov 2026): the frame never reported ready, maybe a
+  // blocker or a browser YouTube's player no longer runs on. Past this we say
+  // so, with the browser's name, instead of spinning; if it turns up ready
+  // later we carry on as normal.
+  const READY_GRACE_MS = 15000
   // Stop this far before the end: YouTube's end screen appears at 0.
   const END_GUARD_S = 1.5
 
+  let readyTimer: ReturnType<typeof setTimeout> | undefined
+
   onMount(() => {
+    console.log(`[player] open ${videoId}`)
+    readyTimer = setTimeout(() => {
+      if (phase !== 'loading') return
+      console.error(`[player] not ready after ${READY_GRACE_MS / 1000}s (${videoId}, iframe: ${root?.querySelector('.frame iframe') ? 'yes' : 'no'})`)
+      phase = 'error'
+      errorText = "The video player didn't start."
+      errorDetail = `YouTube's player didn't load in ${browserName()}. Try again, or open YouLearn in Chrome.`
+    }, READY_GRACE_MS)
     canFull = fs.supported(root)
     const off = fs.onChange(() => (isFull = fs.active()))
     loadedId = videoId
     createPlayer(mountEl, videoId, progress.startAt(videoId), {
       onReady: () => {
+        console.log('[player] ready')
+        clearTimeout(readyTimer)
+        errorDetail = ''
         duration = player?.getDuration() || video?.duration || 0
         time = progress.startAt(videoId)
         // Coming from a tap on an episode card, so try to start right away.
@@ -76,12 +97,17 @@
       },
       onState,
       onError: (code) => {
+        console.error(`[player] YouTube error ${code} (${loadedId})`)
         phase = 'error'
         errorText = code === 101 || code === 150 ? "This episode can't play here." : "This episode didn't load."
       },
     })
-      .then((p) => (player = p))
-      .catch(() => {
+      .then((p) => {
+        console.log('[player] api loaded, frame made')
+        player = p
+      })
+      .catch((e) => {
+        console.error(`[player] api failed: ${e?.message ?? e}`)
         phase = 'error'
         errorText = "Couldn't reach YouTube. Check the internet and try again."
       })
@@ -93,6 +119,7 @@
   })
 
   onDestroy(() => {
+    clearTimeout(readyTimer)
     device.watching(null)
     clearInterval(tick)
     clearTimeout(hideTimer)
@@ -164,6 +191,7 @@
   }
 
   function onState(s: number) {
+    console.log(`[player] state ${s}`)
     if (s === State.PLAYING) {
       phase = 'playing'
       clearTimeout(startTimer)
@@ -319,7 +347,10 @@
   {:else if phase === 'error'}
     <div class="endcard">
       <p class="done">{errorText}</p>
-      {#if next}<button class="pill" onclick={goNext}>Next episode</button>{/if}
+      {#if errorDetail}
+        <p class="detail">{errorDetail}</p>
+        <button class="pill" onclick={() => location.reload()}>Try again</button>
+      {:else if next}<button class="pill" onclick={goNext}>Next episode</button>{/if}
       <button class="pill" onclick={onback}>Back to episodes</button>
     </div>
   {:else if phase !== 'tap'}
@@ -519,6 +550,7 @@
     padding: 24px;
     text-align: center;
   }
+  .detail { max-width: 28em; font-size: 0.95rem; line-height: 1.45; opacity: 0.8; }
   .done { display: flex; align-items: center; gap: 10px; font-size: 1.6rem; font-weight: 700; }
   .next {
     display: grid;

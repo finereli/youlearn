@@ -244,6 +244,15 @@ export class Family extends DurableObject<Env> {
     await this.webSocketClose(ws)
   }
 
+  // Which device a token belongs to, for requests outside the socket (the
+  // client log). Null when it was never paired or has been removed.
+  async device(token: string): Promise<{ id: string; child: string; name: string } | null> {
+    const [, id, secret] = String(token).split('.')
+    const device = (await this.#load()).devices.find((d) => d.id === id)
+    if (!device || !secret || device.hash !== (await sha256(secret))) return null
+    return { id: device.id, child: device.child, name: device.name }
+  }
+
   async #auth(ws: WebSocket, att: Attachment, token: string) {
     const state = await this.#load()
     if (token.startsWith('d.')) {
